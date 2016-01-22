@@ -16,6 +16,8 @@ private:
 	//CLOCK::time_point m_timeStart;
 	// The timestep in miliseconds
 	int m_stepTime;
+	//const short m_ROW = 21;
+	//const short m_COLUMN = 12;
 public:
 	Game();
 	void run();

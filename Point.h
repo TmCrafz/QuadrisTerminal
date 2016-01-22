@@ -16,6 +16,9 @@ public:
 	void setX(int x);
 	void setY(int y);
 
+	void rotateAround(int targetPX, int targetPY, float angleDegree);
+	void rotateAround(Point target, float  angleDegree);
+
 };
 
 #endif // !POINT_H

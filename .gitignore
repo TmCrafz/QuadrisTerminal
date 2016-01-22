@@ -29,4 +29,8 @@
 
 # Others
 *.vim
+*~
+*.swp
+*.swo
 make
+tetris
