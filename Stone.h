@@ -35,7 +35,7 @@ public:
 	      int subStone3X, int subStone3Y,
 	      int subStone4X, int subStone4Y);
 
-
+	
 	
 };
 
