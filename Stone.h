@@ -1,7 +1,9 @@
 #ifndef STONE_H
 #define STONE_H
 #include <vector>
+#include "WorldConstants.h"
 #include "Point.h" 
+
 /*
  *  A Stone consists of 4 subStones, represented in Points.
  *  The Stones have an own inner coordinate system:
@@ -24,7 +26,8 @@ private:
 	Point m_subStones[4];
 	// The absolute position of the midpoint
 	Point m_position;
-
+	// The char which is drawn for a point
+	const char m_Shape;
 public:
 	Stone(Point position, Point subStone1, Point subStone2, 
 	      Point subStone3, Point subStone4);
@@ -35,7 +38,9 @@ public:
 	      int subStone3X, int subStone3Y,
 	      int subStone4X, int subStone4Y);
 
-	
+	// Store the Stone in the buffer so we can later draw it with
+	// all the other Stones
+	void fillFieldBuffer(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]);
 	
 };
 

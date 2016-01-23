@@ -14,7 +14,7 @@ m_stepTime(1000)
 void Game::run()
 {
 	CLOCK::time_point timeStart = CLOCK::now();
-	while(m_isRunning)
+	while (m_isRunning)
 	{
 		if (isStepTimeLeft(timeStart))
 		{
@@ -38,12 +38,19 @@ bool Game::isStepTimeLeft(CLOCK::time_point timeStart)
 	return false;
 }
 
+void Game::spawnStone()
+{
+	
+
+}
+
 void Game::draw() 
 {
 	cout << "============" << endl;
-	for (int i = 0; i != m_ROW; i++)
-	{	cout << "#";		
-		for (int j = 0; j != m_COLUMN; j++)
+	for (int i = 0; i != world_constants::FIELD_ROW; i++)
+	{	
+		cout << "#";		
+		for (int j = 0; j != world_constants::FIELD_COLUMN; j++)
 		{
 			cout << ".";			
 		}
