@@ -27,8 +27,11 @@ private:
 	// The absolute position of the midpoint
 	Point m_position;
 	// The char which is drawn for a point
-	const char m_Shape;
+	const char m_Shape = '#';
 public:
+
+	Stone();
+
 	Stone(Point position, Point subStone1, Point subStone2, 
 	      Point subStone3, Point subStone4);
 
@@ -37,6 +40,8 @@ public:
 	      int subStone2X, int subStone2Y,
 	      int subStone3X, int subStone3Y,
 	      int subStone4X, int subStone4Y);
+	
+	void moveDown();
 
 	// Store the Stone in the buffer so we can later draw it with
 	// all the other Stones

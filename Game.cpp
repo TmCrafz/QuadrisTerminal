@@ -1,5 +1,7 @@
 #ifndef GAME_CPP
 #define GAME_CPP
+#include <cstdlib>
+#include <ctime>
 #include "Game.h"
 
 using namespace std;
@@ -13,11 +15,13 @@ m_stepTime(1000)
 
 void Game::run()
 {
+	spawnStone();
 	CLOCK::time_point timeStart = CLOCK::now();
 	while (m_isRunning)
 	{
 		if (isStepTimeLeft(timeStart))
 		{
+			update();
 			draw();
 			//std::cout << "Time Step Left: " << m_stepTime << " ms" << std::endl;
 			timeStart = CLOCK::now();
@@ -40,19 +44,41 @@ bool Game::isStepTimeLeft(CLOCK::time_point timeStart)
 
 void Game::spawnStone()
 {
-	
+	Stone stone;
+	m_stones.push_back(stone);
+}
 
+void Game::update()
+{
+	for (Stone &stone : m_stones)
+	{
+		stone.moveDown();
+	}		
 }
 
 void Game::draw() 
 {
+	// Where no Stone is there is a "."
+	for (int i = 0; i != world_constants::FIELD_ROW; i++)
+	{
+		for (int j = 0; j != world_constants::FIELD_COLUMN; j++)
+		{
+			m_fieldBuffer[i][j] = '.';
+		}
+	}
+	
+	for (Stone stone : m_stones)
+	{
+		stone.fillFieldBuffer(m_fieldBuffer);	
+	}
+
 	cout << "============" << endl;
 	for (int i = 0; i != world_constants::FIELD_ROW; i++)
 	{	
 		cout << "#";		
 		for (int j = 0; j != world_constants::FIELD_COLUMN; j++)
 		{
-			cout << ".";			
+			cout << m_fieldBuffer[i][j];			
 		}
 		cout << "#" << endl;
 	}

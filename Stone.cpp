@@ -1,8 +1,38 @@
 #ifndef STONE_CPP
 #define STONE_CPP
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include "Stone.h"
 
 using namespace std;
+
+Stone::Stone()
+{
+	m_position = Point(3, 4);	
+	srand(time(0));
+	// Get random number between 0 and 6, because we have 7 sorts of Stones
+	int randNum = rand() % 1; // 6;
+	// I Stone
+	// The I Stone is speciale beacuase it have a other midpoint
+	if (randNum == 0)
+	{
+		// Do nothing at the moment
+		m_subStones[0] = Point(-1, -1);
+		m_subStones[1] = Point(-1,  0);
+		m_subStones[2] = Point( 0,  0);
+		m_subStones[3] = Point (1,  0);	
+	
+	}
+	// The J Stone
+	else if (randNum == 1)
+	{
+		m_subStones[0] = Point(-1, -1);
+		m_subStones[1] = Point(-1,  0);
+		m_subStones[2] = Point( 0,  0);
+		m_subStones[3] = Point (1,  0);	
+	}
+}
 
 Stone::Stone(Point position, Point subStone1, Point subStone2, 
 	      Point subStone3, Point subStone4):
@@ -30,6 +60,13 @@ Stone::Stone(int midPointX, int midPointY,
 	m_subStones[3] = Point(subStone4X, subStone4Y);
 }
 
+void Stone::moveDown()
+{
+	// Remember: Our coordinate system get postive to the down
+	// (inverse y-axses) so we have to add 1
+	m_position.setY(m_position.getY() + 1);
+}
+
 void Stone::fillFieldBuffer
 (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN])
 {
@@ -37,11 +74,12 @@ void Stone::fillFieldBuffer
 	{
 		int globalPosX = m_position.getX() + point.getX();
 		int globalPosY = m_position.getY() + point.getY();
+		//cout << "GlobalPosX: " << globalPosX << " gloabalPosY: " << globalPosY << endl;
 		// Only save 
 		if (globalPosX >= 0 && globalPosX <= world_constants::FIELD_COLUMN &&
 		    globalPosY >= 0 && globalPosY <= world_constants::FIELD_ROW)
-		{
-			fieldBuffer[globalPosX][globalPosY] = m_Shape;;
+		{			
+			fieldBuffer[globalPosY][globalPosX] = m_Shape;;
 		}
 	}
 

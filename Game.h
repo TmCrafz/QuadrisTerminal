@@ -34,6 +34,8 @@ private:
 
 	void spawnStone();
 
+	void update();
+
 	void draw();
 };
 
