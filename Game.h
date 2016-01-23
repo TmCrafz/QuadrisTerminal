@@ -23,6 +23,7 @@ private:
 	//CLOCK::time_point m_timeStart;
 	// The timestep in miliseconds
 	int m_stepTime;
+	Stone m_currentStone;
 	std::vector<Stone> m_stones;
 	// Store the elements which get drawn later
 	char m_fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN];
@@ -31,6 +32,8 @@ public:
 	void run();
 private:
 	bool isStepTimeLeft(CLOCK::time_point timeStart);
+	
+	void checkInput();
 
 	void spawnStone();
 

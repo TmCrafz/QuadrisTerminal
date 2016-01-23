@@ -7,9 +7,10 @@
 
 using namespace std;
 
-Stone::Stone()
+Stone::Stone():
+m_position(5, 0)
 {
-	m_position = Point(3, 4);	
+	//m_position = Point(3, 4);	
 	srand(time(0));
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
 	int randNum = rand() % 1; // 6;

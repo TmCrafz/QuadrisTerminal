@@ -3,6 +3,8 @@
 #include <cstdlib>
 #include <ctime>
 #include "Game.h"
+#include "WorldConstants.h"
+#include "InputHelper.h"
 
 using namespace std;
 
@@ -42,18 +44,37 @@ bool Game::isStepTimeLeft(CLOCK::time_point timeStart)
 	return false;
 }
 
+void Game::checkInput()
+{
+	char inputKey = ' ';
+	if (InputHelper::kbhit())
+	{
+		inputKey = InputHelper::getch();
+		if (inputKey == 'a')
+		{
+			;	
+		}	
+	}
+
+}
+
 void Game::spawnStone()
 {
-	Stone stone;
-	m_stones.push_back(stone);
+	//Stone stone;
+	
+	
+	//m_stones.push_back(stone);
 }
 
 void Game::update()
 {
+	m_currentStone.moveDown();
+	/*
 	for (Stone &stone : m_stones)
 	{
 		stone.moveDown();
-	}		
+	}
+	*/
 }
 
 void Game::draw() 
@@ -67,6 +88,8 @@ void Game::draw()
 		}
 	}
 	
+	m_currentStone.fillFieldBuffer(m_fieldBuffer);
+
 	for (Stone stone : m_stones)
 	{
 		stone.fillFieldBuffer(m_fieldBuffer);	

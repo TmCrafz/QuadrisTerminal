@@ -12,7 +12,10 @@ int main()
 	do 
 	{
 		if (InputHelper::kbhit())
+		{
 			tmp = InputHelper::getch();
+			cout << "Pressed: " << tmp << endl;
+		}
 	} while (tmp != 'k');
 	
 	tmp = ' ';
