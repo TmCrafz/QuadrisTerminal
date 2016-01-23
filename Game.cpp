@@ -18,7 +18,8 @@ void Game::run()
 	{
 		if (isStepTimeLeft(timeStart))
 		{
-			std::cout << "Time Step Left: " << m_stepTime << " ms" << std::endl;
+			draw();
+			//std::cout << "Time Step Left: " << m_stepTime << " ms" << std::endl;
 			timeStart = CLOCK::now();
 		}				
 	}
@@ -36,6 +37,22 @@ bool Game::isStepTimeLeft(CLOCK::time_point timeStart)
 	}
 	return false;
 }
+
+void Game::draw() 
+{
+	cout << "============" << endl;
+	for (int i = 0; i != m_ROW; i++)
+	{	cout << "#";		
+		for (int j = 0; j != m_COLUMN; j++)
+		{
+			cout << ".";			
+		}
+		cout << "#" << endl;
+	}
+	cout << "############" << endl;
+
+}
+
 
 #endif // !GAME_CPP
 
