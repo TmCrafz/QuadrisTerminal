@@ -68,6 +68,16 @@ void Stone::moveDown()
 	m_position.setY(m_position.getY() + 1);
 }
 
+void Stone::moveLeft()
+{
+	m_position.setX(m_position.getX() - 1);
+}
+
+void Stone::moveRight()
+{
+	m_position.setX(m_position.getX() + 1);
+}
+
 void Stone::fillFieldBuffer
 (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN])
 {
@@ -80,6 +90,11 @@ void Stone::fillFieldBuffer
 		if (globalPosX >= 0 && globalPosX <= world_constants::FIELD_COLUMN &&
 		    globalPosY >= 0 && globalPosY <= world_constants::FIELD_ROW)
 		{			
+			/*
+			 * We have to switch the axes here, because by looping
+			 * over the 2d array we first go to the row and then loop
+			 * over all columns.
+			 */
 			fieldBuffer[globalPosY][globalPosX] = m_Shape;;
 		}
 	}

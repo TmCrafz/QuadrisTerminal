@@ -40,9 +40,10 @@ public:
 	      int subStone2X, int subStone2Y,
 	      int subStone3X, int subStone3Y,
 	      int subStone4X, int subStone4Y);
-	
+		
 	void moveDown();
-
+	void moveLeft();
+	void moveRight();
 	// Store the Stone in the buffer so we can later draw it with
 	// all the other Stones
 	void fillFieldBuffer(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]);
