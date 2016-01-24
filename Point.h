@@ -8,17 +8,17 @@ private:
 	int m_y;
 public:
 	Point();
-	Point(int x, int y);
+	Point(const int x, const int y);
 	
 	// The getters are const, because we dont change any member data
 	int getX() const;
 	int getY() const;
 
-	void setX(int x);
-	void setY(int y);
+	void setX(const int x);
+	void setY(const int y);
 
-	void rotateAround(int targetPX, int targetPY, float angleDegree);
-	void rotateAround(Point target, float  angleDegree);
+	void rotateAround(const int targetPX, const int targetPY, const float angleDegree);
+	void rotateAround(const Point target, const float  angleDegree);
 
 };
 

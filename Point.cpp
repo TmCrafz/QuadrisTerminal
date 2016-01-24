@@ -13,7 +13,7 @@ m_y(0)
 {
 }
 
-Point::Point(int x, int y):
+Point::Point(const int x, const int y):
 m_x(x),
 m_y(y)
 {
@@ -22,8 +22,8 @@ m_y(y)
 int Point::getX() const { return m_x; }
 int Point::getY() const { return m_y; }
 
-void Point::setX(int x) { m_x = x; }
-void Point::setY(int y) { m_y = y; }
+void Point::setX(const int x) { m_x = x; }
+void Point::setY(const int y) { m_y = y; }
 
 
 /* We dont really need to calculate the rotation around a specific point
@@ -57,22 +57,22 @@ void Point::setY(int y) { m_y = y; }
  * 
  */
 
-void Point::rotateAround(int targetPX, int targetPY, float angleDegree)
+void Point::rotateAround(const int targetPX, const int targetPY, const float angleDegree)
 {
 	// First we need the angle in radians instead if degrees
-	float angle = ( PI / 180) * angleDegree;
+	const float angle = ( PI / 180) * angleDegree;
 	
-	int xp = m_x;
-	int yp = m_y;
-	int xt = targetPX;
-	int yt = targetPY;
+	const int xp = m_x;
+	const int yp = m_y;
+	const int xt = targetPX;
+	const int yt = targetPY;
 	// Rotate the Point
 	m_x  = (int) ( ( cos(angle) * (xp - xt) + sin(angle) * (yp - yt) ) + xt );
 	m_y  = (int) ( (-sin(angle) * (xp - xt) + cos(angle) * (yp - yt) ) + yt ); 
 	
 }
 
-void Point::rotateAround(Point target, float angleDegree)    
+void Point::rotateAround(const Point target, const float angleDegree)    
 {
 	rotateAround(target.getX(), target.getY(), angleDegree);
 }
