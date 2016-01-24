@@ -22,13 +22,14 @@ void Game::run()
 	CLOCK::time_point timeStart = CLOCK::now();
 	while (m_isRunning)
 	{
+		checkInput();
 		if (isStepTimeLeft(timeStart))
 		{
-			checkInput();
+			cout << "Step Time left" << endl;
 			update();
 			draw();
 			//std::cout << "Time Step Left: " << m_stepTime << " ms" << std::endl;
-			timeStart = CLOCK::now();
+			timeStart = CLOCK::now();	
 		}				
 	}
 }
@@ -52,14 +53,20 @@ void Game::checkInput()
 	if (InputHelper::kbhit())
 	{
 		inputKey = InputHelper::getch();
+		
+		Stone *actualStone = &m_stones.back();
 		if (inputKey == 'a')
 		{
 			// Move the actual Stone (the last added)
-			m_stones.back().moveLeft();		
+			actualStone->moveLeft();		
 		}
 		else if (inputKey == 'd')
 		{
-			m_stones.back().moveRight();
+			actualStone->moveRight();
+		}
+		else if (inputKey == 'c')
+		{
+			m_isRunning = false;
 		}
 	}
 
