@@ -9,9 +9,10 @@ private:
 public:
 	Point();
 	Point(int x, int y);
-
-	int getX();
-	int getY();
+	
+	// The getters are const, because we dont change any member data
+	int getX() const;
+	int getY() const;
 
 	void setX(int x);
 	void setY(int y);
