@@ -32,14 +32,16 @@ public:
 
 	Stone();
 
+	/*
 	Stone(Point position, Point subStone1, Point subStone2, 
 	      Point subStone3, Point subStone4);
+	*/
 
-	Stone(int midPointX, int midPointY,
-	      int subStone1X, int subStone1Y,
-	      int subStone2X, int subStone2Y,
-	      int subStone3X, int subStone3Y,
-	      int subStone4X, int subStone4Y);
+	Stone(const int midPointX, const int midPointY,
+	      const int subStone1X, const int subStone1Y,
+	      const int subStone2X, const int subStone2Y,
+	      const int subStone3X, const int subStone3Y,
+	      const int subStone4X, const int subStone4Y);
 		
 	void moveDown();
 	void moveLeft();
