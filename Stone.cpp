@@ -62,6 +62,50 @@ Stone::Stone(const int midPointX, const int midPointY,
 	m_subStones[3] = Point(subStone4X, subStone4Y);
 }
 
+int Stone::getLeft() const
+{	
+	int x = m_subStones[0].getX();
+	for (int i = 1; i != 4; i++)
+	{
+		if (m_subStones[i].getX() < x)
+			x = m_subStones[i].getX();	
+	}
+	return m_position.getX() + x;	
+}
+
+int Stone::getRight() const
+{
+	int x = m_subStones[0].getX();
+	for (int i = 1; i != 4; i++)
+	{
+		if (m_subStones[i].getX() > x)
+			x = m_subStones[i].getX();	
+	}
+	return m_position.getX() + x;	
+}
+
+int Stone::getTop() const
+{
+	int y = m_subStones[0].getY();
+	for (int i = 1; i != 4; i++)
+	{
+		if (m_subStones[i].getY() < y)
+			y = m_subStones[i].getY();	
+	}
+	return m_position.getY() + y;	
+}
+
+int Stone::getBottom() const
+{
+	int y = m_subStones[0].getY();
+	for (int i = 1; i != 4; i++)
+	{
+		if (m_subStones[i].getY() > y)
+			y = m_subStones[i].getY();	
+	}
+	return m_position.getY() + y;	
+}	
+
 void Stone::moveDown()
 {
 	// Remember: Our coordinate system get postive to the down

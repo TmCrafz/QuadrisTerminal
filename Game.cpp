@@ -57,12 +57,14 @@ void Game::checkInput()
 		Stone *actualStone = &m_stones.back();
 		if (inputKey == 'a')
 		{
-			// Move the actual Stone (the last added)
-			actualStone->moveLeft();		
+			// Only move Stone if it does not collide which anything
+			if (actualStone->getLeft() > 0)	
+				actualStone->moveLeft();
 		}
 		else if (inputKey == 'd')
 		{
-			actualStone->moveRight();
+			if (actualStone->getRight() < (world_constants::FIELD_COLUMN - 1))
+				actualStone->moveRight();
 		}
 		else if (inputKey == 'c')
 		{

@@ -42,7 +42,14 @@ public:
 	      const int subStone2X, const int subStone2Y,
 	      const int subStone3X, const int subStone3Y,
 	      const int subStone4X, const int subStone4Y);
-		
+	
+	// Get the position of the specific axe of the point which is most in the
+	// specic direction
+	int getLeft() const;
+	int getRight() const;
+	int getTop() const;
+	int getBottom() const;
+	
 	void moveDown();
 	void moveLeft();
 	void moveRight();
