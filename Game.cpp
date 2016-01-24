@@ -1,5 +1,6 @@
 #ifndef GAME_CPP
 #define GAME_CPP
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include "Game.h"
@@ -23,6 +24,7 @@ void Game::run()
 	{
 		if (isStepTimeLeft(timeStart))
 		{
+			checkInput();
 			update();
 			draw();
 			//std::cout << "Time Step Left: " << m_stepTime << " ms" << std::endl;
@@ -52,23 +54,29 @@ void Game::checkInput()
 		inputKey = InputHelper::getch();
 		if (inputKey == 'a')
 		{
-			;	
-		}	
+			// Move the actual Stone (the last added)
+			m_stones.back().moveLeft();		
+		}
+		else if (inputKey == 'd')
+		{
+			m_stones.back().moveRight();
+		}
 	}
 
 }
 
 void Game::spawnStone()
 {
-	//Stone stone;
-	
-	
-	//m_stones.push_back(stone);
+	Stone stone;	
+	m_stones.push_back(stone);
 }
 
 void Game::update()
 {
-	m_currentStone.moveDown();
+
+	// Move down the last added stone, because its
+	// the actual stone which the user can control
+	m_stones.back().moveDown();
 	/*
 	for (Stone &stone : m_stones)
 	{
@@ -88,7 +96,7 @@ void Game::draw()
 		}
 	}
 	
-	m_currentStone.fillFieldBuffer(m_fieldBuffer);
+	//m_currentStone.fillFieldBuffer(m_fieldBuffer);
 
 	for (Stone stone : m_stones)
 	{
