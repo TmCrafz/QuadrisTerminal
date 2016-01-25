@@ -53,6 +53,9 @@ public:
 	void moveDown();
 	void moveLeft();
 	void moveRight();
+
+	void rotateRight();
+	void rotateLeft();
 	// Store the Stone in the buffer so we can later draw it with
 	// all the other Stones
 	void fillFieldBuffer(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]);

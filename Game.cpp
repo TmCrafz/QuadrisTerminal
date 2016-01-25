@@ -66,6 +66,14 @@ void Game::checkInput()
 			if (actualStone->getRight() < (world_constants::FIELD_COLUMN - 1))
 				actualStone->moveRight();
 		}
+		else if (inputKey == 'o')
+		{
+			actualStone->rotateLeft();
+		}
+		else if (inputKey == 'p')
+		{
+			actualStone->rotateRight();
+		}
 		else if (inputKey == 'c')
 		{
 			m_isRunning = false;

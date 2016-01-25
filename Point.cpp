@@ -1,5 +1,6 @@
 #ifndef POINT_CPP
 #define POINT_CPP
+#include <iostream>
 #include <cmath>
 #include "Point.h"
 
@@ -61,15 +62,17 @@ void Point::rotateAround(const int targetPX, const int targetPY, const float ang
 {
 	// First we need the angle in radians instead if degrees
 	const float angle = ( PI / 180) * angleDegree;
-	
 	const int xp = m_x;
 	const int yp = m_y;
 	const int xt = targetPX;
 	const int yt = targetPY;
+	float x = ( ( cos(angle) * (xp - xt) + sin(angle) * (yp - yt) ) + xt );
+	float y = ( (-sin(angle) * (xp - xt) + cos(angle) * (yp - yt) ) + yt );
 	// Rotate the Point
-	m_x  = (int) ( ( cos(angle) * (xp - xt) + sin(angle) * (yp - yt) ) + xt );
-	m_y  = (int) ( (-sin(angle) * (xp - xt) + cos(angle) * (yp - yt) ) + yt ); 
-	
+	// It should be roundet right, so we add 0.5 if the number is bigger or equals zero
+	// or subtract 0.5 if the number is smaller then zero. (cast to int truncat the number)
+	m_x  = x >= 0 ? static_cast<int>(x + 0.5f) : static_cast<int>(x - 0.5f);
+	m_y  = y >= 0 ? static_cast<int>(y + 0.5f) : static_cast<int>(y - 0.5f);
 }
 
 void Point::rotateAround(const Point target, const float angleDegree)    

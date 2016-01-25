@@ -123,6 +123,22 @@ void Stone::moveRight()
 	m_position.setX(m_position.getX() + 1);
 }
 
+void Stone::rotateRight()
+{
+	for (Point &point : m_subStones)
+	{
+		point.rotateAround(0, 0, -90.f);	
+	}
+}
+
+void Stone::rotateLeft()
+{
+	for (Point &point : m_subStones)
+	{
+		point.rotateAround(0, 0, 90.f);
+	}
+}
+
 void Stone::fillFieldBuffer
 (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN])
 {
