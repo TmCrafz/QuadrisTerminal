@@ -15,15 +15,13 @@ m_position(5, 0)
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
 	int randNum = rand() % 1; // 6;
 	// I Stone
-	// The I Stone is speciale beacuase it have a other midpoint
+	// The L Stone
 	if (randNum == 0)
 	{
-		// Do nothing at the moment
-		m_subStones[0] = Point(-1, -1);
-		m_subStones[1] = Point(-1,  0);
-		m_subStones[2] = Point( 0,  0);
-		m_subStones[3] = Point (1,  0);	
-	
+		m_subStones[0] = Point(-1,  0);
+		m_subStones[1] = Point( 0,  0);
+		m_subStones[2] = Point( 1,  0);
+		m_subStones[3] = Point (1, -1);	
 	}
 	// The J Stone
 	else if (randNum == 1)
