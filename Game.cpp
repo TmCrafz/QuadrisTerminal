@@ -40,7 +40,7 @@ bool Game::isStepTimeLeft(CLOCK::time_point timeStart)
 	chrono::duration<float> timeSpan = (now - timeStart);
 	auto milli = chrono::duration_cast<chrono::milliseconds>(timeSpan);
 	auto time = milli.count();
-	if (time >= 1000)
+	if (time >= m_stepTime)
 	{
 		return true;
 	}
