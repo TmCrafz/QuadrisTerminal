@@ -11,18 +11,20 @@ using namespace std;
 
 Game::Game():
 m_isRunning(true),
-m_stepTime(1000)
+m_stepTime(1000),
+m_currentStone()
 {
 	std::cout << "Konstruktor Game Class" << std::endl;		
 }
 
 void Game::run()
 {
-	spawnStone();
 	CLOCK::time_point timeStart = CLOCK::now();
 	while (m_isRunning)
 	{
+		
 		checkInput();
+		
 		if (isStepTimeLeft(timeStart))
 		{
 			cout << "Step Time left" << endl;
@@ -30,7 +32,8 @@ void Game::run()
 			draw();
 			//std::cout << "Time Step Left: " << m_stepTime << " ms" << std::endl;
 			timeStart = CLOCK::now();	
-		}				
+		}
+		
 	}
 }
 
@@ -54,17 +57,24 @@ void Game::checkInput()
 	{
 		inputKey = InputHelper::getch();
 		
-		Stone *actualStone = &m_stones.back();
 		if (inputKey == 'a')
 		{
 			// Only move Stone if it does not collide which anything
-			if (actualStone->getLeft() > 0)	
-				actualStone->moveLeft();
+			if (m_currentStone.getLeft() > 0)	
+				m_currentStone.moveLeft();
 		}
 		else if (inputKey == 'd')
 		{
-			if (actualStone->getRight() < (world_constants::FIELD_COLUMN - 1))
-				actualStone->moveRight();
+			if (m_currentStone.getRight() < (world_constants::FIELD_COLUMN - 1))
+				m_currentStone.moveRight();
+		}
+		else if (inputKey == 'o')
+		{
+			m_currentStone.rotateLeft();
+		}
+		else if (inputKey == 'p')
+		{
+			m_currentStone.rotateRight();
 		}
 		else if (inputKey == 'c')
 		{
@@ -76,22 +86,14 @@ void Game::checkInput()
 
 void Game::spawnStone()
 {
-	Stone stone;	
-	m_stones.push_back(stone);
+	m_currentStone.respawn();
 }
 
 void Game::update()
 {
-
 	// Move down the last added stone, because its
 	// the actual stone which the user can control
-	m_stones.back().moveDown();
-	/*
-	for (Stone &stone : m_stones)
-	{
-		stone.moveDown();
-	}
-	*/
+	m_currentStone.moveDown();
 }
 
 void Game::draw() 
@@ -105,13 +107,14 @@ void Game::draw()
 		}
 	}
 	
-	//m_currentStone.fillFieldBuffer(m_fieldBuffer);
+	m_currentStone.fillFieldBuffer(m_fieldBuffer);
 
+	
 	for (Stone stone : m_stones)
 	{
 		stone.fillFieldBuffer(m_fieldBuffer);	
 	}
-
+	
 	cout << "============" << endl;
 	for (int i = 0; i != world_constants::FIELD_ROW; i++)
 	{	

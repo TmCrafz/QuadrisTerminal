@@ -11,5 +11,6 @@ int main()
 	Game game;
 	game.run();
 	
+	cout<< "End Game" << endl;
 	return 0;
 }
