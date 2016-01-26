@@ -7,14 +7,32 @@
 
 using namespace std;
 
-Stone::Stone():
-m_position(5, 0)
+Stone::Stone()
 {
-	//m_position = Point(3, 4);	
+	initStone();
+}
+/*
+Stone::~Stone() 
+{
+	cout<< "Stone destructor" << endl;
+
+}
+*/
+void Stone::respawn()
+{
+	initStone();
+}
+
+
+void Stone::initStone()
+{
+	m_position.setX(5);
+	m_position.setY(0);
+	m_shape = '#';
+
 	srand(time(0));
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
 	int randNum = rand() % 1; // 6;
-	// I Stone
 	// The L Stone
 	if (randNum == 0)
 	{
@@ -32,7 +50,6 @@ m_position(5, 0)
 		m_subStones[3] = Point (1,  0);	
 	}
 }
-
 /*
 Stone::Stone(Point position, Point subStone1, Point subStone2, 
 	      Point subStone3, Point subStone4):
@@ -51,7 +68,7 @@ Stone::Stone(const int midPointX, const int midPointY,
 	      const int subStone2X, const int subStone2Y,
 	      const int subStone3X, const int subStone3Y,
 	      const int subStone4X, const int subStone4Y):
-	m_Shape('#')
+	m_shape('#')
 {
 	m_position = Point(midPointX, midPointY);
 	m_subStones[0] = Point(subStone1X, subStone1Y);
@@ -154,13 +171,9 @@ void Stone::fillFieldBuffer
 			 * over the 2d array we first go to the row and then loop
 			 * over all columns.
 			 */
-			fieldBuffer[globalPosY][globalPosX] = m_Shape;;
+			fieldBuffer[globalPosY][globalPosX] = m_shape;;
 		}
 	}
-
-
-
-
 }
 
 #endif // !STONE_CPP

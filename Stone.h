@@ -27,21 +27,19 @@ private:
 	// The absolute position of the midpoint
 	Point m_position;
 	// The char which is drawn for a point
-	const char m_Shape = '#';
+	char m_shape;
 public:
 
 	Stone();
-
-	/*
-	Stone(Point position, Point subStone1, Point subStone2, 
-	      Point subStone3, Point subStone4);
-	*/
-
+	//~Stone();	
 	Stone(const int midPointX, const int midPointY,
 	      const int subStone1X, const int subStone1Y,
 	      const int subStone2X, const int subStone2Y,
 	      const int subStone3X, const int subStone3Y,
 	      const int subStone4X, const int subStone4Y);
+
+	// Set the Stone to the default point and choose a new Stone sort
+	void respawn();
 	
 	// Get the position of the specific axe of the point which is most in the
 	// specic direction
@@ -60,6 +58,9 @@ public:
 	// all the other Stones
 	void fillFieldBuffer(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]);
 	
+private:
+	void initStone();
+
 };
 
 #endif // !STONE_H
