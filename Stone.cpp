@@ -1,8 +1,6 @@
 #ifndef STONE_CPP
 #define STONE_CPP
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include "Stone.h"
 
 using namespace std;
@@ -30,9 +28,10 @@ void Stone::initStone()
 	m_position.setY(0);
 	m_shape = '#';
 
-	srand(time(0));
+	
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
-	int randNum = rand() % 1; // 6;
+	int randNum = rand() % 2;
+	cout << "Respawned: " << randNum << endl;
 	// The L Stone
 	if (randNum == 0)
 	{

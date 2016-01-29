@@ -16,7 +16,8 @@ m_stepTime(1000),
 m_currentStone(),
 m_command('\0')
 {
-	std::cout << "Konstruktor Game Class" << std::endl;		
+	for (int i = 0; i != 100; i++)
+		m_currentStone.respawn();
 }
 
 void Game::run()
@@ -74,6 +75,14 @@ void Game::updateTimeAffected()
 	// Move down the last added stone, because its
 	// the actual stone which the user can control
 	m_currentStone.moveDown();
+	// If the Stone collides with the ground "freeze" the Stone
+	// (Add the Stone to the m_stones container so it is not longer
+	// under the users control.
+	if (m_currentStone.getBottom() == world_constants::FIELD_ROW - 1) 
+	{
+		m_stones.push_back(m_currentStone);
+		spawnStone();	
+	}
 }
 
 void Game::commandReaction()
