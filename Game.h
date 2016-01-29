@@ -13,11 +13,14 @@ typedef std::chrono::high_resolution_clock CLOCK;
 class Game 
 {
 private:
-	bool m_isRunning;
+	bool m_running;
+	// is true when something has changed which nake it necessary to redraw the field
+	bool m_draw;
 	// The timestep in miliseconds
 	int m_stepTime;
 	Stone m_currentStone;
 	std::vector<Stone> m_stones;
+	char m_command;
 	// Store the elements which get drawn later
 	char m_fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN];
 public:
@@ -30,7 +33,9 @@ private:
 
 	void spawnStone();
 
-	void update();
+	void updateTimeAffected();
+	
+	void commandReaction();
 
 	void draw();
 };

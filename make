@@ -24,6 +24,6 @@ Point.o: Point.cpp Point.h
 InputHelper.o: InputHelper.cpp InputHelper.h
 	$(CC) $(CFLAGS) -c InputHelper.cpp -o InputHelper.o
 clean:
-	rm *o tetris
+	rm *o
 
 
