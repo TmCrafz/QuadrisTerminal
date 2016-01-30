@@ -48,6 +48,9 @@ public:
 	int getTop() const;
 	int getBottom() const;
 	
+	// Retrun the Points with global coordinates
+	void fillWithGlobalPoints(Point *points) const;
+
 	void moveDown();
 	void moveLeft();
 	void moveRight();
@@ -58,6 +61,8 @@ public:
 	// all the other Stones
 	void fillFieldBuffer(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]);
 	
+	bool isCollidingWithStone(Stone &stone);
+	//bool isCollidingBottomWithStone(Stone &stone);
 private:
 	void initStone();
 

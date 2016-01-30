@@ -79,4 +79,40 @@ void Point::rotateAround(const Point target, const float angleDegree)
 {
 	rotateAround(target.getX(), target.getY(), angleDegree);
 }
+
+void Point::operator=(const Point &right)
+{
+	this->m_x = right.m_x;
+	this->m_y = right.m_y;
+}
+
+Point Point::operator+(const Point &right)
+{
+	Point result;
+	result.setX(m_x + right.m_x);
+	result.setY(m_y + right.m_y);
+	return result;
+}
+
+Point Point::operator-(const Point &right)
+{
+	Point result;
+	result.setX(m_x - right.m_x);
+	result.setY(m_y - right.m_y);
+	return result;
+}
+
+Point Point::operator+=(const Point &right)
+{
+	this->m_x += right.m_x;
+	this->m_y += right.m_y;
+	return *this;
+}
+
+Point Point::operator-=(const Point &right)
+{
+	this->m_x -= right.m_x;
+	this->m_y -= right.m_y;
+	return *this;
+}
 #endif // !POINT_CPP

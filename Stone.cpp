@@ -118,7 +118,21 @@ int Stone::getBottom() const
 			y = m_subStones[i].getY();	
 	}
 	return m_position.getY() + y;	
-}	
+}
+
+void Stone::fillWithGlobalPoints(Point *points) const
+{
+
+	//test
+	//Point globalPoints[4];
+	/*
+	for (int i = 0; i != 4; i++)
+	{
+		globalPoint[4];
+	
+	}
+	*/
+}
 
 void Stone::moveDown()
 {
@@ -173,6 +187,15 @@ void Stone::fillFieldBuffer
 			fieldBuffer[globalPosY][globalPosX] = m_shape;;
 		}
 	}
+}
+
+
+bool Stone::isCollidingWithStone(Stone &stone)
+{
+	//for (Point pointA : m_subStone
+
+
+	return true;
 }
 
 #endif // !STONE_CPP

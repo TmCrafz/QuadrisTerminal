@@ -19,7 +19,12 @@ public:
 
 	void rotateAround(const int targetPX, const int targetPY, const float angleDegree);
 	void rotateAround(const Point target, const float  angleDegree);
-
+	
+	void operator=(const Point &right);
+	Point operator+(const Point &right);	
+	Point operator-(const Point &right);
+	Point operator+=(const Point &right);
+	Point operator-=(const Point &right);
 };
 
 #endif // !POINT_H

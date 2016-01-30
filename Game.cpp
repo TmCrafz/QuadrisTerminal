@@ -16,8 +16,6 @@ m_stepTime(1000),
 m_currentStone(),
 m_command('\0')
 {
-	for (int i = 0; i != 100; i++)
-		m_currentStone.respawn();
 }
 
 void Game::run()
