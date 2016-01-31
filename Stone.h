@@ -49,7 +49,7 @@ public:
 	int getBottom() const;
 	
 	// Retrun the Points with global coordinates
-	void fillWithGlobalPoints(Point *points) const;
+	void fillWithGlobalPoints(Point *points);
 
 	void moveDown();
 	void moveLeft();
