@@ -26,6 +26,13 @@ private:
 	Point m_subStones[4];
 	// The absolute position of the midpoint
 	Point m_position;
+	/*
+	 * Store the old absolute position and relativ Position of the Stones 
+	 * after the position or orientation changed, 
+	 * so we can restore if necessary (e.g. if there is a collision)
+	 */
+	Point m_positionOld;
+	Point m_subStonesOld[4];
 	// The char which is drawn for a point
 	char m_shape;
 public:
@@ -62,10 +69,13 @@ public:
 	void fillFieldBuffer(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]);
 	
 	bool isCollidingWithStone(Stone &stone);
-	//bool isCollidingBottomWithStone(Stone &stone);
+	
+	void restoreOldPositions();
+
 private:
 	void initStone();
-
+	
+	void saveOldPositions();
 };
 
 #endif // !STONE_H

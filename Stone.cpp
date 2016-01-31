@@ -130,6 +130,7 @@ void Stone::fillWithGlobalPoints(Point points[4])
 
 void Stone::moveDown()
 {
+	saveOldPositions();
 	// Remember: Our coordinate system get postive to the down
 	// (inverse y-axses) so we have to add 1
 	m_position.setY(m_position.getY() + 1);
@@ -137,16 +138,19 @@ void Stone::moveDown()
 
 void Stone::moveLeft()
 {
+	saveOldPositions();
 	m_position.setX(m_position.getX() - 1);
 }
 
 void Stone::moveRight()
 {
+	saveOldPositions();
 	m_position.setX(m_position.getX() + 1);
 }
 
 void Stone::rotateRight()
 {
+	saveOldPositions();
 	for (Point &point : m_subStones)
 	{
 		point.rotateAround(0, 0, -90.f);	
@@ -155,6 +159,7 @@ void Stone::rotateRight()
 
 void Stone::rotateLeft()
 {
+	saveOldPositions();
 	for (Point &point : m_subStones)
 	{
 		point.rotateAround(0, 0, 90.f);
@@ -199,6 +204,24 @@ bool Stone::isCollidingWithStone(Stone &stone)
 		}	
 	}
 	return false;
+}
+
+void Stone::restoreOldPositions() 
+{
+	m_position = m_positionOld;
+	for (int i = 0; i != 4; i++)
+	{
+		m_subStones[i] = m_subStonesOld[i];	
+	}
+}
+
+void Stone::saveOldPositions() 
+{
+	m_positionOld = m_position;
+	for (int i = 0; i != 4; i++)
+	{
+		m_subStonesOld[i] = m_subStones[i];
+	}
 }
 
 #endif // !STONE_CPP
