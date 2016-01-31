@@ -21,10 +21,13 @@ public:
 	void rotateAround(const Point target, const float  angleDegree);
 	
 	void operator=(const Point &right);
-	Point operator+(const Point &right);	
+	Point operator+(const Point &right);
+	// Const so we can use it with const Stones
+	Point operator+(const Point &right) const;
 	Point operator-(const Point &right);
-	Point operator+=(const Point &right);
-	Point operator-=(const Point &right);
+	Point operator-(const Point &right) const;
+	Point& operator+=(const Point &right);
+	Point& operator-=(const Point &right);
 	bool operator==(const Point &right);
 };
 

@@ -27,6 +27,8 @@ public:
 	Game();
 	void run();
 private:
+	bool isCurrentStoneColliding() const;
+
 	bool isStepTimeLeft(CLOCK::time_point timeStart);
 	
 	void checkInput();

@@ -94,6 +94,14 @@ Point Point::operator+(const Point &right)
 	return result;
 }
 
+Point Point::operator+(const Point &right) const
+{
+	Point result;
+	result.setX(m_x + right.m_x);
+	result.setY(m_y + right.m_y);
+	return result;
+}
+
 Point Point::operator-(const Point &right)
 {
 	Point result;
@@ -102,14 +110,22 @@ Point Point::operator-(const Point &right)
 	return result;
 }
 
-Point Point::operator+=(const Point &right)
+Point Point::operator-(const Point &right) const
+{
+	Point result;
+	result.setX(m_x - right.m_x);
+	result.setY(m_y - right.m_y);
+	return result;
+}
+
+Point& Point::operator+=(const Point &right)
 {
 	this->m_x += right.m_x;
 	this->m_y += right.m_y;
 	return *this;
 }
 
-Point Point::operator-=(const Point &right)
+Point& Point::operator-=(const Point &right)
 {
 	this->m_x -= right.m_x;
 	this->m_y -= right.m_y;

@@ -23,7 +23,6 @@ void Game::run()
 	CLOCK::time_point timeStart = CLOCK::now();
 	while (m_running)
 	{
-		
 		checkInput();
 		commandReaction();	
 		if (isStepTimeLeft(timeStart))
@@ -40,6 +39,25 @@ void Game::run()
 			m_draw = false;
 		}
 	}
+}
+
+bool Game::isCurrentStoneColliding() const
+{
+	if (m_currentStone.getLeft() < 0)
+		return true;
+	if (m_currentStone.getRight() >= (world_constants::FIELD_COLUMN))
+		return true;
+	if (m_currentStone.getBottom() == world_constants::FIELD_ROW)
+		return true;
+	bool collidingWithStone = false;
+	for (Stone stone : m_stones)
+	{
+		if (stone.isCollidingWithStone(m_currentStone))
+		{
+			collidingWithStone = true;
+		}	
+	}
+	return collidingWithStone;
 }
 
 bool Game::isStepTimeLeft(CLOCK::time_point timeStart)
@@ -70,16 +88,21 @@ void Game::spawnStone()
 
 void Game::updateTimeAffected()
 {
-	// Move down the last added stone, because its
-	// the actual stone which the user can control
-	m_currentStone.moveDown();
-	// If the Stone collides with the ground "freeze" the Stone
-	// (Add the Stone to the m_stones container so it is not longer
-	// under the users control.
-	if (m_currentStone.getBottom() == world_constants::FIELD_ROW - 1) 
+	/*
+	 * Move down the last added stone, because its
+	 * the actual stone which the user can control
+	 */
+	 m_currentStone.moveDown();
+	/*
+	 * If the Stone collides with the ground "freeze" the Stone
+	 * (Add the Stone to the m_stones container so it is not longer
+	 * under the users control.
+	  */
+	if (isCurrentStoneColliding()) 
 	{
+		m_currentStone.restoreOldPosition();
 		m_stones.push_back(m_currentStone);
-		spawnStone();	
+		spawnStone();
 	}
 }
 
@@ -90,14 +113,11 @@ void Game::commandReaction()
 	{
 		if (m_command == 'a')
 		{
-			// Only move Stone if it does not collide which anything
-			if (m_currentStone.getLeft() > 0)	
-				m_currentStone.moveLeft();
+			m_currentStone.moveLeft(); 
 		}
 		else if (m_command == 'd')
 		{
-			if (m_currentStone.getRight() < (world_constants::FIELD_COLUMN - 1))
-				m_currentStone.moveRight();
+			m_currentStone.moveRight();
 		}
 		else if (m_command == 'o')
 		{
@@ -112,6 +132,9 @@ void Game::commandReaction()
 			m_running = false;
 		}
 		m_command = '\0';	
+		// Restore the Stones old Position if it is colliding with something
+		if (isCurrentStoneColliding())
+			m_currentStone.restoreOldPosition();
 		// Something has changed so the field should redraw
 		m_draw = true;
 	}
@@ -129,7 +152,6 @@ void Game::draw()
 	}
 	
 	m_currentStone.fillFieldBuffer(m_fieldBuffer);
-
 	
 	for (Stone stone : m_stones)
 	{

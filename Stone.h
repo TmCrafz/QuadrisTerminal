@@ -56,7 +56,7 @@ public:
 	int getBottom() const;
 	
 	// Retrun the Points with global coordinates
-	void fillWithGlobalPoints(Point *points);
+	void fillWithGlobalPoints(Point *points) const;
 
 	void moveDown();
 	void moveLeft();
@@ -66,16 +66,17 @@ public:
 	void rotateLeft();
 	// Store the Stone in the buffer so we can later draw it with
 	// all the other Stones
-	void fillFieldBuffer(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]);
+	void fillFieldBuffer
+	    (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const;
 	
-	bool isCollidingWithStone(Stone &stone);
+	bool isCollidingWithStone(const Stone &stone) const;
 	
-	void restoreOldPositions();
+	void restoreOldPosition();
 
 private:
 	void initStone();
 	
-	void saveOldPositions();
+	void saveOldPosition();
 };
 
 #endif // !STONE_H

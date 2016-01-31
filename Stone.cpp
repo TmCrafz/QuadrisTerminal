@@ -48,19 +48,16 @@ void Stone::initStone()
 		m_subStones[2] = Point( 0,  0);
 		m_subStones[3] = Point (1,  0);	
 	}
+
+	m_positionOld = m_position;
+	for (int i = 0; i != 4; i++)
+	{
+		m_subStonesOld[i] = m_subStones[i];		
+		cout << "subStone[" << i << "] = " << m_subStonesOld[i].getX() << "|" <<
+			m_subStonesOld[i].getY() << endl;
+	}
+
 }
-/*
-Stone::Stone(Point position, Point subStone1, Point subStone2, 
-	      Point subStone3, Point subStone4):
-	m_position(position),
-	m_Shape('#')
-{
-	m_subStones[0] = subStone1;
-	m_subStones[1] = subStone2;
-	m_subStones[2] = subStone3;
-	m_subStones[3] = subStone4;
-}
-*/	
 
 Stone::Stone(const int midPointX, const int midPointY,
 	      const int subStone1X, const int subStone1Y,
@@ -120,17 +117,17 @@ int Stone::getBottom() const
 	return m_position.getY() + y;	
 }
 
-void Stone::fillWithGlobalPoints(Point points[4])
+void Stone::fillWithGlobalPoints(Point points[4]) const
 {
 	for (int i = 0; i != 4; i++)
 	{
-		 m_subStones[i] + m_position;	
+		 points[i] = m_subStones[i] + m_position;	
 	}
 }
 
 void Stone::moveDown()
 {
-	saveOldPositions();
+	saveOldPosition();
 	// Remember: Our coordinate system get postive to the down
 	// (inverse y-axses) so we have to add 1
 	m_position.setY(m_position.getY() + 1);
@@ -138,19 +135,19 @@ void Stone::moveDown()
 
 void Stone::moveLeft()
 {
-	saveOldPositions();
+	saveOldPosition();
 	m_position.setX(m_position.getX() - 1);
 }
 
 void Stone::moveRight()
 {
-	saveOldPositions();
+	saveOldPosition();
 	m_position.setX(m_position.getX() + 1);
 }
 
 void Stone::rotateRight()
 {
-	saveOldPositions();
+	saveOldPosition();
 	for (Point &point : m_subStones)
 	{
 		point.rotateAround(0, 0, -90.f);	
@@ -159,7 +156,7 @@ void Stone::rotateRight()
 
 void Stone::rotateLeft()
 {
-	saveOldPositions();
+	saveOldPosition();
 	for (Point &point : m_subStones)
 	{
 		point.rotateAround(0, 0, 90.f);
@@ -167,7 +164,7 @@ void Stone::rotateLeft()
 }
 
 void Stone::fillFieldBuffer
-(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN])
+(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const
 {
 	for (Point point : m_subStones)
 	{
@@ -189,7 +186,7 @@ void Stone::fillFieldBuffer
 }
 
 
-bool Stone::isCollidingWithStone(Stone &stone)
+bool Stone::isCollidingWithStone(const Stone &stone) const
 {
 	Point subStonesA[4];
 	Point subStonesB[4];
@@ -206,7 +203,7 @@ bool Stone::isCollidingWithStone(Stone &stone)
 	return false;
 }
 
-void Stone::restoreOldPositions() 
+void Stone::restoreOldPosition() 
 {
 	m_position = m_positionOld;
 	for (int i = 0; i != 4; i++)
@@ -215,7 +212,7 @@ void Stone::restoreOldPositions()
 	}
 }
 
-void Stone::saveOldPositions() 
+void Stone::saveOldPosition() 
 {
 	m_positionOld = m_position;
 	for (int i = 0; i != 4; i++)
