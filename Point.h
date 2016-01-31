@@ -25,6 +25,7 @@ public:
 	Point operator-(const Point &right);
 	Point operator+=(const Point &right);
 	Point operator-=(const Point &right);
+	bool operator==(const Point &right);
 };
 
 #endif // !POINT_H

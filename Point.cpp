@@ -115,4 +115,9 @@ Point Point::operator-=(const Point &right)
 	this->m_y -= right.m_y;
 	return *this;
 }
+
+bool Point::operator==(const Point &right)
+{
+	return (this->m_x == right.m_x && this->m_y == right.m_y);
+}
 #endif // !POINT_CPP
