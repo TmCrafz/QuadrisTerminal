@@ -12,7 +12,9 @@ using namespace std;
 Game::Game():
 m_running(true),
 m_draw(true),
-m_stepTime(1000),
+m_standardStepTime(1000),
+m_currentStepTime(m_standardStepTime),
+m_stepTimeFast(200),
 m_currentStone(),
 m_command('\0')
 {
@@ -23,6 +25,11 @@ void Game::run()
 	CLOCK::time_point timeStart = CLOCK::now();
 	while (m_running)
 	{
+		/* 
+		 * Set the current step time back to its standard so its only
+		 * faster as long the player press the specific key
+		 */
+		m_currentStepTime = m_standardStepTime;
 		checkInput();
 		commandReaction();	
 		if (isStepTimeLeft(timeStart))
@@ -30,7 +37,6 @@ void Game::run()
 			cout << "Step Time left" << endl;
 			updateTimeAffected();
 			m_draw = true;
-			//std::cout << "Time Step Left: " << m_stepTime << " ms" << std::endl;
 			timeStart = CLOCK::now();	
 		}
 		if (m_draw)
@@ -60,13 +66,13 @@ bool Game::isCurrentStoneColliding() const
 	return collidingWithStone;
 }
 
-bool Game::isStepTimeLeft(CLOCK::time_point timeStart)
+bool Game::isStepTimeLeft(CLOCK::time_point timeStart) const
 {
 	CLOCK::time_point now = CLOCK::now();
 	chrono::duration<float> timeSpan = (now - timeStart);
 	auto milli = chrono::duration_cast<chrono::milliseconds>(timeSpan);
 	auto time = milli.count();
-	if (time >= m_stepTime)
+	if (time >= m_currentStepTime)
 	{
 		return true;
 	}
@@ -118,6 +124,11 @@ void Game::commandReaction()
 		else if (m_command == 'd')
 		{
 			m_currentStone.moveRight();
+		}
+		else if (m_command == 's')
+		{
+			// The stone should fall faster as long the button is pressed
+			m_currentStepTime = m_stepTimeFast;
 		}
 		else if (m_command == 'o')
 		{

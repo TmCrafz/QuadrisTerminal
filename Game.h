@@ -16,8 +16,12 @@ private:
 	bool m_running;
 	// is true when something has changed which nake it necessary to redraw the field
 	bool m_draw;
-	// The timestep in miliseconds
-	int m_stepTime;
+	// The current standard step time in miliseconds
+	int m_standardStepTime;
+	// The current used step time (the standard step time or the fats step time)
+	int m_currentStepTime;
+	// The player can manually increase the Step Time so the stone falls faster
+	const int m_stepTimeFast;
 	Stone m_currentStone;
 	std::vector<Stone> m_stones;
 	char m_command;
@@ -29,7 +33,7 @@ public:
 private:
 	bool isCurrentStoneColliding() const;
 
-	bool isStepTimeLeft(CLOCK::time_point timeStart);
+	bool isStepTimeLeft(CLOCK::time_point timeStart) const;
 	
 	void checkInput();
 
