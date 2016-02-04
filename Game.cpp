@@ -55,15 +55,21 @@ bool Game::isCurrentStoneColliding() const
 		return true;
 	if (m_currentStone.getBottom() == world_constants::FIELD_ROW)
 		return true;
-	bool collidingWithStone = false;
-	for (Stone stone : m_stones)
+	bool collidingWithFallen = false;
+	for (Point fallenStone : m_stones)
 	{
+		if(m_currentStone.isCollidingWithPoint(fallenStone))
+		{
+			collidingWithFallen = true;
+		}
+		/*
 		if (stone.isCollidingWithStone(m_currentStone))
 		{
 			collidingWithStone = true;
 		}	
+		*/
 	}
-	return collidingWithStone;
+	return collidingWithFallen;
 }
 
 bool Game::isStepTimeLeft(CLOCK::time_point timeStart) const
@@ -107,7 +113,13 @@ void Game::updateTimeAffected()
 	if (isCurrentStoneColliding()) 
 	{
 		m_currentStone.restoreOldPosition();
-		m_stones.push_back(m_currentStone);
+		
+		Point subStones[4];
+		m_currentStone.fillWithGlobalPoints(subStones);
+		for (Point subStone : subStones)
+		{
+			m_stones.push_back(subStone);		
+		}
 		spawnStone();
 	}
 }
@@ -164,9 +176,10 @@ void Game::draw()
 	
 	m_currentStone.fillFieldBuffer(m_fieldBuffer);
 	
-	for (Stone stone : m_stones)
+	// Draw fallen SubStones
+	for (Point point : m_stones)
 	{
-		stone.fillFieldBuffer(m_fieldBuffer);	
+		m_fieldBuffer[point.getY()][point.getX()] = '#';	
 	}
 	
 	cout << "============" << endl;

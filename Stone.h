@@ -69,7 +69,7 @@ public:
 	void fillFieldBuffer
 	    (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const;
 	
-	bool isCollidingWithStone(const Stone &stone) const;
+	bool isCollidingWithPoint(const Point &point) const;
 	
 	void restoreOldPosition();
 

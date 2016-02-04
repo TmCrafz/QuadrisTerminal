@@ -186,19 +186,14 @@ void Stone::fillFieldBuffer
 }
 
 
-bool Stone::isCollidingWithStone(const Stone &stone) const
-{
-	Point subStonesA[4];
-	Point subStonesB[4];
-	this->fillWithGlobalPoints(subStonesA);
-	stone.fillWithGlobalPoints(subStonesB);
-	for (Point pointA : subStonesA)
+bool Stone::isCollidingWithPoint(const Point &point) const
+{	
+	Point subStones[4];
+	this->fillWithGlobalPoints(subStones);
+	for (Point pointSub : subStones)
 	{
-		for (Point pointB : subStonesB)
-		{
-			if (pointA == pointB)
-				return true;		
-		}	
+		if (pointSub == point)
+			return true;		
 	}
 	return false;
 }

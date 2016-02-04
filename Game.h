@@ -4,6 +4,7 @@
 #include <chrono>
 #include <vector>
 #include "WorldConstants.h"
+#include "Point.h"
 #include "Stone.h"
 
 
@@ -23,7 +24,7 @@ private:
 	// The player can manually increase the Step Time so the stone falls faster
 	const int m_stepTimeFast;
 	Stone m_currentStone;
-	std::vector<Stone> m_stones;
+	std::vector<Point> m_stones;
 	char m_command;
 	// Store the elements which get drawn later
 	char m_fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN];
