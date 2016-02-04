@@ -37,6 +37,8 @@ private:
 	bool isStepTimeLeft(CLOCK::time_point timeStart) const;
 	
 	void checkInput();
+	
+	//void removeFullLines();
 
 	void spawnStone();
 
