@@ -1,6 +1,7 @@
 #ifndef STONE_H
 #define STONE_H
 #include <vector>
+#include "Drawable.h"
 #include "WorldConstants.h"
 #include "Point.h" 
 
@@ -19,7 +20,7 @@
  *  Play field.
  */
 
-class Stone
+class Stone : public Drawable
 {
 private:
 	// The position of all substones which result in the whole Stone
@@ -34,7 +35,7 @@ private:
 	Point m_positionOld;
 	Point m_subStonesOld[4];
 	// The char which is drawn for a point
-	char m_shape;
+	//char m_shape;
 public:
 
 	Stone();
@@ -66,7 +67,7 @@ public:
 	void rotateLeft();
 	// Store the Stone in the buffer so we can later draw it with
 	// all the other Stones
-	void fillFieldBuffer
+	virtual void fillFieldBuffer
 	    (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const;
 	
 	bool isCollidingWithPoint(const Point &point) const;

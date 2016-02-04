@@ -64,7 +64,7 @@ Stone::Stone(const int midPointX, const int midPointY,
 	      const int subStone2X, const int subStone2Y,
 	      const int subStone3X, const int subStone3Y,
 	      const int subStone4X, const int subStone4Y):
-	m_shape('#')
+	Drawable('#')
 {
 	m_position = Point(midPointX, midPointY);
 	m_subStones[0] = Point(subStone1X, subStone1Y);

@@ -56,9 +56,9 @@ bool Game::isCurrentStoneColliding() const
 	if (m_currentStone.getBottom() == world_constants::FIELD_ROW)
 		return true;
 	bool collidingWithFallen = false;
-	for (Point fallenStone : m_stones)
+	for (FallenStone fallenStone : m_fallenStones)
 	{
-		if(m_currentStone.isCollidingWithPoint(fallenStone))
+		if(m_currentStone.isCollidingWithPoint(fallenStone.getPosition()))
 		{
 			collidingWithFallen = true;
 		}
@@ -93,6 +93,31 @@ void Game::checkInput()
 	}
 }
 
+void Game::removeFullLines() 
+{
+	// The Amount of fallen stones in the rows
+	unsigned int fallenStonesRow[world_constants::FIELD_ROW];
+	for (FallenStone fallenStone : m_fallenStones)
+	{
+		// Increase the number of the row where the fallen stone is
+		fallenStonesRow[fallenStone.getPosition().getY()]++;	
+	}
+	for (int i = 0; i != world_constants::FIELD_ROW; i++)
+	{
+		if (fallenStonesRow[i] == world_constants::FIELD_COLUMN)
+		{
+			auto remove_st = remove_if(m_fallenStones.begin(), m_fallenStones.end(),
+				[i](FallenStone &fallenStone)
+				{
+					return fallenStone.getPosition().getY() == i; 
+				});	
+			m_fallenStones.erase(remove_st, m_fallenStones.end());
+		}	
+	}
+
+
+}
+
 void Game::spawnStone()
 {
 	m_currentStone.respawn();
@@ -118,9 +143,11 @@ void Game::updateTimeAffected()
 		m_currentStone.fillWithGlobalPoints(subStones);
 		for (Point subStone : subStones)
 		{
-			m_stones.push_back(subStone);		
+			FallenStone fallenStone(subStone, m_currentStone.getShape());
+			m_fallenStones.push_back(fallenStone);		
 		}
 		spawnStone();
+		removeFullLines();
 	}
 }
 
@@ -177,11 +204,17 @@ void Game::draw()
 	m_currentStone.fillFieldBuffer(m_fieldBuffer);
 	
 	// Draw fallen SubStones
+	/*
 	for (Point point : m_stones)
 	{
 		m_fieldBuffer[point.getY()][point.getX()] = '#';	
 	}
-	
+	*/
+	for (FallenStone fallenStone : m_fallenStones)
+	{
+		fallenStone.fillFieldBuffer(m_fieldBuffer);
+	}
+
 	cout << "============" << endl;
 	for (int i = 0; i != world_constants::FIELD_ROW; i++)
 	{	

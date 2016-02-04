@@ -3,10 +3,11 @@
 #include <iostream>
 #include <chrono>
 #include <vector>
+#include <algorithm>
 #include "WorldConstants.h"
 #include "Point.h"
 #include "Stone.h"
-
+#include "FallenStone.h"
 
 typedef std::chrono::high_resolution_clock CLOCK;
 
@@ -24,7 +25,8 @@ private:
 	// The player can manually increase the Step Time so the stone falls faster
 	const int m_stepTimeFast;
 	Stone m_currentStone;
-	std::vector<Point> m_stones;
+	//std::vector<Point> m_stones;
+	std::vector<FallenStone> m_fallenStones;
 	char m_command;
 	// Store the elements which get drawn later
 	char m_fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN];
@@ -38,7 +40,7 @@ private:
 	
 	void checkInput();
 	
-	//void removeFullLines();
+	void removeFullLines();
 
 	void spawnStone();
 
