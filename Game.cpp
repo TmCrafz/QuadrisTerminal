@@ -204,6 +204,11 @@ void Game::commandReaction()
 		{
 			m_running = false;
 		}
+		// Debuging commands
+		else if (m_command == '1')
+		{
+			spawnStone();
+		}
 		m_command = '\0';	
 		// Restore the Stones old Position if it is colliding with something
 		if (isCurrentStoneColliding())
