@@ -25,6 +25,9 @@ class Stone : public Drawable
 private:
 	// The position of all substones which result in the whole Stone
 	Point m_subStones[4];
+	// The rotation point
+	Point m_rotationPoint;
+
 	// The absolute position of the midpoint
 	Point m_position;
 	/*
