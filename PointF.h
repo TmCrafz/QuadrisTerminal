@@ -17,6 +17,10 @@ public:
 	void setX(const float x);
 	void setY(const float y);
 	
+	void rotateAround(const float targetPX, const float targetPY, const float angleDegree);
+	void rotateAround(const PointF target, const float  angleDegree);
+
+
 	void operator=(const PointF &right);
 	PointF operator+(const PointF &right);
 	// Const so we can use it with const Stones
