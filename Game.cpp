@@ -32,6 +32,7 @@ void Game::run()
 		m_currentStepTime = m_standardStepTime;
 		checkInput();
 		commandReaction();	
+		removeFullRows();
 		if (isStepTimeLeft(timeStart))
 		{
 			cout << "Step Time left" << endl;
@@ -93,28 +94,50 @@ void Game::checkInput()
 	}
 }
 
-void Game::removeFullLines() 
+void Game::removeFullRows()
 {
 	// The Amount of fallen stones in the rows
-	unsigned int fallenStonesRow[world_constants::FIELD_ROW];
+	unsigned int fallenStonesRow[world_constants::FIELD_ROW] = { 0 };
 	for (FallenStone fallenStone : m_fallenStones)
 	{
 		// Increase the number of the row where the fallen stone is
-		fallenStonesRow[fallenStone.getPosition().getY()]++;	
+		(fallenStonesRow[fallenStone.getPosition().getY()])++;	
 	}
+	bool rowDeleted = false;
 	for (int i = 0; i != world_constants::FIELD_ROW; i++)
 	{
-		if (fallenStonesRow[i] == world_constants::FIELD_COLUMN)
+
+		int actualRow = i;
+		//cout << "FallenStones in Row[" << i << "]: " << fallenStonesRow[actualRow] << endl;
+		// Remove the stones which are in a full row
+		if (fallenStonesRow[actualRow] == world_constants::FIELD_COLUMN)
 		{
 			auto remove_st = remove_if(m_fallenStones.begin(), m_fallenStones.end(),
-				[i](FallenStone &fallenStone)
+				[actualRow](FallenStone &fallenStone)
 				{
-					return fallenStone.getPosition().getY() == i; 
+					return fallenStone.getPosition().getY() == actualRow; 
 				});	
 			m_fallenStones.erase(remove_st, m_fallenStones.end());
+			// Now move the Stone down which are over the deleted line
+			for (FallenStone &fallenStone : m_fallenStones)
+			{
+				if (fallenStone.getPosition().getY() < actualRow)
+				{
+					fallenStone.moveDown();		
+				}			
+			}
+			// Set the row Deleted to true and break the loop so we can restart
+			// checking if a row is full, because by moving down now there can be
+			// new full lines
+			rowDeleted = true;
+			break;
 		}	
 	}
-
+	if (rowDeleted)
+	{
+		cout << "Row deleted" << endl;
+		removeFullRows();
+	}
 
 }
 
@@ -147,7 +170,7 @@ void Game::updateTimeAffected()
 			m_fallenStones.push_back(fallenStone);		
 		}
 		spawnStone();
-		removeFullLines();
+		removeFullRows();
 	}
 }
 

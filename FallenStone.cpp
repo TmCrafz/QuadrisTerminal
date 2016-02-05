@@ -35,7 +35,7 @@ void FallenStone::fillFieldBuffer
 
 void FallenStone::moveDown()
 {
-	m_position.setY(m_position.getX() + 1);
+	m_position.setY(m_position.getY() + 1);
 }
 
 #endif // !FALLENSTONE_CPP

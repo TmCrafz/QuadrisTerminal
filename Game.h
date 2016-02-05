@@ -40,7 +40,7 @@ private:
 	
 	void checkInput();
 	
-	void removeFullLines();
+	void removeFullRows();
 
 	void spawnStone();
 
