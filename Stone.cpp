@@ -30,7 +30,7 @@ void Stone::initStone()
 
 	
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
-	int randNum = rand() % 4;
+	int randNum = rand() % 5;
 	cout << "Respawned: " << randNum << endl;
 	// The L Stone
 	if (randNum == 0)
@@ -64,7 +64,14 @@ void Stone::initStone()
 		m_subStones[2] = Point( 0,  0);
 		m_subStones[3] = Point (1,  0);		
 	}
-
+	// The T Stone
+	else if (randNum == 4)
+	{
+		m_subStones[0] = Point(-1,  0);
+		m_subStones[1] = Point( 0,  0);
+		m_subStones[2] = Point( 0, -1);
+		m_subStones[3] = Point (1,  0);		
+	}
 	m_positionOld = m_position;
 	for (int i = 0; i != 4; i++)
 	{
