@@ -30,6 +30,7 @@ void Stone::initStone()
 
 	
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
+	// (At the moment only 5)
 	int randNum = rand() % 5;
 	cout << "Respawned: " << randNum << endl;
 	// The L Stone
