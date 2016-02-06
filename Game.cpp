@@ -37,18 +37,22 @@ void Game::run()
 		 */
 		m_currentStepTime = m_standardStepTime;
 		checkInput();
-		commandReaction();	
-		removeFullRows();
-		if (isStepTimeLeft(timeStart))
+		if (!m_paused)
 		{
-			updateTimeAffected();
-			m_draw = true;
-			timeStart = CLOCK::now();	
-		}
-		if (m_draw)
-		{
-			draw();	
-			m_draw = false;
+			commandReaction();	
+			removeFullRows();
+			if (isStepTimeLeft(timeStart))
+			{
+				updateTimeAffected();
+				m_draw = true;
+				timeStart = CLOCK::now();	
+			}	
+			if (m_draw)
+			{
+				draw();	
+				m_draw = false;
+			}	
+		
 		}
 	}
 }
@@ -96,6 +100,14 @@ void Game::checkInput()
 	if (InputHelper::kbhit())
 	{
 		m_command = InputHelper::getch();		
+		if (m_command == 'c')
+		{
+			m_running = false;
+		}
+		else if (m_command == '0')
+		{
+			m_paused = !m_paused;
+		}
 	}
 }
 
@@ -142,8 +154,8 @@ void Game::removeFullRows()
 			{
 				cleanFullRow(actualRow);
 				// Set the row Deleted to true and break the loop so we can restart
-				// checking if a row is full, because by moving down now there can be
-				// new full lines
+				// checking if a row is full, because by moving down
+				// now there can be new full lines
 				rowDeletion = true;
 				removedLines++;
 				break;
@@ -225,10 +237,6 @@ void Game::commandReaction()
 		else if (m_command == 'p')
 		{
 			m_currentStone.rotateRight();
-		}
-		else if (m_command == 'c')
-		{
-			m_running = false;
 		}
 		// Debuging commands
 		else if (m_command == '1')

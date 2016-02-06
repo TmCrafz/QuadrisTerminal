@@ -16,6 +16,7 @@ class Game
 {
 private:
 	bool m_running;
+	bool m_paused;
 	// is true when something has changed which nake it necessary to redraw the field
 	bool m_draw;
 	// The current standard step time in miliseconds
