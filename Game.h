@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include "WorldConstants.h"
-#include "Point.h"
+#include "PointF.h"
 #include "Stone.h"
 #include "FallenStone.h"
 

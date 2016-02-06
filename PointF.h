@@ -12,7 +12,8 @@ public:
 	
 	float getX() const;
 	float getY() const;
-
+	int getIntX() const;
+	int getIntY() const;
 
 	void setX(const float x);
 	void setY(const float y);
@@ -30,7 +31,7 @@ public:
 	PointF& operator+=(const PointF &right);
 	PointF& operator-=(const PointF &right);
 	bool operator==(const PointF &right);
-}
+};
 
 
 #endif // !POINTF_H

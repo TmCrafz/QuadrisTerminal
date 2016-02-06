@@ -6,23 +6,23 @@ FallenStone::FallenStone()
 {
 }
 
-FallenStone::FallenStone(const Point position):
+FallenStone::FallenStone(const PointF position):
 m_position(position)
 {
 }
 
-FallenStone::FallenStone(const Point position, const char shape):
+FallenStone::FallenStone(const PointF position, const char shape):
 Drawable(shape),
 m_position(position)
 {
 }
 
-Point FallenStone::getPosition() const
+PointF FallenStone::getPosition() const
 {
 	return m_position;
 }
 
-void FallenStone::setPosition(const Point position)
+void FallenStone::setPosition(const PointF position)
 {
 	m_position = position;
 }
@@ -30,12 +30,12 @@ void FallenStone::setPosition(const Point position)
 void FallenStone::fillFieldBuffer
 	    (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const
 {
-	fieldBuffer[m_position.getY()][m_position.getX()] = m_shape;
+	fieldBuffer[m_position.getIntY()][m_position.getIntX()] = m_shape;
 }
 
 void FallenStone::moveDown()
 {
-	m_position.setY(m_position.getY() + 1);
+	m_position.setY(m_position.getY() + 1.f);
 }
 
 #endif // !FALLENSTONE_CPP

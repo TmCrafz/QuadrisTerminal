@@ -101,27 +101,26 @@ void Game::removeFullRows()
 	for (FallenStone fallenStone : m_fallenStones)
 	{
 		// Increase the number of the row where the fallen stone is
-		(fallenStonesRow[fallenStone.getPosition().getY()])++;	
+		(fallenStonesRow[fallenStone.getPosition().getIntY()])++;	
 	}
 	bool rowDeleted = false;
 	for (int i = 0; i != world_constants::FIELD_ROW; i++)
 	{
 
 		int actualRow = i;
-		//cout << "FallenStones in Row[" << i << "]: " << fallenStonesRow[actualRow] << endl;
 		// Remove the stones which are in a full row
 		if (fallenStonesRow[actualRow] == world_constants::FIELD_COLUMN)
 		{
 			auto remove_st = remove_if(m_fallenStones.begin(), m_fallenStones.end(),
 				[actualRow](FallenStone &fallenStone)
 				{
-					return fallenStone.getPosition().getY() == actualRow; 
+					return fallenStone.getPosition().getIntY() == actualRow; 
 				});	
 			m_fallenStones.erase(remove_st, m_fallenStones.end());
 			// Now move the Stone down which are over the deleted line
 			for (FallenStone &fallenStone : m_fallenStones)
 			{
-				if (fallenStone.getPosition().getY() < actualRow)
+				if (fallenStone.getPosition().getIntY() < actualRow)
 				{
 					fallenStone.moveDown();		
 				}			
@@ -135,10 +134,8 @@ void Game::removeFullRows()
 	}
 	if (rowDeleted)
 	{
-		cout << "Row deleted" << endl;
 		removeFullRows();
 	}
-
 }
 
 void Game::spawnStone()
@@ -162,9 +159,9 @@ void Game::updateTimeAffected()
 	{
 		m_currentStone.restoreOldPosition();
 		
-		Point subStones[4];
+		PointF subStones[4];
 		m_currentStone.fillWithGlobalPoints(subStones);
-		for (Point subStone : subStones)
+		for (PointF subStone : subStones)
 		{
 			FallenStone fallenStone(subStone, m_currentStone.getShape());
 			m_fallenStones.push_back(fallenStone);		

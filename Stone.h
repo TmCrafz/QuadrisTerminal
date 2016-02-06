@@ -3,7 +3,7 @@
 #include <vector>
 #include "Drawable.h"
 #include "WorldConstants.h"
-#include "Point.h" 
+#include "PointF.h" 
 
 /*
  *  A Stone consists of 4 subStones, represented in Points.
@@ -24,30 +24,30 @@ class Stone : public Drawable
 {
 private:
 	// The position of all substones which result in the whole Stone
-	Point m_subStones[4];
+	PointF m_subStones[4];
 	// The rotation point
-	Point m_rotationPoint;
+	PointF m_rotationPoint;
 
 	// The absolute position of the midpoint
-	Point m_position;
+	PointF m_position;
 	/*
 	 * Store the old absolute position and relativ Position of the Stones 
 	 * after the position or orientation changed, 
 	 * so we can restore if necessary (e.g. if there is a collision)
 	 */
-	Point m_positionOld;
-	Point m_subStonesOld[4];
+	PointF m_positionOld;
+	PointF m_subStonesOld[4];
 	// The char which is drawn for a point
 	//char m_shape;
 public:
 
 	Stone();
 	//~Stone();	
-	Stone(const int midPointX, const int midPointY,
-	      const int subStone1X, const int subStone1Y,
-	      const int subStone2X, const int subStone2Y,
-	      const int subStone3X, const int subStone3Y,
-	      const int subStone4X, const int subStone4Y);
+	Stone(const float midPointX, const float midPointY,
+	      const float subStone1X, const float subStone1Y,
+	      const float subStone2X, const float subStone2Y,
+	      const float subStone3X, const float subStone3Y,
+	      const float subStone4X, const float subStone4Y);
 
 	// Set the Stone to the default point and choose a new Stone sort
 	void respawn();
@@ -60,7 +60,7 @@ public:
 	int getBottom() const;
 	
 	// Retrun the Points with global coordinates
-	void fillWithGlobalPoints(Point *points) const;
+	void fillWithGlobalPoints(PointF *points) const;
 
 	void moveDown();
 	void moveLeft();
@@ -73,7 +73,7 @@ public:
 	virtual void fillFieldBuffer
 	    (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const;
 	
-	bool isCollidingWithPoint(const Point &point) const;
+	bool isCollidingWithPoint(const PointF &point) const;
 	
 	void restoreOldPosition();
 

@@ -24,132 +24,129 @@ void Stone::respawn()
 
 void Stone::initStone()
 {
-	m_position.setX(5);
-	m_position.setY(0);
+	m_position.setX(5.f);
+	m_position.setY(0.f);
 	m_shape = '#';
 
 	
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
 	// (At the moment only 5)
 	int randNum = rand() % 6;
-	cout << "Respawned: " << randNum << endl;
 	// The L Stone
 	if (randNum == 0)
 	{
-		m_subStones[0] = Point(-1,  0);
-		m_subStones[1] = Point( 0,  0);
-		m_subStones[2] = Point( 1,  0);
-		m_subStones[3] = Point( 1, -1);
+		m_subStones[0] = PointF(-1.f,  0.f);
+		m_subStones[1] = PointF( 0.f,  0.f);
+		m_subStones[2] = PointF( 1.f,  0.f);
+		m_subStones[3] = PointF( 1.f, -1.f);
 	}
 	// The J Stone
 	else if (randNum == 1)
 	{
-		m_subStones[0] = Point(-1, -1);
-		m_subStones[1] = Point(-1,  0);
-		m_subStones[2] = Point( 0,  0);
-		m_subStones[3] = Point( 1,  0);
+		m_subStones[0] = PointF(-1.f, -1.f);
+		m_subStones[1] = PointF(-1.f,  0.f);
+		m_subStones[2] = PointF( 0.f,  0.f);
+		m_subStones[3] = PointF( 1.f,  0.f);
 	}
 	// The S Stone
 	else if (randNum == 2)
 	{
-		m_subStones[0] = Point(-1,  0);
-		m_subStones[1] = Point( 0,  0);
-		m_subStones[2] = Point( 0, -1);
-		m_subStones[3] = Point( 1, -1);	
+		m_subStones[0] = PointF(-1.f,  0.f);
+		m_subStones[1] = PointF( 0.f,  0.f);
+		m_subStones[2] = PointF( 0.f, -1.f);
+		m_subStones[3] = PointF( 1.f, -1.f);	
 	}
 	// The z Stone
 	else if (randNum == 3)
 	{
-		m_subStones[0] = Point(-1, -1);
-		m_subStones[1] = Point( 0, -1);
-		m_subStones[2] = Point( 0,  0);
-		m_subStones[3] = Point (1,  0);		
+		m_subStones[0] = PointF(-1.f, -1.f);
+		m_subStones[1] = PointF( 0.f, -1.f);
+		m_subStones[2] = PointF( 0.f,  0.f);
+		m_subStones[3] = PointF( 1.f,  0.f);		
 	}
 	// The T Stone
 	else if (randNum == 4)
 	{
-		m_subStones[0] = Point(-1,  0);
-		m_subStones[1] = Point( 0,  0);
-		m_subStones[2] = Point( 0, -1);
-		m_subStones[3] = Point (1,  0);		
+		m_subStones[0] = PointF(-1.f,  0.f);
+		m_subStones[1] = PointF( 0.f,  0.f);
+		m_subStones[2] = PointF( 0.f, -1.f);
+		m_subStones[3] = PointF( 1.f,  0.f);		
 	}
 	// The I Stone
 	else if (randNum == 5)
 	{
-		m_subStones[0] = Point(-1,  0);
-		m_subStones[1] = Point( 0,  0);
-		m_subStones[2] = Point( 0, -1);
-		m_subStones[3] = Point (1,  0);		
+		m_subStones[0] = PointF(-1.f,  0.f);
+		m_subStones[1] = PointF( 0.f,  0.f);
+		m_subStones[2] = PointF( 0.f, -1.f);
+		m_subStones[3] = PointF( 1.f,  0.f);		
 	}
 	m_positionOld = m_position;
 	for (int i = 0; i != 4; i++)
 	{
 		m_subStonesOld[i] = m_subStones[i];		
-		cout << "subStone[" << i << "] = " << m_subStonesOld[i].getX() << "|" <<
-			m_subStonesOld[i].getY() << endl;
 	}
 
 }
 
-Stone::Stone(const int midPointX, const int midPointY,
-	      const int subStone1X, const int subStone1Y,
-	      const int subStone2X, const int subStone2Y,
-	      const int subStone3X, const int subStone3Y,
-	      const int subStone4X, const int subStone4Y):
+Stone::Stone(const float midPointX, const float midPointY,
+	      const float subStone1X, const float subStone1Y,
+	      const float subStone2X, const float subStone2Y,
+	      const float subStone3X, const float subStone3Y,
+	      const float subStone4X, const float subStone4Y):
 	Drawable('#')
 {
-	m_position = Point(midPointX, midPointY);
-	m_subStones[0] = Point(subStone1X, subStone1Y);
-	m_subStones[1] = Point(subStone2X, subStone2Y);
-	m_subStones[2] = Point(subStone3X, subStone3Y);
-	m_subStones[3] = Point(subStone4X, subStone4Y);
+	m_position = PointF(midPointX, midPointY);
+	m_subStones[0] = PointF(subStone1X, subStone1Y);
+	m_subStones[1] = PointF(subStone2X, subStone2Y);
+	m_subStones[2] = PointF(subStone3X, subStone3Y);
+	m_subStones[3] = PointF(subStone4X, subStone4Y);
 }
 
 int Stone::getLeft() const
 {	
-	int x = m_subStones[0].getX();
+	int x = m_subStones[0].getIntX();
 	for (int i = 1; i != 4; i++)
 	{
-		if (m_subStones[i].getX() < x)
-			x = m_subStones[i].getX();	
+		if (m_subStones[i].getIntX() < x)
+			x = m_subStones[i].getIntX();	
 	}
-	return m_position.getX() + x;	
+	return m_position.getIntX() + x;	
 }
 
 int Stone::getRight() const
 {
-	int x = m_subStones[0].getX();
+	int x = m_subStones[0].getIntX();
 	for (int i = 1; i != 4; i++)
 	{
-		if (m_subStones[i].getX() > x)
-			x = m_subStones[i].getX();	
+		if (m_subStones[i].getIntX() > x)
+			x = m_subStones[i].getIntX();	
 	}
-	return m_position.getX() + x;	
+	return m_position.getIntX() + x;	
 }
 
 int Stone::getTop() const
 {
-	int y = m_subStones[0].getY();
+	int y = m_subStones[0].getIntY();
 	for (int i = 1; i != 4; i++)
 	{
-		if (m_subStones[i].getY() < y)
-			y = m_subStones[i].getY();	
+		if (m_subStones[i].getIntY() < y)
+			y = m_subStones[i].getIntY();	
 	}
-	return m_position.getY() + y;	
+	return m_position.getIntY() + y;	
 }
 
 int Stone::getBottom() const
 {
-	int y = m_subStones[0].getY();
+	int y = m_subStones[0].getIntY();
 	for (int i = 1; i != 4; i++)
 	{
-		if (m_subStones[i].getY() > y)
-			y = m_subStones[i].getY();	
+		if (m_subStones[i].getIntY() > y)
+			y = m_subStones[i].getIntY();	
 	}
-	return m_position.getY() + y;	
+	return m_position.getIntY() + y;	
 }
 
-void Stone::fillWithGlobalPoints(Point points[4]) const
+void Stone::fillWithGlobalPoints(PointF points[4]) const
 {
 	for (int i = 0; i != 4; i++)
 	{
@@ -162,53 +159,56 @@ void Stone::moveDown()
 	saveOldPosition();
 	// Remember: Our coordinate system get postive to the down
 	// (inverse y-axses) so we have to add 1
-	m_position.setY(m_position.getY() + 1);
+	m_position.setY(m_position.getY() + 1.f);
 }
 
 void Stone::moveLeft()
 {
 	saveOldPosition();
-	m_position.setX(m_position.getX() - 1);
+	m_position.setX(m_position.getX() - 1.f);
 }
 
 void Stone::moveRight()
 {
 	saveOldPosition();
-	m_position.setX(m_position.getX() + 1);
+	m_position.setX(m_position.getX() + 1.f);
 }
 
 void Stone::rotateRight()
 {
 	saveOldPosition();
-	for (Point &point : m_subStones)
+	for (PointF &point : m_subStones)
 	{
-		point.rotateAround(0, 0, -90.f);	
+		point.rotateAround(m_rotationPoint.getX(), m_rotationPoint.getY(), -90.f);	
 	}
 }
 
 void Stone::rotateLeft()
 {
 	saveOldPosition();
-	for (Point &point : m_subStones)
+	for (PointF &point : m_subStones)
 	{
-		point.rotateAround(0, 0, 90.f);
+		point.rotateAround(m_rotationPoint.getX(), m_rotationPoint.getY(), 90.f);
 	}
 }
 
 void Stone::fillFieldBuffer
 (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const
 {
-	for (Point point : m_subStones)
+	for (PointF point : m_subStones)
 	{
-		int globalPosX = m_position.getX() + point.getX();
-		int globalPosY = m_position.getY() + point.getY();
-		//cout << "GlobalPosX: " << globalPosX << " gloabalPosY: " << globalPosY << endl;
+		/* We have to cast to int because the terminals coordinate system
+		 * only works with real numbers
+	       	*/
+		int globalPosX = m_position.getIntX() + point.getIntX(); 
+		int globalPosY  = m_position.getIntY() + point.getIntY();
+		
 		// Only save 
 		if (globalPosX >= 0 && globalPosX <= world_constants::FIELD_COLUMN &&
 		    globalPosY >= 0 && globalPosY <= world_constants::FIELD_ROW)
 		{			
-			/*
-			 * We have to switch the axes here, because by looping
+			
+			/* We have to switch the axes here, because by looping
 			 * over the 2d array we first go to the row and then loop
 			 * over all columns.
 			 */
@@ -218,11 +218,11 @@ void Stone::fillFieldBuffer
 }
 
 
-bool Stone::isCollidingWithPoint(const Point &point) const
+bool Stone::isCollidingWithPoint(const PointF &point) const
 {	
-	Point subStones[4];
+	PointF subStones[4];
 	this->fillWithGlobalPoints(subStones);
-	for (Point pointSub : subStones)
+	for (PointF pointSub : subStones)
 	{
 		if (pointSub == point)
 			return true;		
