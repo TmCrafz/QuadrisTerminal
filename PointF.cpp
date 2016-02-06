@@ -93,6 +93,11 @@ void PointF::rotateAround(const PointF target, const float angleDegree)
 	rotateAround(target.getX(), target.getY(), angleDegree);
 }
 
+// Compare the positions as real number
+bool PointF::isFullNumberEquals(const PointF &point) const
+{
+	return (this->getIntX() == point.getIntX() && this->getIntY() == point.getIntY());
+}
 
 void PointF::operator=(const PointF &right)
 {
@@ -146,7 +151,7 @@ PointF& PointF::operator-=(const PointF &right)
 	return *this;
 }
 
-bool PointF::operator==(const PointF &right)
+bool PointF::operator==(const PointF &right) const
 {
 	return (this->m_x == right.m_x && this->m_y == right.m_y);
 }

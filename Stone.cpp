@@ -224,7 +224,7 @@ bool Stone::isCollidingWithPoint(const PointF &point) const
 	this->fillWithGlobalPoints(subStones);
 	for (PointF pointSub : subStones)
 	{
-		if (pointSub == point)
+		if (pointSub.isFullNumberEquals(point))
 			return true;		
 	}
 	return false;

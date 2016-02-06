@@ -21,6 +21,8 @@ public:
 	void rotateAround(const float targetPX, const float targetPY, const float angleDegree);
 	void rotateAround(const PointF target, const float  angleDegree);
 
+	// Compare the positions as real number
+	bool isFullNumberEquals(const PointF &point) const;
 
 	void operator=(const PointF &right);
 	PointF operator+(const PointF &right);
@@ -30,7 +32,7 @@ public:
 	PointF operator-(const PointF &right) const;
 	PointF& operator+=(const PointF &right);
 	PointF& operator-=(const PointF &right);
-	bool operator==(const PointF &right);
+	bool operator==(const PointF &right) const;
 };
 
 
