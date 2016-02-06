@@ -30,8 +30,7 @@ void Stone::initStone()
 
 	
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
-	// (At the moment only 5)
-	int randNum = rand() % 6;
+	int randNum = rand() % 7;
 	// The L Stone
 	if (randNum == 0)
 	{
@@ -78,9 +77,22 @@ void Stone::initStone()
 		m_subStones[0] = PointF(-2.f,  0.f);
 		m_subStones[1] = PointF(-1.f,  0.f);
 		m_subStones[2] = PointF( 0.f,  0.f);
-		m_subStones[3] = PointF( 1.f,  0.f);		
+		m_subStones[3] = PointF( 1.f,  0.f);
+		// The rotation point have to be shifted because the
+		// because the midpoint is not at 0|0 by the I Stone 
 		m_rotationPoint = PointF(-0.5f, -0.5f);
 	}
+	// The O Stone
+	else if (randNum == 6)
+	{
+		m_subStones[0] = PointF(-1.f,  0.f);
+		m_subStones[1] = PointF( 0.f,  0.f);
+		m_subStones[2] = PointF(-1.f, -1.f);
+		m_subStones[3] = PointF( 0.f, -1.f);
+		// Same as by the I Stone, the rotation point have to be shifted
+		m_rotationPoint = PointF(-0.5f, -0.5f);	
+	}
+	
 	m_positionOld = m_position;
 	for (int i = 0; i != 4; i++)
 	{
