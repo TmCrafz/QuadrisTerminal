@@ -35,7 +35,6 @@ void Game::run()
 		removeFullRows();
 		if (isStepTimeLeft(timeStart))
 		{
-			cout << "Step Time left" << endl;
 			updateTimeAffected();
 			m_draw = true;
 			timeStart = CLOCK::now();	
@@ -240,7 +239,7 @@ void Game::draw()
 		fallenStone.fillFieldBuffer(m_fieldBuffer);
 	}
 
-	cout << "============" << endl;
+	cout << "\n\n\n\n\n\n\n";
 	for (int i = 0; i != world_constants::FIELD_ROW; i++)
 	{	
 		cout << "#";		
@@ -251,7 +250,6 @@ void Game::draw()
 		cout << "#" << endl;
 	}
 	cout << "############" << endl;
-
 }
 
 
