@@ -52,6 +52,8 @@ private:
 	void cleanFullRow(const int row);
 
 	void removeFullRows();
+	
+	bool isGameOver();
 
 	void spawnStone();
 

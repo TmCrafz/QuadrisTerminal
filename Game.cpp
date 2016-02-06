@@ -179,6 +179,11 @@ void Game::removeFullRows()
 	
 }
 
+bool Game::isGameOver()
+{
+	return m_currentStone.getBottom() <= 0;
+}
+
 void Game::spawnStone()
 {
 	m_currentStone.respawn();
@@ -199,7 +204,10 @@ void Game::updateTimeAffected()
 	if (isCurrentStoneColliding()) 
 	{
 		m_currentStone.restoreOldPosition();
-		
+		if (isGameOver())
+		{
+			m_running = false;
+		}
 		PointF subStones[4];
 		m_currentStone.fillWithGlobalPoints(subStones);
 		for (PointF subStone : subStones)
@@ -246,7 +254,14 @@ void Game::commandReaction()
 		m_command = '\0';	
 		// Restore the Stones old Position if it is colliding with something
 		if (isCurrentStoneColliding())
+		{		
 			m_currentStone.restoreOldPosition();
+			if (isGameOver())
+			{
+				m_running = false;
+			}
+		}
+		
 		// Something has changed so the field should redraw
 		m_draw = true;
 	}
