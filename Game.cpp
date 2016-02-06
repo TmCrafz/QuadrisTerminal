@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <cmath>
 #include "Game.h"
 #include "WorldConstants.h"
 #include "InputHelper.h"
@@ -12,12 +13,17 @@ using namespace std;
 Game::Game():
 m_running(true),
 m_draw(true),
-m_standardStepTime(1000),
+m_standardStepTime(1100),
 m_currentStepTime(m_standardStepTime),
-m_stepTimeFast(200),
+m_stepTimeFast(50),
 m_currentStone(),
-m_command('\0')
+m_command('\0'),
+m_removedLinesLevel(0),
+m_removedLinesTotal(0),
+m_level(9),
+m_score(0)
 {
+	m_standardStepTime = (1000 - (m_level * 100)) + 100;
 }
 
 void Game::run()
@@ -93,48 +99,72 @@ void Game::checkInput()
 	}
 }
 
+void Game::cleanFullRow(const int row)
+{
+	
+	auto remove_st = remove_if(m_fallenStones.begin(), m_fallenStones.end(),
+	[row](FallenStone &fallenStone)
+	{
+		return fallenStone.getPosition().getIntY() == row; 
+	});	
+	m_fallenStones.erase(remove_st, m_fallenStones.end());
+	// Now move the Stone down which are over the deleted line
+	for (FallenStone &fallenStone : m_fallenStones)
+	{
+		if (fallenStone.getPosition().getIntY() < row)
+		{
+			fallenStone.moveDown();		
+		}			
+	}
+}
+
 void Game::removeFullRows()
 {
-	// The Amount of fallen stones in the rows
-	unsigned int fallenStonesRow[world_constants::FIELD_ROW] = { 0 };
-	for (FallenStone fallenStone : m_fallenStones)
+	// Count the remove lines so we can later calculate the score
+	unsigned int removedLines = 0;
+	bool rowDeletion = true;
+	while (rowDeletion)
 	{
-		// Increase the number of the row where the fallen stone is
-		(fallenStonesRow[fallenStone.getPosition().getIntY()])++;	
-	}
-	bool rowDeleted = false;
-	for (int i = 0; i != world_constants::FIELD_ROW; i++)
-	{
-
-		int actualRow = i;
-		// Remove the stones which are in a full row
-		if (fallenStonesRow[actualRow] == world_constants::FIELD_COLUMN)
+		rowDeletion = false;
+		// The Amount of fallen stones in the rows
+		unsigned int fallenStonesRow[world_constants::FIELD_ROW] = { 0 };
+		for (FallenStone fallenStone : m_fallenStones)
 		{
-			auto remove_st = remove_if(m_fallenStones.begin(), m_fallenStones.end(),
-				[actualRow](FallenStone &fallenStone)
-				{
-					return fallenStone.getPosition().getIntY() == actualRow; 
-				});	
-			m_fallenStones.erase(remove_st, m_fallenStones.end());
-			// Now move the Stone down which are over the deleted line
-			for (FallenStone &fallenStone : m_fallenStones)
+			// Increase the number of the row where the fallen stone is
+			(fallenStonesRow[fallenStone.getPosition().getIntY()])++;	
+		}
+		for (int i = 0; i != world_constants::FIELD_ROW; i++)
+		{
+		
+			int actualRow = i;
+			// Remove the stones which are in a full row
+			if (fallenStonesRow[actualRow] == world_constants::FIELD_COLUMN)
 			{
-				if (fallenStone.getPosition().getIntY() < actualRow)
-				{
-					fallenStone.moveDown();		
-				}			
-			}
-			// Set the row Deleted to true and break the loop so we can restart
-			// checking if a row is full, because by moving down now there can be
-			// new full lines
-			rowDeleted = true;
-			break;
+				cleanFullRow(actualRow);
+				// Set the row Deleted to true and break the loop so we can restart
+				// checking if a row is full, because by moving down now there can be
+				// new full lines
+				rowDeletion = true;
+				removedLines++;
+				break;
+			}	
 		}	
 	}
-	if (rowDeleted)
+	if (removedLines > 0)
 	{
-		removeFullRows();
+		m_removedLinesLevel += removedLines;
+		m_removedLinesTotal += removedLines;
+		if (m_removedLinesLevel >= 10 && m_level <= 10)
+		{
+			m_level++;
+			m_standardStepTime = (1000 - (m_level * 100)) + 100;
+			m_currentStepTime = m_standardStepTime;
+			// Add the rest lines to the actual level lines
+			m_removedLinesLevel = m_removedLinesLevel % 10;
+		}
+		m_score += (40 * (m_level + 1) * pow(2 , removedLines)); 
 	}
+	
 }
 
 void Game::spawnStone()
@@ -247,9 +277,13 @@ void Game::draw()
 		{
 			cout << m_fieldBuffer[i][j];			
 		}
-		cout << "#" << endl;
+		cout << "#";
+		cout << endl;
 	}
 	cout << "############" << endl;
+	cout << " Score: " << m_score << endl;  
+	cout << " Level: " << m_level << endl;
+	cout << " Lines: " << m_removedLinesTotal << endl;
 }
 
 

@@ -37,8 +37,7 @@ private:
 	 */
 	PointF m_positionOld;
 	PointF m_subStonesOld[4];
-	// The char which is drawn for a point
-	//char m_shape;
+
 public:
 
 	Stone();

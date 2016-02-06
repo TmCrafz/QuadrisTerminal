@@ -20,7 +20,7 @@ private:
 	bool m_draw;
 	// The current standard step time in miliseconds
 	int m_standardStepTime;
-	// The current used step time (the standard step time or the fats step time)
+	// The current used step time (the standard step time or the fast step time)
 	int m_currentStepTime;
 	// The player can manually increase the Step Time so the stone falls faster
 	const int m_stepTimeFast;
@@ -30,6 +30,14 @@ private:
 	char m_command;
 	// Store the elements which get drawn later
 	char m_fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN];
+
+	// The removed lines since the the player is in the current level
+	unsigned int m_removedLinesLevel;
+
+	unsigned int m_removedLinesTotal;
+	unsigned int m_level;
+	unsigned int m_score;
+
 public:
 	Game();
 	void run();
@@ -40,6 +48,8 @@ private:
 	
 	void checkInput();
 	
+	void cleanFullRow(const int row);
+
 	void removeFullRows();
 
 	void spawnStone();
