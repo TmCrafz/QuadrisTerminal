@@ -75,10 +75,11 @@ void Stone::initStone()
 	// The I Stone
 	else if (randNum == 5)
 	{
-		m_subStones[0] = PointF(-1.f,  0.f);
-		m_subStones[1] = PointF( 0.f,  0.f);
-		m_subStones[2] = PointF( 0.f, -1.f);
+		m_subStones[0] = PointF(-2.f,  0.f);
+		m_subStones[1] = PointF(-1.f,  0.f);
+		m_subStones[2] = PointF( 0.f,  0.f);
 		m_subStones[3] = PointF( 1.f,  0.f);		
+		m_rotationPoint = PointF(-0.5f, -0.5f);
 	}
 	m_positionOld = m_position;
 	for (int i = 0; i != 4; i++)
