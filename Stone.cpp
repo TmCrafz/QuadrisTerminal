@@ -206,7 +206,8 @@ void Stone::rotateLeft()
 }
 
 void Stone::fillFieldBuffer
-(char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const
+(const int startX, const int startY,
+ char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const
 {
 	for (PointF point : m_subStones)
 	{
@@ -225,7 +226,7 @@ void Stone::fillFieldBuffer
 			 * over the 2d array we first go to the row and then loop
 			 * over all columns.
 			 */
-			fieldBuffer[globalPosY][globalPosX] = m_shape;;
+			fieldBuffer[startY + globalPosY][startX + globalPosX] = m_shape;
 		}
 	}
 }

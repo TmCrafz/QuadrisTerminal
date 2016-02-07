@@ -17,6 +17,7 @@ m_standardStepTime(1100),
 m_currentStepTime(m_standardStepTime),
 m_stepTimeFast(50),
 m_currentStone(),
+m_nextStone(),
 m_command('\0'),
 m_removedLinesLevel(0),
 m_removedLinesTotal(0),
@@ -278,7 +279,7 @@ void Game::draw()
 		}
 	}
 	
-	m_currentStone.fillFieldBuffer(m_fieldBuffer);
+	m_currentStone.fillFieldBuffer(4, 0, m_fieldBuffer);
 	
 	// Draw fallen SubStones
 	/*
@@ -289,7 +290,7 @@ void Game::draw()
 	*/
 	for (FallenStone fallenStone : m_fallenStones)
 	{
-		fallenStone.fillFieldBuffer(m_fieldBuffer);
+		fallenStone.fillFieldBuffer(0, 0, m_fieldBuffer);
 	}
 
 	cout << "\n\n\n\n\n\n\n";

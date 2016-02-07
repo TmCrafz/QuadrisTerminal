@@ -14,7 +14,8 @@ public:
 	void setShape(const char shape);
 
 	virtual void fillFieldBuffer
-	    (char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const;
+	    (const int startX, const int startY,
+	     char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const;
 
 
 };

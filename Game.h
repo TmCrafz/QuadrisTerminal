@@ -21,12 +21,16 @@ private:
 	bool m_draw;
 	// The current standard step time in miliseconds
 	int m_standardStepTime;
-	// The current used step time (the standard step time or the fast step time)
+
 	int m_currentStepTime;
 	// The player can manually increase the Step Time so the stone falls faster
 	const int m_stepTimeFast;
+	
+	// The actual Stone which are under the players controll
 	Stone m_currentStone;
-	//std::vector<Point> m_stones;
+	// The next Stone
+	Stone m_nextStone;
+
 	std::vector<FallenStone> m_fallenStones;
 	char m_command;
 	// Store the elements which get drawn later
