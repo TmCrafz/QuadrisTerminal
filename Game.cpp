@@ -9,6 +9,7 @@
 #include "InputHelper.h"
 
 using namespace std;
+using namespace world_constants;
 
 Game::Game():
 m_running(true),
@@ -268,32 +269,67 @@ void Game::commandReaction()
 	}
 }
 
+void Game::clearScreen()
+{
+	for (int i = 0; i != 50; i++)
+	{
+		cout << endl;
+	}
+}
+
 void Game::draw() 
 {
-	// Where no Stone is there is a "."
-	for (int i = 0; i != world_constants::FIELD_ROW; i++)
+	clearScreen();
+	cout << "########################################" << endl;
+	cout << "1234567890123456789012345678901234567890" << endl;
+
+
+	for (int i = 0; i != world_constants::SCREEN_HEIGHT; i++)
 	{
-		for (int j = 0; j != world_constants::FIELD_COLUMN; j++)
+		for (int j = 0; j != world_constants::SCREEN_WIDTH; j++)
 		{
-			m_fieldBuffer[i][j] = '.';
+			m_fieldBuffer[i][j] = '*';
+		
 		}
 	}
 	
-	m_currentStone.fillFieldBuffer(4, 0, m_fieldBuffer);
-	
-	// Draw fallen SubStones
-	/*
-	for (Point point : m_stones)
+	// Draw the Game field with borders and a ground
+	for (int i = FIELD_START_Y; i != FIELD_START_Y + FIELD_WHOLE_HEIGHT; i++)
 	{
-		m_fieldBuffer[point.getY()][point.getX()] = '#';	
+		for (int j = FIELD_START_X; j != FIELD_START_X + FIELD_WHOLE_WIDTH; j++)
+		{	
+			// Draw the ground
+			if (i == FIELD_START_Y + FIELD_WHOLE_HEIGHT - 1)
+			{
+				 m_fieldBuffer[i][j] = '#';
+			}
+			// Draw the borders left and right in the field
+			else if (j == FIELD_START_X || j == FIELD_START_X + FIELD_WHOLE_WIDTH - 1)
+			{
+				m_fieldBuffer[i][j] = '#';			
+			}
+			// Draw the empty field
+			else
+			{
+				m_fieldBuffer[i][j] =  '.';
+			}
+		}
+		
 	}
-	*/
+	// FIELD_START_X + 1 because we have a border with a with of one, 
+	// so start after the left border
+	m_currentStone.fillFieldBuffer(FIELD_START_X + 1, FIELD_START_Y, m_fieldBuffer);
+	
+
+	
+	// Draw the fallen Stones
 	for (FallenStone fallenStone : m_fallenStones)
 	{
-		fallenStone.fillFieldBuffer(0, 0, m_fieldBuffer);
+		fallenStone.fillFieldBuffer
+			(FIELD_START_X + 1, FIELD_START_Y, 
+			 m_fieldBuffer);
 	}
-
-	cout << "\n\n\n\n\n\n\n";
+	/*
 	for (int i = 0; i != world_constants::FIELD_ROW; i++)
 	{	
 		cout << "#";		
@@ -308,6 +344,20 @@ void Game::draw()
 	cout << " Score: " << m_score << endl;  
 	cout << " Level: " << m_level << endl;
 	cout << " Lines: " << m_removedLinesTotal << endl;
+	*/
+	// Draw all
+	for (int i = 0; i != world_constants::SCREEN_HEIGHT; i++)
+	{
+		for (int j = 0; j != world_constants::SCREEN_WIDTH; j++)
+		{
+			cout << m_fieldBuffer[i][j];		
+		}
+		cout << endl;
+	}
+
+
+	
+
 }
 
 

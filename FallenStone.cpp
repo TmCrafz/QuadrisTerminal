@@ -29,7 +29,7 @@ void FallenStone::setPosition(const PointF position)
 
 void FallenStone::fillFieldBuffer
 	    (const int startX, const int startY, 
-	     char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const
+	     char fieldBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const
 {
 	fieldBuffer[startY + m_position.getIntY()][startX + m_position.getIntX()] = m_shape;
 }

@@ -34,7 +34,7 @@ private:
 	std::vector<FallenStone> m_fallenStones;
 	char m_command;
 	// Store the elements which get drawn later
-	char m_fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN];
+	char m_fieldBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH];
 
 	// The removed lines since the the player is in the current level
 	unsigned int m_removedLinesLevel;
@@ -64,6 +64,8 @@ private:
 	void updateTimeAffected();
 	
 	void commandReaction();
+	
+	void clearScreen();
 
 	void draw();
 };

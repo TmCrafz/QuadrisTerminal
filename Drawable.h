@@ -15,7 +15,8 @@ public:
 
 	virtual void fillFieldBuffer
 	    (const int startX, const int startY,
-	     char fieldBuffer[world_constants::FIELD_ROW][world_constants::FIELD_COLUMN]) const;
+	     char fieldBuffer
+	          [world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const;
 
 
 };
