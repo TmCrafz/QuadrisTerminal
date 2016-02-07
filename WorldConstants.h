@@ -17,6 +17,9 @@ namespace world_constants
 	// Where the play field begins
 	static const short FIELD_START_X = 21;
 	static const short FIELD_START_Y = 0;
+	// Statistics
+	static const short STAT_START_X = 3;
+	static const short STAT_START_Y = 15;
 }
 
 #endif //!WORLDCONSTANTS_H

@@ -1,6 +1,7 @@
 #ifndef GAME_CPP
 #define GAME_CPP
 #include <iostream>
+#include <string>
 #include <cstdlib>
 #include <ctime>
 #include <cmath>
@@ -13,6 +14,7 @@ using namespace world_constants;
 
 Game::Game():
 m_running(true),
+m_paused(false),
 m_draw(true),
 m_standardStepTime(1100),
 m_currentStepTime(m_standardStepTime),
@@ -22,7 +24,7 @@ m_nextStone(),
 m_command('\0'),
 m_removedLinesLevel(0),
 m_removedLinesTotal(0),
-m_level(9),
+m_level(0),
 m_score(0)
 {
 	m_standardStepTime = (1000 - (m_level * 100)) + 100;
@@ -99,6 +101,7 @@ bool Game::isStepTimeLeft(CLOCK::time_point timeStart) const
 
 void Game::checkInput()
 {
+	m_command = '\0';
 	if (InputHelper::kbhit())
 	{
 		m_command = InputHelper::getch();		
@@ -280,35 +283,50 @@ void Game::clearScreen()
 void Game::draw() 
 {
 	clearScreen();
-	cout << "########################################" << endl;
-	cout << "1234567890123456789012345678901234567890" << endl;
-
 
 	for (int i = 0; i != world_constants::SCREEN_HEIGHT; i++)
 	{
 		for (int j = 0; j != world_constants::SCREEN_WIDTH; j++)
 		{
-			m_fieldBuffer[i][j] = '*';
+			m_fieldBuffer[i][j] = ' ';
 		
 		}
 	}
 	
-	// Draw the Game field with borders and a ground
+	// Store the statistics in buffer
+	// First store all string in a array which should drawm later
+	string stats[3] = { 
+		"Score: " + to_string(m_score),
+		"Lines: " + to_string(m_removedLinesTotal),
+		"Level: " + to_string(m_level)
+	};
+	// Now we have to convert then to chars so we can store then in the fieldBuffer
+	for (int i = 0; i != 3; i++)
+	{
+		string stat = stats[i];
+		for (size_t j = 0; j != stat.size(); j++)
+		{
+			char c = stat[j];
+			m_fieldBuffer[STAT_START_Y + i][STAT_START_X + j] = c; 			
+		}
+	}
+
+	// Store the Game field with borders and the ground in buffer
 	for (int i = FIELD_START_Y; i != FIELD_START_Y + FIELD_WHOLE_HEIGHT; i++)
 	{
 		for (int j = FIELD_START_X; j != FIELD_START_X + FIELD_WHOLE_WIDTH; j++)
 		{	
-			// Draw the ground
+			// Store the ground
 			if (i == FIELD_START_Y + FIELD_WHOLE_HEIGHT - 1)
 			{
 				 m_fieldBuffer[i][j] = '#';
 			}
-			// Draw the borders left and right in the field
+			// Store the borders left and right in the field
 			else if (j == FIELD_START_X || j == FIELD_START_X + FIELD_WHOLE_WIDTH - 1)
 			{
 				m_fieldBuffer[i][j] = '#';			
 			}
-			// Draw the empty field
+			// Store the empty field
 			else
 			{
 				m_fieldBuffer[i][j] =  '.';
@@ -322,30 +340,15 @@ void Game::draw()
 	
 
 	
-	// Draw the fallen Stones
+	// Store the fallen Stones in buffer
 	for (FallenStone fallenStone : m_fallenStones)
 	{
 		fallenStone.fillFieldBuffer
-			(FIELD_START_X + 1, FIELD_START_Y, 
-			 m_fieldBuffer);
+			(FIELD_START_X + 1, FIELD_START_Y, m_fieldBuffer);
 	}
-	/*
-	for (int i = 0; i != world_constants::FIELD_ROW; i++)
-	{	
-		cout << "#";		
-		for (int j = 0; j != world_constants::FIELD_COLUMN; j++)
-		{
-			cout << m_fieldBuffer[i][j];			
-		}
-		cout << "#";
-		cout << endl;
-	}
-	cout << "############" << endl;
-	cout << " Score: " << m_score << endl;  
-	cout << " Level: " << m_level << endl;
-	cout << " Lines: " << m_removedLinesTotal << endl;
-	*/
-	// Draw all
+
+
+	// Draw all the things in the buffer to the screen
 	for (int i = 0; i != world_constants::SCREEN_HEIGHT; i++)
 	{
 		for (int j = 0; j != world_constants::SCREEN_WIDTH; j++)
@@ -354,10 +357,6 @@ void Game::draw()
 		}
 		cout << endl;
 	}
-
-
-	
-
 }
 
 
