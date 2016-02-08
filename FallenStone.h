@@ -16,9 +16,9 @@ public:
 	PointF getPosition() const;
 	void setPosition(const PointF position);
 	
-	virtual void fillFieldBuffer
+	virtual void fillScreenBuffer
 	    (const int startX, const int startY, 
-	     char fieldBuffer
+	     char screenBuffer
 	     [world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const;
 
 	void moveDown();

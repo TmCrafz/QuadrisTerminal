@@ -71,9 +71,9 @@ public:
 	void rotateLeft();
 	// Store the Stone in the buffer so we can later draw it with
 	// all the other Stones
-	virtual void fillFieldBuffer
+	virtual void fillScreenBuffer
 	    (const int startX, const int ctartY, 
-	     char fieldBuffer
+	     char screenBuffer
 	     [world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const;
 	
 	bool isCollidingWithPoint(const PointF &point) const;

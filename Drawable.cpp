@@ -25,9 +25,9 @@ void Drawable::setShape(const char shape)
 	m_shape = shape;
 }
 
-void Drawable::fillFieldBuffer
+void Drawable::fillScreenBuffer
 (const int startX, const int startY,
- char fieldBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const
+ char screenBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const
 {
 	// Do nothing by default
 }

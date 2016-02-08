@@ -13,9 +13,9 @@ public:
 	char getShape() const;
 	void setShape(const char shape);
 
-	virtual void fillFieldBuffer
+	virtual void fillScreenBuffer
 	    (const int startX, const int startY,
-	     char fieldBuffer
+	     char screenBuffer
 	          [world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const;
 
 
