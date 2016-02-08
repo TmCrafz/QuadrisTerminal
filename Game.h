@@ -66,6 +66,16 @@ private:
 	void commandReaction();
 	
 	void clearScreen();
+	// Draw methods
+	void drawStats();
+
+	void drawNextStone();
+
+	void drawGameField();
+	
+	void drawFallenStones();
+	// At the drawToScreen method  all the "drawn" things comes really to the screen	
+	void drawToScreen();
 
 	void draw();
 };

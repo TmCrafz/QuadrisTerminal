@@ -283,20 +283,8 @@ void Game::clearScreen()
 	}
 }
 
-void Game::draw() 
+void Game::drawStats()
 {
-	clearScreen();
-
-	for (int i = 0; i != world_constants::SCREEN_HEIGHT; i++)
-	{
-		for (int j = 0; j != world_constants::SCREEN_WIDTH; j++)
-		{
-			m_fieldBuffer[i][j] = ' ';
-		
-		}
-	}
-	
-	// Store the statistics in buffer
 	// First store all string in a array which should drawm later
 	string stats[3] = { 
 		"Score: " + to_string(m_score),
@@ -313,7 +301,10 @@ void Game::draw()
 			m_fieldBuffer[STAT_START_Y + i][STAT_START_X + j] = c; 			
 		}
 	}
-	
+}
+
+void Game::drawNextStone()
+{
 	// Store the Next Stone Box in buffer
 	for (int y = NEXTSTONE_BOX_START_Y; y != NEXTSTONE_BOX_START_Y + 6; y++)
 	{
@@ -329,59 +320,81 @@ void Game::draw()
 	//Store the Next Stone in buffer
 	m_nextStone.fillFieldBuffer
 		(NEXTSTONE_BOX_START_X + 4, NEXTSTONE_BOX_START_Y + 3, m_fieldBuffer);	
+}
 
-	
-	
+void Game::drawGameField()
+{
 	// Store the Game field with borders and the ground in buffer
-	for (int i = FIELD_START_Y; i != FIELD_START_Y + FIELD_WHOLE_HEIGHT; i++)
+	for (int y = FIELD_START_Y; y != FIELD_START_Y + FIELD_WHOLE_HEIGHT; y++)
 	{
-		for (int j = FIELD_START_X; j != FIELD_START_X + FIELD_WHOLE_WIDTH; j++)
+		for (int x = FIELD_START_X; x != FIELD_START_X + FIELD_WHOLE_WIDTH; x++)
 		{	
 			// Store the ground
-			if (i == FIELD_START_Y + FIELD_WHOLE_HEIGHT - 1)
+			if (y == FIELD_START_Y + FIELD_WHOLE_HEIGHT - 1)
 			{
-				 m_fieldBuffer[i][j] = '#';
+				 m_fieldBuffer[y][x] = '#';
 			}
 			// Store the borders left and right in the field
-			else if (j == FIELD_START_X || j == FIELD_START_X + FIELD_WHOLE_WIDTH - 1)
+			else if (x == FIELD_START_X || x == FIELD_START_X + FIELD_WHOLE_WIDTH - 1)
 			{
-				m_fieldBuffer[i][j] = '#';			
+				m_fieldBuffer[y][x] = '#';			
 			}
 			// Store the empty field
 			else
 			{
-				m_fieldBuffer[i][j] =  '.';
+				m_fieldBuffer[y][x] =  '.';
 			}
 		}
-		
 	}
-	// FIELD_START_X + 1 because we have a border with a with of one, 
-	// so start after the left border
-	m_currentStone.fillFieldBuffer(FIELD_START_X + 1, FIELD_START_Y, m_fieldBuffer);
-	
+}
 
-	
+void Game::drawFallenStones()
+{
 	// Store the fallen Stones in buffer
 	for (FallenStone fallenStone : m_fallenStones)
 	{
 		fallenStone.fillFieldBuffer
 			(FIELD_START_X + 1, FIELD_START_Y, m_fieldBuffer);
 	}
+}
 
-
+void Game::drawToScreen()
+{
 	// Draw all the things in the buffer to the screen
-	for (int i = 0; i != world_constants::SCREEN_HEIGHT; i++)
+	for (int y = 0; y != world_constants::SCREEN_HEIGHT; y++)
 	{
-		for (int j = 0; j != world_constants::SCREEN_WIDTH; j++)
+		for (int x = 0; x != world_constants::SCREEN_WIDTH; x++)
 		{
-			cout << m_fieldBuffer[i][j];		
+			cout << m_fieldBuffer[y][x];		
 		}
 		cout << endl;
 	}
 }
 
+void Game::draw() 
+{
+	clearScreen();
+
+	for (int i = 0; i != world_constants::SCREEN_HEIGHT; i++)
+	{
+		for (int j = 0; j != world_constants::SCREEN_WIDTH; j++)
+		{
+			m_fieldBuffer[i][j] = ' ';
+		
+		}
+	}
+	
+	// Store the statistics in buffer
+	drawStats();		
+	drawNextStone();	
+	drawGameField();	
+	drawFallenStones();
+	// FIELD_START_X + 1 because we have a border with a with of one, 
+	// so start after the left border
+	m_currentStone.fillFieldBuffer(FIELD_START_X + 1, FIELD_START_Y, m_fieldBuffer);
+	// Bring all the "drawn" things to the screen
+	drawToScreen();
+}
 
 #endif // !GAME_CPP
-
-
 
