@@ -41,7 +41,7 @@ private:
 public:
 
 	Stone();
-	//~Stone();	
+
 	Stone(const float midPointX, const float midPointY,
 	      const float subStone1X, const float subStone1Y,
 	      const float subStone2X, const float subStone2Y,
@@ -49,8 +49,10 @@ public:
 	      const float subStone4X, const float subStone4Y);
 
 	// Set the Stone to the default point and choose a new Stone sort
-	void respawn();
-	
+	void spawn();
+	// Set the field start position
+	void toFieldStartPos();
+
 	// Get the position of the specific axe of the point which is most in the
 	// specic direction
 	int getLeft() const;

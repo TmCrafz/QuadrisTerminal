@@ -27,6 +27,7 @@ m_removedLinesTotal(0),
 m_level(0),
 m_score(0)
 {
+	m_currentStone.toFieldStartPos();
 	m_standardStepTime = (1000 - (m_level * 100)) + 100;
 }
 
@@ -191,7 +192,9 @@ bool Game::isGameOver()
 
 void Game::spawnStone()
 {
-	m_currentStone.respawn();
+	m_currentStone = m_nextStone;
+	m_currentStone.toFieldStartPos();
+	m_nextStone = Stone();
 }
 
 void Game::updateTimeAffected()
@@ -310,7 +313,25 @@ void Game::draw()
 			m_fieldBuffer[STAT_START_Y + i][STAT_START_X + j] = c; 			
 		}
 	}
+	
+	// Store the Next Stone Box in buffer
+	for (int y = NEXTSTONE_BOX_START_Y; y != NEXTSTONE_BOX_START_Y + 6; y++)
+	{
+		for (int x = NEXTSTONE_BOX_START_X; x != NEXTSTONE_BOX_START_X + 9; x++)
+		{
+			if (x == NEXTSTONE_BOX_START_X || x == NEXTSTONE_BOX_START_X + 8 ||
+					y == NEXTSTONE_BOX_START_Y || y == NEXTSTONE_BOX_START_Y + 5)
+			{
+				m_fieldBuffer[y][x] = '#';
+			}
+		}
+	}	
+	//Store the Next Stone in buffer
+	m_nextStone.fillFieldBuffer
+		(NEXTSTONE_BOX_START_X + 4, NEXTSTONE_BOX_START_Y + 3, m_fieldBuffer);	
 
+	
+	
 	// Store the Game field with borders and the ground in buffer
 	for (int i = FIELD_START_Y; i != FIELD_START_Y + FIELD_WHOLE_HEIGHT; i++)
 	{

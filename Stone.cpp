@@ -5,29 +5,29 @@
 
 using namespace std;
 
-Stone::Stone()
-{
-	initStone();
-}
-/*
-Stone::~Stone() 
-{
-	cout<< "Stone destructor" << endl;
-
-}
-*/
-void Stone::respawn()
+Stone::Stone():
+m_position()
 {
 	initStone();
 }
 
+Stone::Stone(const float midPointX, const float midPointY,
+	      const float subStone1X, const float subStone1Y,
+	      const float subStone2X, const float subStone2Y,
+	      const float subStone3X, const float subStone3Y,
+	      const float subStone4X, const float subStone4Y):
+	Drawable('#')
+{
+	m_position = PointF(midPointX, midPointY);
+	m_subStones[0] = PointF(subStone1X, subStone1Y);
+	m_subStones[1] = PointF(subStone2X, subStone2Y);
+	m_subStones[2] = PointF(subStone3X, subStone3Y);
+	m_subStones[3] = PointF(subStone4X, subStone4Y);
+}
 
 void Stone::initStone()
 {
-	m_position.setX(5.f);
-	m_position.setY(0.f);
 	m_shape = '#';
-
 	
 	// Get random number between 0 and 6, because we have 7 sorts of Stones
 	int randNum = rand() % 7;
@@ -101,18 +101,10 @@ void Stone::initStone()
 
 }
 
-Stone::Stone(const float midPointX, const float midPointY,
-	      const float subStone1X, const float subStone1Y,
-	      const float subStone2X, const float subStone2Y,
-	      const float subStone3X, const float subStone3Y,
-	      const float subStone4X, const float subStone4Y):
-	Drawable('#')
+void Stone::toFieldStartPos()
 {
-	m_position = PointF(midPointX, midPointY);
-	m_subStones[0] = PointF(subStone1X, subStone1Y);
-	m_subStones[1] = PointF(subStone2X, subStone2Y);
-	m_subStones[2] = PointF(subStone3X, subStone3Y);
-	m_subStones[3] = PointF(subStone4X, subStone4Y);
+	m_position.setX(5.f);
+	m_position.setY(0.f);
 }
 
 int Stone::getLeft() const
@@ -216,18 +208,11 @@ void Stone::fillFieldBuffer
 	       	*/
 		int globalPosX = m_position.getIntX() + point.getIntX(); 
 		int globalPosY  = m_position.getIntY() + point.getIntY();
-		
-		// Only save 
-		if (globalPosX >= 0 && globalPosX <= world_constants::FIELD_COLUMN &&
-		    globalPosY >= 0 && globalPosY <= world_constants::FIELD_ROW)
-		{			
-			
-			/* We have to switch the axes here, because by looping
-			 * over the 2d array we first go to the row and then loop
-			 * over all columns.
-			 */
-			fieldBuffer[startY + globalPosY][startX + globalPosX] = m_shape;
-		}
+		/* We have to switch the axes here, because by looping
+		 * over the 2d array we first go to the row and then loop
+		 * over all columns.
+		 */
+		fieldBuffer[startY + globalPosY][startX + globalPosX] = m_shape;
 	}
 }
 

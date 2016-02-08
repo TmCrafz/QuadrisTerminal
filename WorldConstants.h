@@ -15,8 +15,11 @@ namespace world_constants
 	static const short FIELD_ROW = 20;
 
 	// Where the play field begins
-	static const short FIELD_START_X = 21;
+	static const short FIELD_START_X = 16;
 	static const short FIELD_START_Y = 0;
+	// Next Stone
+	static const short NEXTSTONE_BOX_START_X = 3;
+	static const short NEXTSTONE_BOX_START_Y = 4;
 	// Statistics
 	static const short STAT_START_X = 3;
 	static const short STAT_START_Y = 15;
