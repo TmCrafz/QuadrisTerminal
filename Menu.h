@@ -18,6 +18,8 @@ private:
 	void checkInput();
 	
 	virtual void handleInput();
+	
+	virtual void update();
 
 	void draw();
 	

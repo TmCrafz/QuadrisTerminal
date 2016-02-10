@@ -21,6 +21,7 @@ void Menu::run()
 	{
 		checkInput();
 		handleInput();
+		update();
 		draw();
 	}
 }
@@ -35,6 +36,11 @@ void Menu::checkInput()
 }
 
 void Menu::handleInput()
+{
+	// Do nothing by default
+}
+
+void Menu::update()
 {
 	// Do nothing by default
 }
