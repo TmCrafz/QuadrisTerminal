@@ -4,6 +4,9 @@
 
 class MenuMain : public Menu
 {
+private:
+	char m_logo[7][36];
+
 
 public:
 	
@@ -13,6 +16,8 @@ private:
 
 	virtual void handleInput();
 	
+	virtual void update();
+
 	virtual void fillScreenBuffer();
 
 };
