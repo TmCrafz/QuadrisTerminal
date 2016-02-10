@@ -41,9 +41,18 @@ void Menu::handleInput()
 
 void Menu::draw()
 {
+	clearScreen();
 	clearScreenBuffer();
 	fillScreenBuffer();
 	drawToScreen();
+}
+
+void Menu::clearScreen()
+{
+	for (int i = 0; i != 50; i++)
+	{
+		cout << endl;
+	}
 }
 
 void Menu::clearScreenBuffer()

@@ -20,6 +20,8 @@ private:
 	virtual void handleInput();
 
 	void draw();
+	
+	void clearScreen();
 
 	void clearScreenBuffer();
 
