@@ -9,7 +9,7 @@ using namespace world_constants;
 using namespace std;
 
 MenuMain::MenuMain():
-Menu()
+Screen()
 {
 	for (int i = 0; i != 7; i++)
 	{

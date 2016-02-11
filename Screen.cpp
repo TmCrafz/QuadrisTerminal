@@ -1,21 +1,21 @@
-#ifndef MENU_CPP
-#define MENU_CPP
+#ifndef SCREEN_CPP
+#define SCREEN_CPP
 #include <iostream>
-#include "Menu.h"
+#include "Screen.h"
 #include "WorldConstants.h"
 #include "InputHelper.h"
 
 using namespace std;
 using namespace world_constants;
 
-Menu::Menu():
+Screen::Screen():
 m_command('\0'),
 m_running(true)
 {
 }
 
 
-void Menu::run()
+void Screen::run()
 {
 	while(m_running)
 	{
@@ -26,7 +26,7 @@ void Menu::run()
 	}
 }
 
-void Menu::checkInput()
+void Screen::checkInput()
 {
 	m_command = '\0';
 	if (InputHelper::kbhit())
@@ -35,17 +35,17 @@ void Menu::checkInput()
 	}
 }
 
-void Menu::handleInput()
+void Screen::handleInput()
 {
 	// Do nothing by default
 }
 
-void Menu::update()
+void Screen::update()
 {
 	// Do nothing by default
 }
 
-void Menu::draw()
+void Screen::draw()
 {
 	clearScreen();
 	clearScreenBuffer();
@@ -53,7 +53,7 @@ void Menu::draw()
 	drawToScreen();
 }
 
-void Menu::clearScreen()
+void Screen::clearScreen()
 {
 	for (int i = 0; i != 50; i++)
 	{
@@ -61,7 +61,7 @@ void Menu::clearScreen()
 	}
 }
 
-void Menu::clearScreenBuffer()
+void Screen::clearScreenBuffer()
 {
 	for (int y = 0; y != SCREEN_HEIGHT; y++)
 	{
@@ -72,12 +72,12 @@ void Menu::clearScreenBuffer()
 	}
 }
 
-void Menu::fillScreenBuffer()
+void Screen::fillScreenBuffer()
 {
 	// Do nothing by default
 }
 
-void Menu::drawToScreen() const
+void Screen::drawToScreen() const
 {
 	for (int y = 0; y != SCREEN_HEIGHT; y++)
 	{
@@ -89,4 +89,4 @@ void Menu::drawToScreen() const
 	}
 }
 
-#endif // !MENU_CPP
+#endif // !SCREEN_CPP

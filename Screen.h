@@ -1,15 +1,15 @@
-#ifndef MENU_H
-#define MENU_H
+#ifndef SCREEN_H
+#define SCREEN_H
 #include "WorldConstants.h"
 
-class Menu
+class Screen
 {
 protected:
 	char m_screenBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH];
 	char m_command;
 	bool m_running;
 public:
-	Menu();
+	Screen();
 
 	void run();
 	
@@ -33,6 +33,4 @@ private:
 
 };
 
-
-
-#endif // !MENU_H
+#endif // !SCREEN_H

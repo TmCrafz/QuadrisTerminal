@@ -1,8 +1,8 @@
 #ifndef MENUMAIN_H
 #define MENUMAIN_H
-#include "Menu.h"
+#include "Screen.h"
 
-class MenuMain : public Menu
+class MenuMain : public Screen
 {
 private:
 	char m_logo[7][36];
