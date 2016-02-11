@@ -5,14 +5,15 @@
 class MenuMain : public Screen
 {
 private:
-	char m_logo[7][36];
-
-
+	static const int LOGO_HEIGHT = 7;
+	static const int LOGO_WIDTH = 36;
+	char m_logo[LOGO_HEIGHT][LOGO_WIDTH];
 public:
 	
 	MenuMain();
 
 private:
+	void loadLogo();
 
 	virtual void handleInput();
 	

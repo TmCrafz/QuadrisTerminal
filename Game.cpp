@@ -37,7 +37,7 @@ void Game::update()
 	{
 		handleInput();	
 		removeFullRows();
-		if (isStepTimeLeft(m_timeStart))
+		if (isStepTimeLeft())
 		{
 			updateTimeAffected();
 			m_draw = true;
