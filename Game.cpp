@@ -13,15 +13,13 @@ using namespace std;
 using namespace world_constants;
 
 Game::Game():
-m_running(true),
 m_paused(false),
-m_draw(true),
+m_timeStart(CLOCK::now()),
 m_standardStepTime(1100),
 m_currentStepTime(m_standardStepTime),
 m_stepTimeFast(50),
 m_currentStone(),
 m_nextStone(),
-m_command('\0'),
 m_removedLinesLevel(0),
 m_removedLinesTotal(0),
 m_level(0),
@@ -31,35 +29,28 @@ m_score(0)
 	m_standardStepTime = (1000 - (m_level * 100)) + 100;
 }
 
-void Game::run()
+void Game::update()
 {
-	CLOCK::time_point timeStart = CLOCK::now();
-	while (m_running)
+	if (m_command == '0')
+		m_paused = !m_paused;
+	if (!m_paused)
 	{
+		handleInput();	
+		removeFullRows();
+		if (isStepTimeLeft(m_timeStart))
+		{
+			updateTimeAffected();
+			m_draw = true;
+			m_timeStart = CLOCK::now();	
+		}	
 		/* 
 		 * Set the current step time back to its standard so its only
 		 * faster as long the player press the specific key
 		 */
 		m_currentStepTime = m_standardStepTime;
-		checkInput();
-		if (!m_paused)
-		{
-			commandReaction();	
-			removeFullRows();
-			if (isStepTimeLeft(timeStart))
-			{
-				updateTimeAffected();
-				m_draw = true;
-				timeStart = CLOCK::now();	
-			}	
-			if (m_draw)
-			{
-				draw();	
-				m_draw = false;
-			}	
-		
-		}
+
 	}
+
 }
 
 bool Game::isCurrentStoneColliding() const
@@ -100,6 +91,7 @@ bool Game::isStepTimeLeft(CLOCK::time_point timeStart) const
 	return false;
 }
 
+/*
 void Game::checkInput()
 {
 	m_command = '\0';
@@ -116,6 +108,7 @@ void Game::checkInput()
 		}
 	}
 }
+*/
 
 void Game::cleanFullRow(const int row)
 {
@@ -228,7 +221,7 @@ void Game::updateTimeAffected()
 	}
 }
 
-void Game::commandReaction()
+void Game::handleInput()
 {
 	// First check if there was an input
 	if (m_command != '\0')
@@ -275,14 +268,6 @@ void Game::commandReaction()
 	}
 }
 
-void Game::clearScreen()
-{
-	for (int i = 0; i != 50; i++)
-	{
-		cout << endl;
-	}
-}
-
 void Game::drawStats()
 {
 	// First store all string in a array which should drawm later
@@ -298,7 +283,7 @@ void Game::drawStats()
 		for (size_t j = 0; j != stat.size(); j++)
 		{
 			char c = stat[j];
-			m_ScreenBuffer[STAT_START_Y + i][STAT_START_X + j] = c;
+			m_screenBuffer[STAT_START_Y + i][STAT_START_X + j] = c;
 		}
 	}
 }
@@ -313,13 +298,13 @@ void Game::drawNextStone()
 			if (x == NEXTSTONE_BOX_START_X || x == NEXTSTONE_BOX_START_X + 8 ||
 					y == NEXTSTONE_BOX_START_Y || y == NEXTSTONE_BOX_START_Y + 5)
 			{
-				m_ScreenBuffer[y][x] = '#';
+				m_screenBuffer[y][x] = '#';
 			}
 		}
 	}	
 	//Store the Next Stone in buffer
 	m_nextStone.fillScreenBuffer
-		(NEXTSTONE_BOX_START_X + 4, NEXTSTONE_BOX_START_Y + 3, m_ScreenBuffer);	
+		(NEXTSTONE_BOX_START_X + 4, NEXTSTONE_BOX_START_Y + 3, m_screenBuffer);	
 }
 
 void Game::drawGameField()
@@ -332,17 +317,17 @@ void Game::drawGameField()
 			// Store the ground
 			if (y == FIELD_START_Y + FIELD_WHOLE_HEIGHT - 1)
 			{
-				 m_ScreenBuffer[y][x] = '#';
+				m_screenBuffer[y][x] = '#';
 			}
 			// Store the borders left and right in the Screen
 			else if (x == FIELD_START_X || x == FIELD_START_X + FIELD_WHOLE_WIDTH - 1)
 			{
-				m_ScreenBuffer[y][x] = '#';			
+				m_screenBuffer[y][x] = '#';			
 			}
 			// Store the empty Screen
 			else
 			{
-				m_ScreenBuffer[y][x] =  '.';
+				m_screenBuffer[y][x] =  '.';
 			}
 		}
 	}
@@ -354,36 +339,12 @@ void Game::drawFallenStones()
 	for (FallenStone fallenStone : m_fallenStones)
 	{
 		fallenStone.fillScreenBuffer
-			(FIELD_START_X + 1, FIELD_START_Y, m_ScreenBuffer);
+			(FIELD_START_X + 1, FIELD_START_Y, m_screenBuffer);
 	}
 }
 
-void Game::drawToScreen()
+void Game::fillScreenBuffer()
 {
-	// Draw all the things in the buffer to the screen
-	for (int y = 0; y != world_constants::SCREEN_HEIGHT; y++)
-	{
-		for (int x = 0; x != world_constants::SCREEN_WIDTH; x++)
-		{
-			cout << m_ScreenBuffer[y][x];		
-		}
-		cout << endl;
-	}
-}
-
-void Game::draw() 
-{
-	clearScreen();
-
-	for (int i = 0; i != world_constants::SCREEN_HEIGHT; i++)
-	{
-		for (int j = 0; j != world_constants::SCREEN_WIDTH; j++)
-		{
-			m_ScreenBuffer[i][j] = ' ';
-		
-		}
-	}
-	
 	// Store the statistics in buffer
 	drawStats();		
 	drawNextStone();	
@@ -391,9 +352,7 @@ void Game::draw()
 	drawFallenStones();
 	// FIELD_START_X + 1 because we have a border with a with of one, 
 	// so start after the left border
-	m_currentStone.fillScreenBuffer(FIELD_START_X + 1, FIELD_START_Y, m_ScreenBuffer);
-	// Bring all the "drawn" things to the screen
-	drawToScreen();
+	m_currentStone.fillScreenBuffer(FIELD_START_X + 1, FIELD_START_Y, m_screenBuffer);
 }
 
 #endif // !GAME_CPP

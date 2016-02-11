@@ -10,7 +10,8 @@ using namespace world_constants;
 
 Screen::Screen():
 m_command('\0'),
-m_running(true)
+m_running(true),
+m_draw(true)
 {
 }
 
@@ -22,7 +23,10 @@ void Screen::run()
 		checkInput();
 		handleInput();
 		update();
-		draw();
+		if (m_draw)
+		{
+			draw();
+		}
 	}
 }
 
@@ -32,6 +36,10 @@ void Screen::checkInput()
 	if (InputHelper::kbhit())
 	{
 		m_command = InputHelper::getch();
+		if (m_command == 'c')
+		{
+			m_running = false;
+		}
 	}
 }
 
@@ -51,6 +59,7 @@ void Screen::draw()
 	clearScreenBuffer();
 	fillScreenBuffer();
 	drawToScreen();
+	m_draw = false;
 }
 
 void Screen::clearScreen()

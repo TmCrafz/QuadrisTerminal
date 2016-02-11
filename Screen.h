@@ -5,15 +5,18 @@
 class Screen
 {
 protected:
+	// Store the chars which get drawn in drawToScreen method
 	char m_screenBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH];
 	char m_command;
 	bool m_running;
+	// Is true when something has changed, which make it necessary to redraw the Screen
+	bool m_draw;
 public:
 	Screen();
 
 	void run();
 	
-private:
+protected:
 
 	void checkInput();
 	
@@ -27,6 +30,7 @@ private:
 
 	void clearScreenBuffer();
 
+	// Add the chars whicht should get drawn to screen
 	virtual void fillScreenBuffer();
 
 	void drawToScreen() const;
