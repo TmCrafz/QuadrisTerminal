@@ -28,7 +28,7 @@ class Game : public Screen
 private:
 	bool m_paused;
 	
-	
+	// The time since the last regular update	
 	CLOCK::time_point m_timeStart;
 	
 	// The current standard step time in miliseconds
@@ -57,7 +57,7 @@ public:
 private:
 	bool isCurrentStoneColliding() const;
 
-	bool isStepTimeLeft(CLOCK::time_point timeStart) const;
+	bool isStepTimeLeft() const;
 	
 	
 	void cleanFullRow(const int row);

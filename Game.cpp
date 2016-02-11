@@ -43,12 +43,9 @@ void Game::update()
 			m_draw = true;
 			m_timeStart = CLOCK::now();	
 		}	
-		/* 
-		 * Set the current step time back to its standard so its only
-		 * faster as long the player press the specific key
-		 */
+		// Set the current step time back to its standard so its only
+		// faster as long the player press the specific key
 		m_currentStepTime = m_standardStepTime;
-
 	}
 
 }
@@ -68,20 +65,14 @@ bool Game::isCurrentStoneColliding() const
 		{
 			collidingWithFallen = true;
 		}
-		/*
-		if (stone.isCollidingWithStone(m_currentStone))
-		{
-			collidingWithStone = true;
-		}	
-		*/
 	}
 	return collidingWithFallen;
 }
 
-bool Game::isStepTimeLeft(CLOCK::time_point timeStart) const
+bool Game::isStepTimeLeft() const
 {
 	CLOCK::time_point now = CLOCK::now();
-	chrono::duration<float> timeSpan = (now - timeStart);
+	chrono::duration<float> timeSpan = (now - m_timeStart);
 	auto milli = chrono::duration_cast<chrono::milliseconds>(timeSpan);
 	auto time = milli.count();
 	if (time >= m_currentStepTime)
@@ -90,25 +81,6 @@ bool Game::isStepTimeLeft(CLOCK::time_point timeStart) const
 	}
 	return false;
 }
-
-/*
-void Game::checkInput()
-{
-	m_command = '\0';
-	if (InputHelper::kbhit())
-	{
-		m_command = InputHelper::getch();		
-		if (m_command == 'c')
-		{
-			m_running = false;
-		}
-		else if (m_command == '0')
-		{
-			m_paused = !m_paused;
-		}
-	}
-}
-*/
 
 void Game::cleanFullRow(const int row)
 {
