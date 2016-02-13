@@ -203,16 +203,23 @@ void Stone::fillScreenBuffer
 {
 	for (PointF point : m_subStones)
 	{
-		/* We have to cast to int because the terminals coordinate system
-		 * only works with real numbers
-	       	*/
-		int globalPosX = m_position.getIntX() + point.getIntX(); 
-		int globalPosY  = m_position.getIntY() + point.getIntY();
-		/* We have to switch the axes here, because by looping
-		 * over the 2d array we first go to the row and then loop
-		 * over all columns.
-		 */
-		screenBuffer[startY + globalPosY][startX + globalPosX] = m_shape;
+		// We have to cast to int because the terminals coordinate system
+		// only works with real numbers
+		const int globalPosX = m_position.getIntX() + point.getIntX(); 
+		const int globalPosY  = m_position.getIntY() + point.getIntY();
+		// The total position on screen
+		const int totalPosX = startX + globalPosX;
+		const int totalPosY = startY + globalPosY;
+		// Only add to screen buffer when the position is in screen area
+		if (totalPosX >= 0 && totalPosX < world_constants::SCREEN_WIDTH &&
+		    totalPosY >= 0 && totalPosY < world_constants::SCREEN_HEIGHT)
+		{
+			/* We have to switch the axes here, because by looping
+			 * over the 2d array we first go to the row and then loop
+			 * over all columns.
+			 */		
+			screenBuffer[totalPosY][totalPosX] = m_shape;
+		}
 	}
 }
 
