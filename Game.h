@@ -83,6 +83,8 @@ private:
 	
 	void drawFallenStones();
 
+	void drawPauseInfo();
+
 	virtual void fillScreenBuffer();
 };
 

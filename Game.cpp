@@ -304,7 +304,7 @@ void Game::drawGameField()
 			// Store the empty Screen
 			else
 			{
-				m_screenBuffer[y][x] =  '.';
+				m_screenBuffer[y][x] =  ' ';
 			}
 		}
 	}
@@ -320,6 +320,21 @@ void Game::drawFallenStones()
 	}
 }
 
+void Game::drawPauseInfo()
+{	if (m_paused)
+	{
+		const string text = "--PAUSED--";
+		const int textWidth = text.length();
+		const int textY = static_cast<int> (SCREEN_HEIGHT / 2);
+		const int textX = 
+		      static_cast<int> (FIELD_START_X + (FIELD_WHOLE_WIDTH / 2) - (textWidth / 2) );
+		for (int i = textX; i != textX + textWidth; i++)
+		{
+			m_screenBuffer[textY][i] = text[i - textX];		
+		}
+	}
+}
+
 void Game::fillScreenBuffer()
 {
 	
@@ -331,6 +346,7 @@ void Game::fillScreenBuffer()
 	// FIELD_START_X + 1 because we have a border with a with of one, 
 	// so start after the left border
 	m_currentStone.fillScreenBuffer(FIELD_START_X + 1, FIELD_START_Y, m_screenBuffer);
+	drawPauseInfo();
 }
 
 #endif // !GAME_CPP
