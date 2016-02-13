@@ -29,6 +29,8 @@ protected:
 	void clearScreen();
 
 	void clearScreenBuffer();
+	// Draw a border around the screen
+	virtual void drawBorder();
 
 	// Add the chars whicht should get drawn to screen
 	virtual void fillScreenBuffer();

@@ -26,8 +26,6 @@ private:
 	
 	virtual void update();
 	
-	void drawBorder();
-	
 	void drawLogo();
 
 	void drawMenuEntry(const int entryNumber);

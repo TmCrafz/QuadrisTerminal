@@ -80,6 +80,21 @@ void Screen::clearScreenBuffer()
 	}
 }
 
+void Screen::drawBorder()
+{
+	for (int y = 0; y != SCREEN_HEIGHT; y++)
+	{
+		for (int x = 0; x != SCREEN_WIDTH; x++)
+		{
+			if (y == 0 || y == SCREEN_HEIGHT -1 ||
+			    x == 0 || x == SCREEN_WIDTH -1)
+			{			
+				m_screenBuffer[y][x] = '*';
+			}
+		}	
+	}
+}
+
 void Screen::fillScreenBuffer()
 {
 	// Do nothing by default

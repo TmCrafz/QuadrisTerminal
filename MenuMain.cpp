@@ -4,6 +4,7 @@
 #include "MenuMain.h"
 #include "WorldConstants.h"
 #include "Game.h"
+#include "ScoreScreen.h"
 
 using namespace world_constants;
 using namespace std;
@@ -21,7 +22,8 @@ m_actualMenuPos(0)
 	}
 	loadLogo();
 	m_menuEntries.push_back("START GAME");
-	m_menuEntries.push_back("OPTION");
+	m_menuEntries.push_back("SCORES");
+	m_menuEntries.push_back("SETTINGS");
 	m_menuEntries.push_back("END GAME");
 }
 
@@ -81,9 +83,15 @@ void MenuMain::handleInput()
 					break;	
 				}				
 				case 1:
+				{
+					cout << "CASE 2 " << endl;
+					ScoreScreen scoreScreen;
+					scoreScreen.run();				
 					break;
-
-				case 2: 
+				}
+				case 2:
+					break;
+				case 3: 
 					m_running = false;
 					break;			
 			}
@@ -95,21 +103,6 @@ void MenuMain::handleInput()
 void MenuMain::update()
 {
 
-}
-
-void MenuMain::drawBorder()
-{
-	for (int y = 0; y != SCREEN_HEIGHT; y++)
-	{
-		for (int x = 0; x != SCREEN_WIDTH; x++)
-		{
-			if (y == 0 || y == SCREEN_HEIGHT -1 ||
-			    x == 0 || x == SCREEN_WIDTH -1)
-			{			
-				m_screenBuffer[y][x] = '*';
-			}
-		}	
-	}
 }
 
 void MenuMain::drawLogo()
