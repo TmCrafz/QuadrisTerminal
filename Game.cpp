@@ -13,6 +13,7 @@ using namespace std;
 using namespace world_constants;
 
 Game::Game():
+Screen(),
 m_paused(false),
 m_timeStart(CLOCK::now()),
 m_standardStepTime(1100),
@@ -317,10 +318,11 @@ void Game::drawFallenStones()
 
 void Game::fillScreenBuffer()
 {
+	
 	// Store the statistics in buffer
 	drawStats();		
 	drawNextStone();	
-	drawGameField();	
+	drawGameField();
 	drawFallenStones();
 	// FIELD_START_X + 1 because we have a border with a with of one, 
 	// so start after the left border
