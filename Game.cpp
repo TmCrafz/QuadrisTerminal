@@ -32,11 +32,8 @@ m_score(0)
 
 void Game::update()
 {
-	if (m_command == '0')
-		m_paused = !m_paused;
 	if (!m_paused)
 	{
-		handleInput();	
 		removeFullRows();
 		if (isStepTimeLeft())
 		{
@@ -199,43 +196,50 @@ void Game::handleInput()
 	// First check if there was an input
 	if (m_command != '\0')
 	{
-		if (m_command == 'a')
+		if (m_command == '0')
 		{
-			m_currentStone.moveLeft(); 
+			m_paused = !m_paused;
 		}
-		else if (m_command == 'd')
+		else if (!m_paused)
 		{
-			m_currentStone.moveRight();
-		}
-		else if (m_command == 's')
-		{
-			// The stone should fall faster as long the button is pressed
-			m_currentStepTime = m_stepTimeFast;
-		}
-		else if (m_command == 'o')
-		{
-			m_currentStone.rotateLeft();
-		}
-		else if (m_command == 'p')
-		{
-			m_currentStone.rotateRight();
-		}
-		// Debuging commands
-		else if (m_command == '1')
-		{
-			spawnStone();
-		}
-		m_command = '\0';	
-		// Restore the Stones old Position if it is colliding with something
-		if (isCurrentStoneColliding())
-		{		
-			m_currentStone.restoreOldPosition();
-			if (isGameOver())
+			if (m_command == 'a')
 			{
-				m_running = false;
+				m_currentStone.moveLeft(); 
 			}
-		}
-		
+			else if (m_command == 'd')
+			{
+				m_currentStone.moveRight();
+			}
+			else if (m_command == 's')
+			{
+				// The stone should fall faster as long the button is pressed
+				m_currentStepTime = m_stepTimeFast;
+			}
+			else if (m_command == 'o')
+			{
+				m_currentStone.rotateLeft();
+			}
+			else if (m_command == 'p')
+			{
+				m_currentStone.rotateRight();
+			}
+			// Debuging commands
+			else if (m_command == '1')
+			{
+				spawnStone();
+			}
+
+			if (isCurrentStoneColliding())
+			{
+				// Restore the Stones old Position if it is colliding with something
+				m_currentStone.restoreOldPosition();
+				if (isGameOver())
+				{
+					m_running = false;
+				}
+			}			
+		}		
+		m_command = '\0';	
 		// Something has changed so the Screen should redraw
 		m_draw = true;
 	}
