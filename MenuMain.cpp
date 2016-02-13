@@ -22,6 +22,7 @@ m_actualMenuPos(0)
 	loadLogo();
 	m_menuEntries.push_back("START GAME");
 	m_menuEntries.push_back("OPTION");
+	m_menuEntries.push_back("END GAME");
 }
 
 void MenuMain::loadLogo()
@@ -71,14 +72,22 @@ void MenuMain::handleInput()
 		// React to players selection if player clicks enter
 		else if (m_command == '\n')
 		{
-			if (m_actualMenuPos == 0)
+			switch (m_actualMenuPos)
 			{
-				Game game;
-				game.run();
-				//MenuMain main;
-				//main.run();
-				m_draw = true;
+				case 0:
+				{
+					Game game;
+					game.run();
+					break;	
+				}				
+				case 1:
+					break;
+
+				case 2: 
+					m_running = false;
+					break;			
 			}
+			m_draw = true;
 		}
 	}
 }
@@ -124,7 +133,7 @@ void MenuMain::drawMenuEntry(const int entryNumber)
 	const int textWidth = text.length();
 	
 	// The menu entries should start at the bottom and go up from there
-	const int textY = SCREEN_HEIGHT - 2 - m_menuEntries.size() + entryNumber + 1;
+	const int textY = SCREEN_HEIGHT - 1 - ( m_menuEntries.size() * 2 ) + ( entryNumber * 2 );
 	// Center the text horizontal
 	const int textX =
 		static_cast<int>( (SCREEN_WIDTH / 2) - (textWidth / 2) );
