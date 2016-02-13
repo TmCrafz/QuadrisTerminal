@@ -15,9 +15,8 @@ int main()
 
 	MenuMain menuMain;
 	menuMain.run();
-	Game game;
-	game.run();
-	
+	//Game game;
+	//game.run();
 	cout<< "End Game" << endl;
 	return 0;
 }

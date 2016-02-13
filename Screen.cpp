@@ -15,7 +15,6 @@ m_draw(true)
 {
 }
 
-
 void Screen::run()
 {
 	while(m_running)

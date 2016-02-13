@@ -1,15 +1,16 @@
 #ifndef MENUMAIN_CPP
 #define MENUMAIN_CPP
-#include <iostream>
 #include <fstream>
 #include "MenuMain.h"
 #include "WorldConstants.h"
+#include "Game.h"
 
 using namespace world_constants;
 using namespace std;
 
 MenuMain::MenuMain():
-Screen()
+Screen(),
+m_actualMenuPos(0)
 {
 	for (int i = 0; i != 7; i++)
 	{
@@ -19,6 +20,8 @@ Screen()
 		}
 	}
 	loadLogo();
+	m_menuEntries.push_back("START GAME");
+	m_menuEntries.push_back("OPTION");
 }
 
 void MenuMain::loadLogo()
@@ -48,9 +51,34 @@ void MenuMain::handleInput()
 {
 	if (m_command != '\0')
 	{
-		if (m_command == 'c')
+		// Control which menu entry is selected
+		if (m_command == 'w')
 		{
-			m_running = false;		
+			if (m_actualMenuPos > 0)
+			{
+				m_actualMenuPos--;
+				m_draw = true;
+			}
+		
+		}			
+		else if (m_command == 's')
+		{	if (m_actualMenuPos < static_cast<int>( m_menuEntries.size() - 1) )
+			{
+				m_actualMenuPos++;
+				m_draw = true;
+			}
+		}
+		// React to players selection if player clicks enter
+		else if (m_command == '\n')
+		{
+			if (m_actualMenuPos == 0)
+			{
+				Game game;
+				game.run();
+				//MenuMain main;
+				//main.run();
+				m_draw = true;
+			}
 		}
 	}
 }
@@ -60,7 +88,7 @@ void MenuMain::update()
 
 }
 
-void MenuMain::fillScreenBuffer()
+void MenuMain::drawBorder()
 {
 	for (int y = 0; y != SCREEN_HEIGHT; y++)
 	{
@@ -73,9 +101,13 @@ void MenuMain::fillScreenBuffer()
 			}
 		}	
 	}
+}
+
+void MenuMain::drawLogo()
+{
 	const int logoStartY = 1;
 	// Center the logo horizontal
-	const int logoStartX = (SCREEN_WIDTH / 2) - (LOGO_WIDTH / 2);
+	const int logoStartX = static_cast<int>((SCREEN_WIDTH / 2) - (LOGO_WIDTH / 2));
 	// Add the Logo to screenBuffer
 	for (int y = logoStartY ; y != logoStartY + LOGO_HEIGHT ; y++)
 	{
@@ -84,20 +116,37 @@ void MenuMain::fillScreenBuffer()
 			m_screenBuffer[y][x] = m_logo[y - logoStartY][x - logoStartX];
 		}
 	}
+}
+
+void MenuMain::drawMenuEntry(const int entryNumber)
+{
+	const string text = m_menuEntries.at(entryNumber);
+	const int textWidth = text.length();
 	
-	char textStart[] =
-		{'P', 'R', 'E', 'S', 'S', ' ', 'c', ' ', 'T', 'O', ' ', 'S', 'T', 'A', 'R', 'T' };
-	const int textStartWidth = sizeof(textStart) / sizeof(char);
-	const int textStartY = 18;
+	// The menu entries should start at the bottom and go up from there
+	const int textY = SCREEN_HEIGHT - 2 - m_menuEntries.size() + entryNumber + 1;
 	// Center the text horizontal
-	const int textStartX = (SCREEN_WIDTH / 2) - (textStartWidth / 2);
-	cout << "Lenghth: " << textStartWidth << "startX: " << textStartX << endl;
-	for (int x = textStartX; x != textStartX + textStartWidth; x++)
+	const int textX =
+		static_cast<int>( (SCREEN_WIDTH / 2) - (textWidth / 2) );
+	for (int x = textX; x != textX + textWidth; x++)
 	{
-		cout << "Char:" << textStart[x - textStartX];
-		m_screenBuffer[textStartY][x] = textStart[x - textStartX];
-		cout << "X: " << x << " ScreenBufferChar: " << m_screenBuffer[textStartY][x];
-		cout << endl;
+		m_screenBuffer[textY][x] = text[x - textX];
+	}
+	// Show if the actual entry is selected
+	if (m_actualMenuPos == entryNumber)
+	{
+		m_screenBuffer[textY][textX - 2] = '>';
+		m_screenBuffer[textY][textX + textWidth + 1] = '<';	
+	}
+}
+
+void MenuMain::fillScreenBuffer()
+{
+	drawBorder();
+	drawLogo();
+	for (size_t i = 0; i != m_menuEntries.size(); i++)
+	{
+		drawMenuEntry(i);
 	}
 }
 
