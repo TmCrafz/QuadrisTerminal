@@ -11,6 +11,8 @@ protected:
 	bool m_running;
 	// Is true when something has changed, which make it necessary to redraw the Screen
 	bool m_draw;
+	// Only handle closing the window in checkInput if m_handleScreenClosing is true
+	bool m_handleScreenClosing;
 public:
 	Screen();
 

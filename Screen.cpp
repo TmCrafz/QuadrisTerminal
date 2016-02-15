@@ -11,7 +11,8 @@ using namespace world_constants;
 Screen::Screen():
 m_command('\0'),
 m_running(true),
-m_draw(true)
+m_draw(true),
+m_handleScreenClosing(true)
 {
 }
 
@@ -35,7 +36,7 @@ void Screen::checkInput()
 	if (InputHelper::kbhit())
 	{
 		m_command = InputHelper::getch();
-		if (m_command == 'c')
+		if (m_command == 'c' && m_handleScreenClosing)
 		{
 			m_running = false;
 		}
