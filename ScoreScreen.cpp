@@ -3,8 +3,6 @@
 #include <fstream>
 #include <algorithm>
 #include "ScoreScreen.h"
-#include "WorldConstants.h"
-
 
 using namespace std;
 using namespace world_constants;
@@ -94,22 +92,53 @@ void ScoreScreen::drawString(const int startX, const int startY, string text)
 	}
 	
 }
-void ScoreScreen::drawRow(const int pos)
+
+void ScoreScreen::drawScreenTitle()
 {
-	const int ROW_START_Y = 4;
-	const int COLUMN_POS_X = 2;
-	const int COLUMN_NAME_X = 20;
-	const int COLUMN_SCORE_X = SCREEN_WIDTH - 25;
-	const Score score = m_scores.at(pos);
-	const int drawnPos = pos + 1;
-	drawString(COLUMN_POS_X, ROW_START_Y, to_string(drawnPos) + ".");
+	const string Title = "HIGHSCORES";
+	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Title.length() / 2) );
+	drawString(PosX, 1 , Title);
 }
 
+void ScoreScreen::drawTitleBar()
+{
+	drawString(COLUMN_POS_X, TITLE_BAR_START_Y, "POS");
+	drawString(COLUMN_NAME_X, TITLE_BAR_START_Y, "NAME");
+	drawString(COLUMN_SCORE_X, TITLE_BAR_START_Y, "SCORE");
+
+}
+
+void ScoreScreen::drawRow(const int pos)
+{
+	const Score score = m_scores.at(pos);
+	const int DrawnPos = pos + 1;
+	const int RowStartY = ROW_START_Y + pos;
+	drawString(COLUMN_POS_X, RowStartY, to_string(DrawnPos) + ".");
+	drawString(COLUMN_NAME_X, RowStartY, score.name);
+	drawString(COLUMN_SCORE_X, RowStartY, to_string(score.score));
+}
+
+void ScoreScreen::drawCloseText()
+{
+	const string Text = "Press c to return";
+	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
+	drawString(PosX, CLOSE_MENU_Y, Text);	
+}
 
 void ScoreScreen::fillScreenBuffer()
 {
+	drawScreenTitle();
 	drawBorder();
-	drawRow(0);		
+	drawTitleBar();
+	for (size_t i = 0; i != m_scores.size(); i++)
+	{
+		drawRow(i);	
+	}
+	drawCloseText();
+	if (m_editMode)
+	{
+			
+	}
 }
 
 
