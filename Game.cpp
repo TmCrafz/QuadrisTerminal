@@ -6,6 +6,7 @@
 #include <ctime>
 #include <cmath>
 #include "Game.h"
+#include "ScoreScreen.h"
 #include "WorldConstants.h"
 #include "InputHelper.h"
 
@@ -28,6 +29,8 @@ m_score(0)
 {
 	m_currentStone.toFieldStartPos();
 	m_standardStepTime = (1000 - (m_level * 100)) + 100;
+	// Handle window closing itself instead of parent class
+	m_handleScreenClosing = false;
 }
 
 void Game::update()
@@ -148,6 +151,19 @@ void Game::removeFullRows()
 	
 }
 
+void Game::leaveGame()
+{
+	// Only leave game and show screen when game is not allready leaved
+	if (m_running)
+	{
+		// leave the game
+		m_running = false;
+		// Show the players score
+		ScoreScreen scoreScreen(m_score);
+		scoreScreen.run();
+	}
+}
+
 bool Game::isGameOver()
 {
 	return m_currentStone.getBottom() <= 0;
@@ -177,7 +193,7 @@ void Game::updateTimeAffected()
 		m_currentStone.restoreOldPosition();
 		if (isGameOver())
 		{
-			m_running = false;
+			leaveGame();
 		}
 		PointF subStones[4];
 		m_currentStone.fillWithGlobalPoints(subStones);
@@ -235,10 +251,19 @@ void Game::handleInput()
 				m_currentStone.restoreOldPosition();
 				if (isGameOver())
 				{
-					m_running = false;
+					leaveGame();
 				}
 			}			
-		}		
+		}
+		// Game is paused
+		else 
+		{
+			// Leave Game if player press c and game is paused
+			if (m_command == 'c')
+			{
+				leaveGame();
+			}
+		}
 		m_command = '\0';	
 		// Something has changed so the Screen should redraw
 		m_draw = true;
