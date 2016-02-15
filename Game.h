@@ -64,6 +64,8 @@ private:
 
 	void removeFullRows();
 	
+	void leaveGame();
+
 	bool isGameOver();
 
 	void spawnStone();

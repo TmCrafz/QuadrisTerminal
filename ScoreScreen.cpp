@@ -96,7 +96,12 @@ void ScoreScreen::saveScore() const
 void ScoreScreen::checkIfScoreIsInTopList()
 {
 	bool inTopList = false;
-	int listPos = 9;
+	int listPos = 0;
+	// if there are no scores in toplist the new score is definetely in top list
+	if (m_scores.size() == 0)
+	{
+		inTopList = true;		
+	}
 	for (size_t i = 0; i != m_scores.size(); i++)
 	{
 		Score &score = m_scores.at(i);
@@ -227,8 +232,6 @@ void ScoreScreen::drawNewScore()
 	const string Text = "Your Score: " + to_string(m_ScoreNew);
 	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
 	drawString(PosX, PLAYERS_NEW_SCORE_Y, Text);	
-
-
 }
 
 void ScoreScreen::drawCloseText()
