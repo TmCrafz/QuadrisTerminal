@@ -84,7 +84,6 @@ void MenuMain::handleInput()
 				}				
 				case 1:
 				{
-					cout << "CASE 2 " << endl;
 					ScoreScreen scoreScreen;
 					scoreScreen.run();				
 					break;
