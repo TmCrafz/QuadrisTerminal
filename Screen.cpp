@@ -9,6 +9,7 @@ using namespace std;
 using namespace world_constants;
 
 Screen::Screen():
+m_screenBuffer(SCREEN_WIDTH, SCREEN_HEIGHT),
 m_command('\0'),
 m_running(true),
 m_draw(true),
@@ -72,13 +73,7 @@ void Screen::clearScreen()
 
 void Screen::clearScreenBuffer()
 {
-	for (int y = 0; y != SCREEN_HEIGHT; y++)
-	{
-		for (int x = 0; x != SCREEN_WIDTH; x++)
-		{
-			m_screenBuffer[y][x] = ' ';
-		}	
-	}
+	m_screenBuffer.clear();
 }
 
 void Screen::drawBorder()
@@ -90,7 +85,7 @@ void Screen::drawBorder()
 			if (y == 0 || y == SCREEN_HEIGHT -1 ||
 			    x == 0 || x == SCREEN_WIDTH -1)
 			{			
-				m_screenBuffer[y][x] = '*';
+				m_screenBuffer.add(x, y, '*');
 			}
 		}	
 	}
@@ -103,14 +98,7 @@ void Screen::fillScreenBuffer()
 
 void Screen::drawToScreen() const
 {
-	for (int y = 0; y != SCREEN_HEIGHT; y++)
-	{
-		for (int x = 0; x != SCREEN_WIDTH; x++)
-		{
-			cout << m_screenBuffer[y][x];
-		}	
-		cout << endl;
-	}
+	m_screenBuffer.drawToScreen();
 }
 
 #endif // !SCREEN_CPP

@@ -1,6 +1,7 @@
 #ifndef STONE_H
 #define STONE_H
 #include <vector>
+#include "ScreenBuffer.h"
 #include "Drawable.h"
 #include "WorldConstants.h"
 #include "PointF.h" 
@@ -72,9 +73,7 @@ public:
 	// Store the Stone in the buffer so we can later draw it with
 	// all the other Stones
 	virtual void fillScreenBuffer
-	    (const int startX, const int ctartY, 
-	     char screenBuffer
-	     [world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const;
+		(const int StartX, const int StartY, ScreenBuffer &screenBuffer) const;
 	
 	bool isCollidingWithPoint(const PointF &point) const;
 	

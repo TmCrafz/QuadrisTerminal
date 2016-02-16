@@ -57,8 +57,6 @@ private:
 
 	virtual void update();
 	
-	void drawString(const int startX, const int startY, std::string text);
-	
 	void drawScreenTitle();
 
 	void drawTitleBar();

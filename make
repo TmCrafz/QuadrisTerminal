@@ -3,8 +3,8 @@ CFLAGS=-g -std=c++11 -Wall
 
 all: tetris
 
-tetris: main.o Game.o Drawable.o Stone.o FallenStone.o PointF.o InputHelper.o Screen.o ScoreScreen.o  MenuMain.o
-	$(CC) $(CFLAGS) main.o Game.o Drawable.o Stone.o FallenStone.o PointF.o InputHelper.o Screen.o MenuMain.o ScoreScreen.o -o tetris.o
+tetris: main.o Game.o Drawable.o Stone.o FallenStone.o PointF.o InputHelper.o ScreenBuffer.o Screen.o ScoreScreen.o  MenuMain.o
+	$(CC) $(CFLAGS) main.o Game.o Drawable.o Stone.o FallenStone.o PointF.o InputHelper.o ScreenBuffer.o Screen.o MenuMain.o ScoreScreen.o -o tetris.o
 
 main.o: main.cpp
 	$(CC) $(CFLAGS) -c main.cpp -o main.o
@@ -29,6 +29,9 @@ PointF.o: PointF.cpp PointF.h
 
 InputHelper.o: InputHelper.cpp InputHelper.h
 	$(CC) $(CFLAGS) -c InputHelper.cpp -o InputHelper.o
+
+ScreenBuffer.o: ScreenBuffer.cpp ScreenBuffer.h
+	$(CC) $(CFLAGS) -c ScreenBuffer.cpp -o ScreenBuffer.o
 
 Screen.o: Screen.cpp Screen.h
 	$(CC) $(CFLAGS) -c Screen.cpp -o Screen.o

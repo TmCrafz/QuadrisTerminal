@@ -285,7 +285,7 @@ void Game::drawStats()
 		for (size_t j = 0; j != stat.size(); j++)
 		{
 			char c = stat[j];
-			m_screenBuffer[STAT_START_Y + i][STAT_START_X + j] = c;
+			m_screenBuffer.add(STAT_START_X + j, STAT_START_Y + i, c);
 		}
 	}
 }
@@ -300,7 +300,7 @@ void Game::drawNextStone()
 			if (x == NEXTSTONE_BOX_START_X || x == NEXTSTONE_BOX_START_X + 8 ||
 					y == NEXTSTONE_BOX_START_Y || y == NEXTSTONE_BOX_START_Y + 5)
 			{
-				m_screenBuffer[y][x] = '#';
+				m_screenBuffer.add(x, y, '#');
 			}
 		}
 	}	
@@ -319,17 +319,17 @@ void Game::drawGameField()
 			// Store the ground
 			if (y == FIELD_START_Y + FIELD_WHOLE_HEIGHT - 1)
 			{
-				m_screenBuffer[y][x] = '#';
+				m_screenBuffer.add(x, y, '#');
 			}
 			// Store the borders left and right in the Screen
 			else if (x == FIELD_START_X || x == FIELD_START_X + FIELD_WHOLE_WIDTH - 1)
 			{
-				m_screenBuffer[y][x] = '#';			
+				m_screenBuffer.add(x, y, '#');
 			}
 			// Store the empty Screen
 			else
 			{
-				m_screenBuffer[y][x] =  ' ';
+				m_screenBuffer.add(x, y, ' ');
 			}
 		}
 	}
@@ -348,15 +348,11 @@ void Game::drawFallenStones()
 void Game::drawPauseInfo()
 {	if (m_paused)
 	{
-		const string text = "--PAUSED--";
-		const int textWidth = text.length();
-		const int textY = static_cast<int> (SCREEN_HEIGHT / 2);
-		const int textX = 
-		      static_cast<int> (FIELD_START_X + (FIELD_WHOLE_WIDTH / 2) - (textWidth / 2) );
-		for (int i = textX; i != textX + textWidth; i++)
-		{
-			m_screenBuffer[textY][i] = text[i - textX];		
-		}
+		const string Text = "--PAUSED--";
+		const int TextY = static_cast<int> (SCREEN_HEIGHT / 2);
+		const int TextX = static_cast<int> 
+			(FIELD_START_X + (FIELD_WHOLE_WIDTH / 2) - (Text.length() / 2) );
+		m_screenBuffer.add(TextX, TextY, Text);
 	}
 }
 

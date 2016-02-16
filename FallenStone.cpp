@@ -27,20 +27,13 @@ void FallenStone::setPosition(const PointF position)
 	m_position = position;
 }
 
-void FallenStone::fillScreenBuffer
-	    (const int startX, const int startY, 
-	     char screenBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const
+void FallenStone::fillScreenBuffer 
+(const int StartX, const int StartY, ScreenBuffer &screenBuffer) const
 {
 	// The total position on screen
-	const int totalPosX = startX + m_position.getIntX();
-	const int totalPosY = startY + m_position.getIntY();
-	// Only add to screen buffer when the position is in screen area
-	if (totalPosX >= 0 && totalPosX < world_constants::SCREEN_WIDTH &&
-	    totalPosY >= 0 && totalPosY < world_constants::SCREEN_HEIGHT)
-	{
-		// Only add to screen buffer whem the position is in screen area
-		screenBuffer[totalPosY][totalPosX] = m_shape;
-	}
+	const int totalPosX = StartX + m_position.getIntX();
+	const int totalPosY = StartY + m_position.getIntY();
+	screenBuffer.add(totalPosX, totalPosY, m_shape);
 }
 
 void FallenStone::moveDown()

@@ -3,6 +3,7 @@
 #include "WorldConstants.h"
 #include "Drawable.h"
 #include "PointF.h"
+#include "ScreenBuffer.h"
 
 class FallenStone : public Drawable
 {
@@ -17,9 +18,7 @@ public:
 	void setPosition(const PointF position);
 	
 	virtual void fillScreenBuffer
-	    (const int startX, const int startY, 
-	     char screenBuffer
-	     [world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const;
+	    (const int StartX, const int StartY, ScreenBuffer &screenBuffer) const;
 
 	void moveDown();
 

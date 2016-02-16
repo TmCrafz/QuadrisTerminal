@@ -115,30 +115,26 @@ void MenuMain::drawLogo()
 	{
 		for (int x = logoStartX; x != logoStartX + LOGO_WIDTH; x++)
 		{
-			m_screenBuffer[y][x] = m_logo[y - logoStartY][x - logoStartX];
+			const char c = m_logo[y - logoStartY][x - logoStartX];
+			m_screenBuffer.add(x, y, c);
 		}
 	}
 }
 
 void MenuMain::drawMenuEntry(const int entryNumber)
 {
-	const string text = m_menuEntries.at(entryNumber);
-	const int textWidth = text.length();
-	
+	const string Text = m_menuEntries.at(entryNumber);
 	// The menu entries should start at the bottom and go up from there
-	const int textY = SCREEN_HEIGHT - 1 - ( m_menuEntries.size() * 2 ) + ( entryNumber * 2 );
+	const int TextY = SCREEN_HEIGHT - 1 - ( m_menuEntries.size() * 2 ) + ( entryNumber * 2 );
 	// Center the text horizontal
-	const int textX =
-		static_cast<int>( (SCREEN_WIDTH / 2) - (textWidth / 2) );
-	for (int x = textX; x != textX + textWidth; x++)
-	{
-		m_screenBuffer[textY][x] = text[x - textX];
-	}
+	const int TextX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
+	m_screenBuffer.add(TextX, TextY, Text);
+
 	// Show if the actual entry is selected
 	if (m_actualMenuPos == entryNumber)
 	{
-		m_screenBuffer[textY][textX - 2] = '>';
-		m_screenBuffer[textY][textX + textWidth + 1] = '<';	
+		m_screenBuffer.add(TextX - 2, TextY, '>');
+		m_screenBuffer.add(TextX + Text.length() + 1, TextY, '<');
 	}
 }
 

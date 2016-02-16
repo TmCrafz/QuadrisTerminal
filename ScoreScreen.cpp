@@ -194,26 +194,18 @@ void ScoreScreen::update()
 
 }
 
-void ScoreScreen::drawString(const int startX, const int startY, string text)
-{
-	for (size_t x = startX; x != startX + text.length(); x++)
-	{
-		m_screenBuffer[startY][x] = text[x - startX];	
-	}
-}
-
 void ScoreScreen::drawScreenTitle()
 {
 	const string Title = "HIGHSCORES";
 	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Title.length() / 2) );
-	drawString(PosX, 1 , Title);
+	m_screenBuffer.add(PosX, 1, Title);
 }
 
 void ScoreScreen::drawTitleBar()
 {
-	drawString(COLUMN_POS_X, TITLE_BAR_START_Y, "POS");
-	drawString(COLUMN_NAME_X, TITLE_BAR_START_Y, "NAME");
-	drawString(COLUMN_SCORE_X, TITLE_BAR_START_Y, "SCORE");
+	m_screenBuffer.add(COLUMN_POS_X, TITLE_BAR_START_Y, "POS");
+	m_screenBuffer.add(COLUMN_NAME_X, TITLE_BAR_START_Y, "NAME");
+	m_screenBuffer.add(COLUMN_SCORE_X, TITLE_BAR_START_Y, "SCORE");
 
 }
 
@@ -222,30 +214,30 @@ void ScoreScreen::drawRow(const int pos)
 	const Score &score = m_scores.at(pos);
 	const int DrawnPos = pos + 1;
 	const int RowStartY = ROW_START_Y + pos;
-	drawString(COLUMN_POS_X, RowStartY, to_string(DrawnPos) + ".");
-	drawString(COLUMN_NAME_X, RowStartY, score.name);
-	drawString(COLUMN_SCORE_X, RowStartY, to_string(score.score));
+	m_screenBuffer.add(COLUMN_POS_X, RowStartY, to_string(DrawnPos) + ".");
+	m_screenBuffer.add(COLUMN_NAME_X, RowStartY, score.name);
+	m_screenBuffer.add(COLUMN_SCORE_X, RowStartY, to_string(score.score));
 }
 
 void ScoreScreen::drawNewScore()
 {
 	const string Text = "Your Score: " + to_string(m_ScoreNew);
 	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
-	drawString(PosX, PLAYERS_NEW_SCORE_Y, Text);	
+	m_screenBuffer.add(PosX, PLAYERS_NEW_SCORE_Y, Text);	
 }
 
 void ScoreScreen::drawCloseText()
 {
 	const string Text = "Press c to return";
 	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
-	drawString(PosX, CLOSE_MENU_Y, Text);	
+	m_screenBuffer.add(PosX, CLOSE_MENU_Y, Text);	
 }
 
 void ScoreScreen::drawEditText()
 {
 	const string Text = "New Highscore, enter name";
 	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
-	drawString(PosX, CLOSE_MENU_Y, Text);	
+	m_screenBuffer.add(PosX, CLOSE_MENU_Y, Text);	
 }
 
 void ScoreScreen::fillScreenBuffer()

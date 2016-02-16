@@ -198,8 +198,7 @@ void Stone::rotateLeft()
 }
 
 void Stone::fillScreenBuffer
-(const int startX, const int startY,
- char screenBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH]) const
+(const int StartX, const int StartY, ScreenBuffer &screenBuffer) const
 {
 	for (PointF point : m_subStones)
 	{
@@ -208,18 +207,10 @@ void Stone::fillScreenBuffer
 		const int globalPosX = m_position.getIntX() + point.getIntX(); 
 		const int globalPosY  = m_position.getIntY() + point.getIntY();
 		// The total position on screen
-		const int totalPosX = startX + globalPosX;
-		const int totalPosY = startY + globalPosY;
-		// Only add to screen buffer when the position is in screen area
-		if (totalPosX >= 0 && totalPosX < world_constants::SCREEN_WIDTH &&
-		    totalPosY >= 0 && totalPosY < world_constants::SCREEN_HEIGHT)
-		{
-			/* We have to switch the axes here, because by looping
-			 * over the 2d array we first go to the row and then loop
-			 * over all columns.
-			 */		
-			screenBuffer[totalPosY][totalPosX] = m_shape;
-		}
+		const int totalPosX = StartX + globalPosX;
+		const int totalPosY = StartY + globalPosY;
+		
+		screenBuffer.add(totalPosX, totalPosY, m_shape);
 	}
 }
 

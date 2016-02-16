@@ -1,12 +1,12 @@
 #ifndef SCREEN_H
 #define SCREEN_H
-#include "WorldConstants.h"
+#include "ScreenBuffer.h"
 
 class Screen
 {
 protected:
-	// Store the chars which get drawn in drawToScreen method
-	char m_screenBuffer[world_constants::SCREEN_HEIGHT][world_constants::SCREEN_WIDTH];
+	// Store the chars which get drawn to screen
+	ScreenBuffer m_screenBuffer;	
 	char m_command;
 	bool m_running;
 	// Is true when something has changed, which make it necessary to redraw the Screen
