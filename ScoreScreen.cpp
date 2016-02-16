@@ -72,10 +72,6 @@ void ScoreScreen::loadScores()
 		sort(m_scores.begin(), m_scores.end());
 		// we want the scores in descent order so reverse the vector
 		reverse(m_scores.begin(), m_scores.end());
-		for (Score score : m_scores)
-		{
-			cout << "Name: " << score.name << " Score: " << score.score << endl;
-		}
 	}
 	file.close();
 }
@@ -98,7 +94,7 @@ void ScoreScreen::checkIfScoreIsInTopList()
 	bool inTopList = false;
 	int listPos = 0;
 	// if there are no scores in toplist the new score is definetely in top list
-	if (m_scores.size() == 0)
+	if (m_scores.size() < 10)
 	{
 		inTopList = true;		
 	}
