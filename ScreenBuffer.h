@@ -12,18 +12,25 @@ private:
 
 public:
 	ScreenBuffer(const int screenWidth, const int screenHeight);
+
 	~ScreenBuffer();
 	
 	int getHeight() const;
+
 	int getWidth() const;
 
-	void addChar(const int X, const int Y, const char C);
+	void add(const int X, const int Y, const char C);
 
-	void addString(const int StartX, const int StartY, const std::string Text);
+	void add(const int StartX, const int StartY, const std::string Text);
+	
+	void clear();
 
 	void drawToScreen() const;
 
+private:
 
+	// Only true when the position is in screen area
+	bool isInBufferArea(const int X, const int Y) const;
 
 
 };

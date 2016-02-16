@@ -36,20 +36,33 @@ int ScreenBuffer::getWidth() const
 	return m_BufferWidth;
 }
 
-void ScreenBuffer::addChar(const int X, const int Y, const char C)
+void ScreenBuffer::add(const int X, const int Y, const char C)
 {
-	// Only add to screen buffer when the position is in screen area
-	if (X >= 0 && X < m_BufferWidth && Y >= 0 && Y < m_BufferHeight)
+	if (isInBufferArea(X, Y))
 	{
 		m_screenBuffer[Y][X] = C;
 	}
 }
 
-void ScreenBuffer::addString(const int StartX, const int StartY, const string Text)
+void ScreenBuffer::add(const int StartX, const int StartY, const string Text)
 {
 	for (size_t x = StartX; x != StartX + Text.length(); x++)
 	{
-		m_screenBuffer[StartY][x] = Text[x - StartX];	
+		if (isInBufferArea(x, StartY))
+		{
+			m_screenBuffer[StartY][x] = Text[x - StartX];	
+		}
+	}
+}
+
+void ScreenBuffer::clear()
+{
+	for (int y = 0; y != m_BufferHeight; y++)
+	{
+		for (int x = 0; x != m_BufferWidth; x++)
+		{
+			m_screenBuffer[y][x] = ' ';
+		}	
 	}
 }
 
@@ -63,6 +76,11 @@ void ScreenBuffer::drawToScreen() const
 		}	
 		cout << endl;
 	}
+}
+
+bool ScreenBuffer::isInBufferArea(const int X, const int Y) const
+{
+	return (X >= 0 && X < m_BufferWidth && Y >= 0 && Y < m_BufferHeight);
 }
 
 #endif // !SCREENBUFFER_CPP
