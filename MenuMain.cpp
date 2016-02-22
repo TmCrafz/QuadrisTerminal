@@ -5,6 +5,7 @@
 #include "WorldConstants.h"
 #include "Game.h"
 #include "ScoreScreen.h"
+#include "MenuSettings.h"
 
 using namespace world_constants;
 using namespace std;
@@ -89,7 +90,11 @@ void MenuMain::handleInput()
 					break;
 				}
 				case 2:
+				{
+					MenuSettings menuSettings;
+					menuSettings.run();
 					break;
+				}
 				case 3: 
 					m_running = false;
 					break;			
