@@ -91,6 +91,14 @@ void Screen::drawBorder()
 	}
 }
 
+void Screen::drawCloseText()
+{
+	const int CloseMenuY = world_constants::SCREEN_HEIGHT - 3;
+	const string Text = "Press c to return";
+	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
+	m_screenBuffer.add(PosX, CloseMenuY, Text);
+}
+
 void Screen::fillScreenBuffer()
 {
 	// Do nothing by default

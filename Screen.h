@@ -33,6 +33,9 @@ protected:
 	void clearScreenBuffer();
 	// Draw a border around the screen
 	virtual void drawBorder();
+	
+	// Draw a text which inform the player how leave the actual screen
+	void drawCloseText();
 
 	// Add the chars whicht should get drawn to screen
 	virtual void fillScreenBuffer();
