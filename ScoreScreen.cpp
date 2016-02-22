@@ -222,13 +222,6 @@ void ScoreScreen::drawNewScore()
 	m_screenBuffer.add(PosX, PLAYERS_NEW_SCORE_Y, Text);	
 }
 
-void ScoreScreen::drawCloseText()
-{
-	const string Text = "Press c to return";
-	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
-	m_screenBuffer.add(PosX, CLOSE_MENU_Y, Text);	
-}
-
 void ScoreScreen::drawEditText()
 {
 	const string Text = "New Highscore, enter name";

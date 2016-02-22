@@ -65,8 +65,6 @@ private:
 
 	void drawNewScore();
 
-	void drawCloseText();
-
 	// The text which is shown when the players score is in top 10
 	void drawEditText();
 
