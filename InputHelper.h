@@ -8,10 +8,10 @@
 class InputHelper
 {
 public:
-	// Check if a key was pressed
-	static int kbhit();
-	// Get the key which was pressed
-	 static int getch();
+	// Check if a key was pressed (kbhit)
+	static int isKeyPressed();
+	// Get the key which was pressed (getch)
+	static int getInputchar();
 };
 
 #endif // !INPUTHELPER

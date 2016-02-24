@@ -34,9 +34,9 @@ void Screen::run()
 void Screen::checkInput()
 {
 	m_command = '\0';
-	if (InputHelper::kbhit())
+	if (InputHelper::isKeyPressed())
 	{
-		m_command = InputHelper::getch();
+		m_command = InputHelper::getInputchar();
 		if (m_command == 'c' && m_handleScreenClosing)
 		{
 			m_running = false;

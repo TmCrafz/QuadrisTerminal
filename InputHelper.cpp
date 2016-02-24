@@ -8,7 +8,7 @@
 
 using namespace std;
 
-int InputHelper::kbhit()
+int InputHelper::isKeyPressed()
 {
 	struct termios term, oterm;
 	int fd = 0;
@@ -26,7 +26,7 @@ int InputHelper::kbhit()
 	return ((c != -1) ? 1 : 0);
 }
 
-int InputHelper::getch()
+int InputHelper::getInputchar()
 {
 	static int ch = -1, fd = 0;
 	struct termios neu, alt;
