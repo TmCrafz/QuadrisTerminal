@@ -249,10 +249,11 @@ void Game::handleInput()
 			{
 				// Restore the Stones old Position if it is colliding with something
 				m_currentStone.restoreOldPosition();
+				/*
 				if (isGameOver())
 				{
 					leaveGame();
-				}
+				}*/
 			}			
 		}
 		// Game is paused
