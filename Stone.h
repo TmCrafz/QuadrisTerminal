@@ -4,7 +4,7 @@
 #include "ScreenBuffer.h"
 #include "Drawable.h"
 #include "WorldConstants.h"
-#include "PointF.h" 
+#include "PointF.h"
 
 /*
  *  A Stone consists of 4 subStones, represented in Points.
@@ -73,7 +73,7 @@ public:
 	// Store the Stone in the buffer so we can later draw it with
 	// all the other Stones
 	virtual void fillScreenBuffer
-		(const int StartX, const int StartY, ScreenBuffer &screenBuffer) const;
+		(const int StartX, const int StartY, ScreenBuffer *screenBuffer) const;
 	
 	bool isCollidingWithPoint(const PointF &point) const;
 	

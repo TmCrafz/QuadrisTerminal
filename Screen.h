@@ -6,7 +6,7 @@ class Screen
 {
 protected:
 	// Store the chars which get drawn to screen
-	ScreenBuffer m_screenBuffer;	
+	ScreenBuffer *m_screenBuffer;	
 	char m_command;
 	bool m_running;
 	// Is true when something has changed, which make it necessary to redraw the Screen
@@ -14,7 +14,7 @@ protected:
 	// Only handle closing the window in checkInput if m_handleScreenClosing is true
 	bool m_handleScreenClosing;
 public:
-	Screen();
+	Screen(ScreenBuffer *screenBuffer);
 
 	void run();
 	

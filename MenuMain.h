@@ -4,6 +4,7 @@
 #include <vector>
 #include <string>
 #include "Screen.h"
+#include "ScreenBuffer.h"
 
 class MenuMain : public Screen
 {
@@ -17,7 +18,7 @@ private:
 	int m_actualMenuPos;
 public:
 	
-	MenuMain();
+	MenuMain(ScreenBuffer *screenBuffer);
 
 private:
 	void loadLogo();

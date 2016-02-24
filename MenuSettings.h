@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Screen.h"
+#include "ScreenBuffer.h"
 
 class MenuSettings : public Screen
 {
@@ -11,7 +12,7 @@ private:
 	std::vector<std::string> m_controlTexts;
 
 public:
-	MenuSettings();
+	MenuSettings(ScreenBuffer *screenBuffer);
 
 private:
 	

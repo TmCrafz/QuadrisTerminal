@@ -13,7 +13,8 @@ bool Score::operator<(const Score &scoreB) const
 	return (score < scoreB.score);
 }
 
-ScoreScreen::ScoreScreen():
+ScoreScreen::ScoreScreen(ScreenBuffer *screenBuffer):
+Screen(screenBuffer),
 m_showScore(false),
 m_editMode(false),
 m_ScoreNew(0),
@@ -22,7 +23,8 @@ m_scorePos(0)
 	loadScores();
 }
 
-ScoreScreen::ScoreScreen(const int score):
+ScoreScreen::ScoreScreen(ScreenBuffer *screenBuffer, const int score):
+Screen(screenBuffer),
 m_showScore(true),
 m_editMode(false),
 m_ScoreNew(score),
@@ -194,14 +196,14 @@ void ScoreScreen::drawScreenTitle()
 {
 	const string Title = "HIGHSCORES";
 	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Title.length() / 2) );
-	m_screenBuffer.add(PosX, 1, Title);
+	m_screenBuffer->add(PosX, 1, Title);
 }
 
 void ScoreScreen::drawTitleBar()
 {
-	m_screenBuffer.add(COLUMN_POS_X, TITLE_BAR_START_Y, "POS");
-	m_screenBuffer.add(COLUMN_NAME_X, TITLE_BAR_START_Y, "NAME");
-	m_screenBuffer.add(COLUMN_SCORE_X, TITLE_BAR_START_Y, "SCORE");
+	m_screenBuffer->add(COLUMN_POS_X, TITLE_BAR_START_Y, "POS");
+	m_screenBuffer->add(COLUMN_NAME_X, TITLE_BAR_START_Y, "NAME");
+	m_screenBuffer->add(COLUMN_SCORE_X, TITLE_BAR_START_Y, "SCORE");
 
 }
 
@@ -210,23 +212,23 @@ void ScoreScreen::drawRow(const int pos)
 	const Score &score = m_scores.at(pos);
 	const int DrawnPos = pos + 1;
 	const int RowStartY = ROW_START_Y + pos;
-	m_screenBuffer.add(COLUMN_POS_X, RowStartY, to_string(DrawnPos) + ".");
-	m_screenBuffer.add(COLUMN_NAME_X, RowStartY, score.name);
-	m_screenBuffer.add(COLUMN_SCORE_X, RowStartY, to_string(score.score));
+	m_screenBuffer->add(COLUMN_POS_X, RowStartY, to_string(DrawnPos) + ".");
+	m_screenBuffer->add(COLUMN_NAME_X, RowStartY, score.name);
+	m_screenBuffer->add(COLUMN_SCORE_X, RowStartY, to_string(score.score));
 }
 
 void ScoreScreen::drawNewScore()
 {
 	const string Text = "Your Score: " + to_string(m_ScoreNew);
 	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
-	m_screenBuffer.add(PosX, PLAYERS_NEW_SCORE_Y, Text);	
+	m_screenBuffer->add(PosX, PLAYERS_NEW_SCORE_Y, Text);	
 }
 
 void ScoreScreen::drawEditText()
 {
 	const string Text = "New Highscore, enter name";
 	const int PosX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
-	m_screenBuffer.add(PosX, CLOSE_MENU_Y, Text);	
+	m_screenBuffer->add(PosX, CLOSE_MENU_Y, Text);	
 }
 
 void ScoreScreen::fillScreenBuffer()

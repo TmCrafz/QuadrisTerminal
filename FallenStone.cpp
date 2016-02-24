@@ -28,12 +28,12 @@ void FallenStone::setPosition(const PointF position)
 }
 
 void FallenStone::fillScreenBuffer 
-(const int StartX, const int StartY, ScreenBuffer &screenBuffer) const
+(const int StartX, const int StartY, ScreenBuffer *screenBuffer) const
 {
 	// The total position on screen
 	const int totalPosX = StartX + m_position.getIntX();
 	const int totalPosY = StartY + m_position.getIntY();
-	screenBuffer.add(totalPosX, totalPosY, m_shape);
+	screenBuffer->add(totalPosX, totalPosY, m_shape);
 }
 
 void FallenStone::moveDown()

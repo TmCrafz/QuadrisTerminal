@@ -53,7 +53,7 @@ private:
 	unsigned int m_score;
 
 public:
-	Game();
+	Game(ScreenBuffer *screenBuffer);
 private:
 	bool isCurrentStoneColliding() const;
 

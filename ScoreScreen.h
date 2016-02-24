@@ -5,6 +5,7 @@
 #include <vector>
 #include "WorldConstants.h"
 #include "Screen.h"
+#include "ScreenBuffer.h"
 
 struct Score
 {
@@ -43,8 +44,8 @@ private:
 
 
 public:
-	ScoreScreen();
-	ScoreScreen(const int score);
+	ScoreScreen(ScreenBuffer *screenBuffer);
+	ScoreScreen(ScreenBuffer *screenBuffer, const int score);
 
 private:
 	void loadScores();

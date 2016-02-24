@@ -10,8 +10,8 @@
 using namespace world_constants;
 using namespace std;
 
-MenuMain::MenuMain():
-Screen(),
+MenuMain::MenuMain(ScreenBuffer *screenBuffer):
+Screen(screenBuffer),
 m_actualMenuPos(0)
 {
 	for (int i = 0; i != 7; i++)
@@ -79,19 +79,19 @@ void MenuMain::handleInput()
 			{
 				case 0:
 				{
-					Game game;
+					Game game(m_screenBuffer);
 					game.run();
 					break;	
 				}				
 				case 1:
 				{
-					ScoreScreen scoreScreen;
+					ScoreScreen scoreScreen(m_screenBuffer);
 					scoreScreen.run();				
 					break;
 				}
 				case 2:
 				{
-					MenuSettings menuSettings;
+					MenuSettings menuSettings(m_screenBuffer);
 					menuSettings.run();
 					break;
 				}
@@ -120,7 +120,7 @@ void MenuMain::drawLogo()
 		for (int x = logoStartX; x != logoStartX + LOGO_WIDTH; x++)
 		{
 			const char c = m_logo[y - logoStartY][x - logoStartX];
-			m_screenBuffer.add(x, y, c);
+			m_screenBuffer->add(x, y, c);
 		}
 	}
 }
@@ -132,13 +132,13 @@ void MenuMain::drawMenuEntry(const int entryNumber)
 	const int TextY = SCREEN_HEIGHT - 1 - ( m_menuEntries.size() * 2 ) + ( entryNumber * 2 );
 	// Center the text horizontal
 	const int TextX = static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
-	m_screenBuffer.add(TextX, TextY, Text);
+	m_screenBuffer->add(TextX, TextY, Text);
 
 	// Show if the actual entry is selected
 	if (m_actualMenuPos == entryNumber)
 	{
-		m_screenBuffer.add(TextX - 2, TextY, '>');
-		m_screenBuffer.add(TextX + Text.length() + 1, TextY, '<');
+		m_screenBuffer->add(TextX - 2, TextY, '>');
+		m_screenBuffer->add(TextX + Text.length() + 1, TextY, '<');
 	}
 }
 

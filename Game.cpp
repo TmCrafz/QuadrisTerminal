@@ -13,8 +13,8 @@
 using namespace std;
 using namespace world_constants;
 
-Game::Game():
-Screen(),
+Game::Game(ScreenBuffer *screenBuffer):
+Screen(screenBuffer),
 m_paused(false),
 m_timeStart(CLOCK::now()),
 m_standardStepTime(1100),
@@ -159,7 +159,7 @@ void Game::leaveGame()
 		// leave the game
 		m_running = false;
 		// Show the players score
-		ScoreScreen scoreScreen(m_score);
+		ScoreScreen scoreScreen(m_screenBuffer, m_score);
 		scoreScreen.run();
 	}
 }
@@ -285,7 +285,7 @@ void Game::drawStats()
 		for (size_t j = 0; j != stat.size(); j++)
 		{
 			char c = stat[j];
-			m_screenBuffer.add(STAT_START_X + j, STAT_START_Y + i, c);
+			m_screenBuffer->add(STAT_START_X + j, STAT_START_Y + i, c);
 		}
 	}
 }
@@ -300,7 +300,7 @@ void Game::drawNextStone()
 			if (x == NEXTSTONE_BOX_START_X || x == NEXTSTONE_BOX_START_X + 8 ||
 					y == NEXTSTONE_BOX_START_Y || y == NEXTSTONE_BOX_START_Y + 5)
 			{
-				m_screenBuffer.add(x, y, '#');
+				m_screenBuffer->add(x, y, '#');
 			}
 		}
 	}	
@@ -319,17 +319,17 @@ void Game::drawGameField()
 			// Store the ground
 			if (y == FIELD_START_Y + FIELD_WHOLE_HEIGHT - 1)
 			{
-				m_screenBuffer.add(x, y, '#');
+				m_screenBuffer->add(x, y, '#');
 			}
 			// Store the borders left and right in the Screen
 			else if (x == FIELD_START_X || x == FIELD_START_X + FIELD_WHOLE_WIDTH - 1)
 			{
-				m_screenBuffer.add(x, y, '#');
+				m_screenBuffer->add(x, y, '#');
 			}
 			// Store the empty Screen
 			else
 			{
-				m_screenBuffer.add(x, y, ' ');
+				m_screenBuffer->add(x, y, ' ');
 			}
 		}
 	}
@@ -352,7 +352,7 @@ void Game::drawPauseInfo()
 		const int TextY = static_cast<int> (SCREEN_HEIGHT / 2);
 		const int TextX = static_cast<int> 
 			(FIELD_START_X + (FIELD_WHOLE_WIDTH / 2) - (Text.length() / 2) );
-		m_screenBuffer.add(TextX, TextY, Text);
+		m_screenBuffer->add(TextX, TextY, Text);
 	}
 }
 

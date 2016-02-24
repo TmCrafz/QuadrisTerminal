@@ -7,7 +7,8 @@ using namespace std;
 using namespace world_constants;
 
 
-MenuSettings::MenuSettings()
+MenuSettings::MenuSettings(ScreenBuffer *screenBuffer):
+Screen(screenBuffer)
 {
 	m_controlTexts.push_back("[A] - Move Left");
 	m_controlTexts.push_back("[D] - Move Right");
@@ -32,13 +33,13 @@ void MenuSettings::fillScreenBuffer()
 	drawBorder();
 	drawCloseText();
 	const string ControlText = "CONTROL:";
-	m_screenBuffer.add(getCenterPosX(ControlText), 2, ControlText);
+	m_screenBuffer->add(getCenterPosX(ControlText), 2, ControlText);
 
 	const int StartX = 3;
 	int textY = 4;
 	for (const string Text : m_controlTexts)
 	{
-		m_screenBuffer.add(StartX, textY, Text);
+		m_screenBuffer->add(StartX, textY, Text);
 		textY += 2;
 	}
 	void drawCloseText();

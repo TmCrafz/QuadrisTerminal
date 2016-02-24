@@ -198,7 +198,7 @@ void Stone::rotateLeft()
 }
 
 void Stone::fillScreenBuffer
-(const int StartX, const int StartY, ScreenBuffer &screenBuffer) const
+(const int StartX, const int StartY, ScreenBuffer *screenBuffer) const
 {
 	for (PointF point : m_subStones)
 	{
@@ -210,7 +210,7 @@ void Stone::fillScreenBuffer
 		const int totalPosX = StartX + globalPosX;
 		const int totalPosY = StartY + globalPosY;
 		
-		screenBuffer.add(totalPosX, totalPosY, m_shape);
+		screenBuffer->add(totalPosX, totalPosY, m_shape);
 	}
 }
 

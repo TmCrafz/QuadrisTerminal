@@ -18,7 +18,7 @@ public:
 	void setPosition(const PointF position);
 	
 	virtual void fillScreenBuffer
-	    (const int StartX, const int StartY, ScreenBuffer &screenBuffer) const;
+	    (const int StartX, const int StartY, ScreenBuffer *screenBuffer) const;
 
 	void moveDown();
 
