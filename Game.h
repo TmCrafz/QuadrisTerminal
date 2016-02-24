@@ -17,7 +17,7 @@
 #include "PointF.h"
 #include "Stone.h"
 #include "FallenStone.h"
-
+#include "ScreenBuffer.h"
 
 typedef std::chrono::high_resolution_clock CLOCK;
 
