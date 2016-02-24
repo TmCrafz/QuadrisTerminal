@@ -21,8 +21,6 @@
 
 typedef std::chrono::high_resolution_clock CLOCK;
 
-
-
 class Game : public Screen
 {
 private:
@@ -84,6 +82,8 @@ private:
 	void drawGameField();
 	
 	void drawFallenStones();
+	
+	void drawControlInfo();
 
 	void drawPauseInfo();
 

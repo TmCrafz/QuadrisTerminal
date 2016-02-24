@@ -346,14 +346,30 @@ void Game::drawFallenStones()
 	}
 }
 
+void Game::drawControlInfo()
+{
+	const string TextPause = "[0] Pause/Unpause";	
+	// Draw the text right to the field
+	const int TextX = FIELD_START_X + FIELD_WHOLE_WIDTH + 2;
+	const int TextY = 3;
+	m_screenBuffer->add(TextX, TextY, TextPause);
+}
+
 void Game::drawPauseInfo()
-{	if (m_paused)
+{	
+
+	if (m_paused)
 	{
 		const string Text = "--PAUSED--";
 		const int TextY = static_cast<int> (SCREEN_HEIGHT / 2);
 		const int TextX = static_cast<int> 
 			(FIELD_START_X + (FIELD_WHOLE_WIDTH / 2) - (Text.length() / 2) );
 		m_screenBuffer->add(TextX, TextY, Text);
+		const string TextClose = "--Press c to close--";
+		const int TextCloseY = static_cast<int> ( (SCREEN_HEIGHT / 2) + 1);
+		const int TextCloseX = static_cast<int> 
+			(FIELD_START_X + (FIELD_WHOLE_WIDTH / 2) - (TextClose.length() / 2) );
+		m_screenBuffer->add(TextCloseX, TextCloseY, TextClose);
 	}
 }
 
@@ -365,6 +381,7 @@ void Game::fillScreenBuffer()
 	drawNextStone();	
 	drawGameField();
 	drawFallenStones();
+	drawControlInfo();
 	// FIELD_START_X + 1 because we have a border with a with of one, 
 	// so start after the left border
 	m_currentStone.fillScreenBuffer(FIELD_START_X + 1, FIELD_START_Y, m_screenBuffer);
