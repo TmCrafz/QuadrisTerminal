@@ -25,7 +25,7 @@ public:
 	
 	void clear();
 
-	void drawToScreen() const;
+	void display() const;
 
 private:
 

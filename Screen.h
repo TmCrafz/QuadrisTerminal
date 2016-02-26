@@ -39,8 +39,9 @@ protected:
 
 	// Add the chars whicht should get drawn to screen
 	virtual void fillScreenBuffer();
-
-	void drawToScreen() const;
+	
+	// Show the drawn things on Screen
+	void display() const;
 
 };
 

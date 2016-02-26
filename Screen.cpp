@@ -59,7 +59,7 @@ void Screen::draw()
 	clearScreen();
 	clearScreenBuffer();
 	fillScreenBuffer();
-	drawToScreen();
+	display();
 	m_draw = false;
 }
 
@@ -104,9 +104,9 @@ void Screen::fillScreenBuffer()
 	// Do nothing by default
 }
 
-void Screen::drawToScreen() const
+void Screen::display() const
 {
-	m_screenBuffer->drawToScreen();
+	m_screenBuffer->display();
 }
 
 #endif // !SCREEN_CPP
