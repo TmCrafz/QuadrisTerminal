@@ -1,5 +1,3 @@
-#ifndef SCORESCREEN_CPP
-#define SCORESCREEN_CPP
 #include <fstream>
 #include <algorithm>
 #include <iterator>
@@ -253,7 +251,3 @@ void ScoreScreen::fillScreenBuffer()
 		drawEditText();		
 	}
 }
-
-
-
-#endif // !SCORESCREEN_CPP

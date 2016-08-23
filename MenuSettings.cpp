@@ -1,5 +1,3 @@
-#ifndef MENUSETTINGS_CPP
-#define MENUSETTINGS_CPP
 #include "MenuSettings.h"
 #include "WorldConstants.h"
 
@@ -49,6 +47,3 @@ int MenuSettings::getCenterPosX(const string Text) const
 {
 	return static_cast<int>( (SCREEN_WIDTH / 2) - (Text.length() / 2) );
 }
-
-
-#endif // MENUSETTINGS_CPP

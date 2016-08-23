@@ -1,5 +1,3 @@
-#ifndef MENUMAIN_CPP
-#define MENUMAIN_CPP
 #include <fstream>
 #include "MenuMain.h"
 #include "WorldConstants.h"
@@ -151,6 +149,3 @@ void MenuMain::fillScreenBuffer()
 		drawMenuEntry(i);
 	}
 }
-
-
-#endif // !MENUMAIN_CPP

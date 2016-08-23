@@ -1,6 +1,3 @@
-#ifndef INPUTHELPER_CPP
-#define INPUTHELPER_CPP
-
 #include <termios.h>
 #include <iostream>
 #include <cstring>
@@ -39,5 +36,3 @@ int InputHelper::getInputchar()
 	tcsetattr(fd, TCSANOW, &alt);
 	return ch;
 }
-
-#endif // !INPUTHELPER_CPP

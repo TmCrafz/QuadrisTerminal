@@ -1,5 +1,3 @@
-#ifndef DRAWABLE_CPP
-#define DRAWABLE_CPP
 #include <iostream>
 #include "Drawable.h"
 
@@ -31,5 +29,3 @@ void Drawable::fillScreenBuffer
 {
 	// Do nothing by default
 }
-
-#endif // !DRAWABLE_CPP

@@ -1,5 +1,3 @@
-#ifndef FALLENSTONE_CPP
-#define FALLENSTONE_CPP
 #include "FallenStone.h"
 
 FallenStone::FallenStone()
@@ -40,5 +38,3 @@ void FallenStone::moveDown()
 {
 	m_position.setY(m_position.getY() + 1.f);
 }
-
-#endif // !FALLENSTONE_CPP

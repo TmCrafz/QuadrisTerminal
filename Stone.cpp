@@ -1,5 +1,3 @@
-#ifndef STONE_CPP
-#define STONE_CPP
 #include <iostream>
 #include "Stone.h"
 
@@ -244,5 +242,3 @@ void Stone::saveOldPosition()
 		m_subStonesOld[i] = m_subStones[i];
 	}
 }
-
-#endif // !STONE_CPP

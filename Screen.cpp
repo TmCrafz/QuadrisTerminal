@@ -1,5 +1,3 @@
-#ifndef SCREEN_CPP
-#define SCREEN_CPP
 #include <iostream>
 #include "Screen.h"
 #include "WorldConstants.h"
@@ -108,5 +106,3 @@ void Screen::display() const
 {
 	m_screenBuffer->display();
 }
-
-#endif // !SCREEN_CPP

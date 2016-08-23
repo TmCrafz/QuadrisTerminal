@@ -1,5 +1,3 @@
-#ifndef SCREENBUFFER_CPP
-#define SCREENBUFFER_CPP
 #include "ScreenBuffer.h"
 
 using namespace std;
@@ -82,5 +80,3 @@ bool ScreenBuffer::isInBufferArea(const int X, const int Y) const
 {
 	return (X >= 0 && X < m_BufferWidth && Y >= 0 && Y < m_BufferHeight);
 }
-
-#endif // !SCREENBUFFER_CPP

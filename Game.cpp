@@ -1,5 +1,3 @@
-#ifndef GAME_CPP
-#define GAME_CPP
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -387,6 +385,3 @@ void Game::fillScreenBuffer()
 	m_currentStone.fillScreenBuffer(FIELD_START_X + 1, FIELD_START_Y, m_screenBuffer);
 	drawPauseInfo();
 }
-
-#endif // !GAME_CPP
-
