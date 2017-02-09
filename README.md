@@ -1,12 +1,12 @@
 # TetrisTerminal
-This is a small Tetris clone which runs completely in the terminal and only use ASCII chars. At the moment it only supports unix like systems. Tested only on Ubuntu.
+This is a small Tetris clone which runs completely in the terminal and only use ASCII chars. At the moment it only supports unix like systems.
 
 ## Controls
 
 ### Menu
 - [W] Move Up
 - [S] Move Down
-- [Retrun] Select
+- [Return] Select
 
 ### Game
 - [A] Move Left
